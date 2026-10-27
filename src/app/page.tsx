@@ -1,7 +1,6 @@
 import HeroSection from "@/components/home/HeroSection";
 import StatsSection from "@/components/home/StatsSection";
 import ServicesSection from "@/components/home/ServicesSection";
-import SuccessStoriesPreview from "@/components/home/SuccessStoriesPreview";
 import ProcessSection from "@/components/home/ProcessSection";
 import FeaturesGrid from "@/components/home/FeaturesGrid";
 import AffiliateSection from "@/components/home/AffiliateSection";
@@ -17,7 +16,6 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <ServicesSection />
-      <SuccessStoriesPreview />
       <ProcessSection />
       <FeaturesGrid />
       <AffiliateSection />

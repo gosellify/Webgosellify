@@ -9,7 +9,6 @@ import {
   FaShieldAlt,
   FaWarehouse,
   FaHeadset,
-  FaTimes,
 } from "react-icons/fa";
 
 const highlights = [
@@ -47,7 +46,6 @@ const dataSets = [
 ];
 
 export default function HeroSection() {
-  const [showVideo, setShowVideo] = useState(false);
   const [dataIndex, setDataIndex] = useState(0);
 
   useEffect(() => {
@@ -147,14 +145,13 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Right — Animated SVG with click-to-popup video */}
+            {/* Right — Animated SVG */}
             <div
               className="hidden lg:flex items-center justify-center"
               style={{ position: "relative", minHeight: "100%", paddingTop: "40px", paddingBottom: "40px" }}
             >
               <div
-                onClick={() => setShowVideo(true)}
-                style={{ width: "100%", maxWidth: "440px", cursor: "pointer", position: "relative" }}
+                style={{ width: "100%", maxWidth: "440px", position: "relative" }}
               >
                 <svg viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
                   <defs>
@@ -243,121 +240,11 @@ export default function HeroSection() {
                     </text>
                   ))}
                 </svg>
-
-                {/* Play button overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "rgba(0,0,0,0.08)",
-                    borderRadius: "16px",
-                    transition: "background 0.3s",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = "rgba(0,0,0,0.18)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = "rgba(0,0,0,0.08)"; }}
-                >
-                  <div
-                    style={{
-                      width: "64px",
-                      height: "64px",
-                      borderRadius: "50%",
-                      backgroundColor: "var(--color-primary)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 4px 20px rgba(22,163,74,0.4)",
-                      animation: "playPulse 2s ease-in-out infinite",
-                    }}
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <p style={{
-                    marginTop: "10px",
-                    color: "#fff",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    textShadow: "0 1px 4px rgba(0,0,0,0.4)",
-                  }}>
-                    Watch Client Results
-                  </p>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Video Popup Modal */}
-      {showVideo && (
-        <div
-          onClick={() => setShowVideo(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            backgroundColor: "rgba(0,0,0,0.85)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: "100%",
-              maxWidth: "900px",
-              position: "relative",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
-            }}
-          >
-            {/* Close button */}
-            <button
-              onClick={() => setShowVideo(false)}
-              style={{
-                position: "absolute",
-                top: "-40px",
-                right: "0",
-                background: "none",
-                border: "none",
-                color: "#fff",
-                fontSize: "24px",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              <FaTimes />
-              <span style={{ fontSize: "14px", fontWeight: 600 }}>Close</span>
-            </button>
-            <div style={{ position: "relative", paddingBottom: "56.25%" }}>
-              <iframe
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  border: "none",
-                }}
-                src="https://www.youtube.com/embed/9DqDFAGLPrc?autoplay=1"
-                title="Gosellify - Client Results"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

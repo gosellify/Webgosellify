@@ -5,7 +5,6 @@ const clientStories = [
   {
     heading:
       "Celena's Store made $153,438 sales in 4 months with 35% ROI",
-    videoId: "9DqDFAGLPrc",
     bullets: [
       "Over $58,200 in last month sales",
       "More than 35% ROI made",
@@ -16,7 +15,6 @@ const clientStories = [
   {
     heading:
       "Thompson's Store made $691,224 sales in 11 months with 35% ROI",
-    videoId: "2TxAECYAyM0",
     bullets: [
       "Over $95,000 in last month sales",
       "More than 35% ROI made",
@@ -27,7 +25,6 @@ const clientStories = [
   {
     heading:
       "Joseph's Store made $8,780 sales in just 2 days with 25% ROI",
-    videoId: "D8B-AKLZciA",
     bullets: [
       "Over $50,000 in last month sales",
       "More than 25% ROI made",
@@ -69,22 +66,7 @@ export default function SuccessStoryPage() {
                   boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
                 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-                  {/* YouTube Embed */}
-                  <div
-                    className="relative w-full rounded-lg overflow-hidden"
-                    style={{ paddingBottom: "56.25%" }}
-                  >
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${story.videoId}`}
-                      title={story.heading}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
-
-                  {/* Content */}
+                <div className="grid grid-cols-1 gap-6">
                   <div>
                     <h3 className="typo-h3" style={{ marginBottom: "16px" }}>
                       {story.heading}
