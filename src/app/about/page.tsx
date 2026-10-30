@@ -3,10 +3,10 @@ import { FaWhatsapp, FaCheckCircle } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
 
 const stats = [
-  { value: "200+", label: "Clients Worldwide" },
-  { value: "250+", label: "Projects Completed" },
-  { value: "50+", label: "Team Members" },
-  { value: "3", label: "Countries Served" },
+  { value: "250+", label: "Clients Served" },
+  { value: "55+", label: "Active Stores Managed" },
+  { value: "$12M+", label: "Revenue Managed" },
+  { value: "3", label: "Office Locations" },
 ];
 
 const values = [
@@ -52,7 +52,7 @@ const teamMembers = [
   {
     name: "Mahbub H.",
     title: "Manager, Warehouse & Shipping",
-    bio: "Mahbub managing our US and UK warehouse and all kinds of shipping operation",
+    bio: "Mahbub manages our US warehouse operations and shipping",
     photo: "/images/about/mahbub-h.webp",
   },
 ];
@@ -69,7 +69,7 @@ export default function AboutPage() {
           </h1>
           <p className="typo-subtext" style={{ maxWidth: "560px", margin: "0 auto 32px" }}>
             We help entrepreneurs build and scale profitable Amazon, eBay, Walmart, and
-            Shopify businesses across nine countries — with $12M+ in revenue generated for our clients.
+            Shopify businesses, with $12M+ in revenue managed for our clients.
           </p>
 
           {/* Stats row */}
@@ -124,24 +124,17 @@ export default function AboutPage() {
                 Welcome to Gosellify
               </h2>
               <p className="typo-body" style={{ marginBottom: "12px" }}>
-                Hello and welcome to Gosellify, your friendly Amazon business
-                advisor since 2022. We&apos;re thrilled to share our journey
-                with you &ndash; it includes partnering with over 200 clients,
-                completing upward of 250 projects, and growing our team to more
-                than 50 enthusiastic members. We&apos;ve spread our wings across
-                three different countries, helping people just like you everywhere.
+                Gosellify is a full-service ecommerce management agency for Walmart
+                Marketplace and Amazon sellers. Since 2022 we have helped 250+ clients
+                build, run and grow their online stores, with $12M+ in revenue managed.
               </p>
               <p className="typo-body" style={{ marginBottom: "12px" }}>
-                Our team is here to make selling on Amazon a breeze. Whether
-                you&apos;re looking to sell big quantities through Amazon FBA
-                wholesale, find good deals with online arbitrage, create your
-                own brand with a private label, or just get started with your
-                Amazon account, we&apos;ve got your back.
-              </p>
-              <p className="typo-body" style={{ marginBottom: "20px" }}>
-                Let us join your Amazon adventure and make your business soar.
-                We keep things straightforward and successful &ndash;
-                that&apos;s the Gosellify way!.
+                Every store we manage runs on the Gosellify Portal, our own
+                operations platform. Orders, inventory, pricing, costs and profit are
+                tracked for each store, and every client gets a private dashboard
+                with live performance and monthly statements. Our team handles
+                product research, listings, pricing, order fulfillment, returns and
+                account health, always within each marketplace&apos;s seller policies.
               </p>
               <a
                 href="https://wa.me/message/Q6XJRMT4HKTBF1"
