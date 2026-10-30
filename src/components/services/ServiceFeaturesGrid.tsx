@@ -15,9 +15,9 @@ const features = [
   },
   {
     img: "/images/services/icons/safety.png",
-    title: "100% Safety",
+    title: "Account Safety",
     description:
-      "We will not get any money. Always use your account to ensure 100% safety and zero scam. You will control the login.",
+      "Your store always stays in your name and under your control. We work within each marketplace's seller policies to keep your account healthy.",
   },
   {
     img: "/images/services/icons/calculation.png",

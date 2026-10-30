@@ -14,16 +14,16 @@ const comparisonData = [
   { feature: "IP complaint prevention system", us: true, diy: "High risk", others: "Reactive" },
   { feature: "Returns & refund management", us: true, diy: "You handle", others: "Extra fee" },
   { feature: "Profit sharing — pay from profits only", us: true, diy: "N/A", others: false },
-  { feature: "Profit within first 7 days", us: true, diy: "Uncertain", others: "2-4 weeks" },
+  { feature: "Store live within 7 days", us: true, diy: "Uncertain", others: "2-4 weeks" },
   { feature: "24/7 WhatsApp support", us: true, diy: false, others: "Email only" },
 ];
 
 const whatYouGet = [
-  { img: "/images/services/icons/product-research.png", title: "Product Sourcing", desc: "50+ products researched daily from Walmart, Target, Costco, Home Depot. Only winners make it to your store." },
+  { img: "/images/services/icons/product-research.png", title: "Product Sourcing", desc: "50+ products researched daily across trusted US suppliers. Only proven, policy-compliant winners make it to your store." },
   { img: "/images/services/icons/order-fulfillment.png", title: "Listing & Buy Box", desc: "SEO-optimized listings, competitive repricing, and Buy Box strategies that keep you ahead." },
   { img: "/images/services/icons/inventory.png", title: "Order Fulfillment", desc: "Customer orders → we buy → warehouse reboxes → delivered. Same-day processing, every order." },
   { img: "/images/services/icons/return-handling.png", title: "Returns & Refunds", desc: "Full return cycle handled. Restocking, refunds, and P&L tracking — nothing falls through." },
-  { img: "/images/services/icons/safety.png", title: "Account Protection", desc: "Amazon-branded packaging, zero retailer traces, IP monitoring. Your account stays safe." },
+  { img: "/images/services/icons/safety.png", title: "Account Protection", desc: "Plain, compliant packaging, no third-party invoices, IP and brand-restriction checks on every product." },
   { img: "/images/services/icons/customer-support.png", title: "Buyer Communication", desc: "Every message answered within 4 hours. A-to-Z claims handled. Feedback managed." },
   { img: "/images/services/icons/marketing.png", title: "PPC Campaigns", desc: "Sponsored Products ads, keyword targeting, bid optimization. We drive traffic, you collect profit." },
   { img: "/images/services/icons/scalability.png", title: "Scale on Autopilot", desc: "Started with 10 SKUs? We'll scale to 100+. New categories, higher volume, bigger margins." },
@@ -32,11 +32,11 @@ const whatYouGet = [
 const faqs = [
   {
     question: "Is Amazon 2-step dropshipping legal?",
-    answer: "Yes, 100% legal. Amazon allows selling products you source from retail stores as long as you ship with proper packaging (no third-party branding). Our warehouse handles all reboxing with Amazon-compliant packaging.",
+    answer: "Amazon allows sellers to resell new, authentic products when they are the seller of record and ship in packaging without third-party branding or invoices. Our warehouse inspects and repackages every order to meet these requirements.",
   },
   {
     question: "How is this different from regular dropshipping?",
-    answer: "Regular dropshipping ships directly from the retailer to the customer — which violates Amazon's policies. With 2-step, we route everything through our warehouse where we remove retailer branding and repackage in Amazon-branded boxes. This keeps your account 100% safe.",
+    answer: "Shipping directly from another retailer to the customer is not allowed. With 2-step fulfillment, every order goes through our warehouse, where it is inspected and repacked in plain packaging with no third-party branding or invoices, so you remain the seller of record.",
   },
   {
     question: "How much capital do I need to start?",
@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     question: "Where do you source products from?",
-    answer: "Walmart, Target, Costco, Sam's Club, Home Depot, Lowe's, and other major US retailers. We use multiple sourcing channels to find the best prices and cross-reference against Amazon to ensure strong margins.",
+    answer: "We source new, authentic products from reputable US wholesalers, distributors and retailers, and keep purchase records for every order so authenticity can always be proven.",
   },
   {
     question: "Do you really offer profit sharing?",
@@ -86,7 +86,7 @@ export default function AmazonArbitragePage() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px 16px", marginBottom: "20px" }}>
                 {[
                   "$0 inventory needed",
-                  "Profit in 7 days",
+                  "Live in 7 days",
                   "30-40% profit margins",
                   "Own US warehouse",
                   "Pay from profits only",
@@ -211,13 +211,13 @@ export default function AmazonArbitragePage() {
                 Sell on Amazon Without Holding Any Inventory
               </h2>
               <p className="typo-body" style={{ marginBottom: "14px" }}>
-                Customer orders from your Amazon store → we buy from <strong>Walmart, Sam&apos;s Club, or Costco</strong> → ship to our warehouse → we <strong>remove retailer packaging</strong>, rebox in Amazon-compliant packaging → deliver to your customer.
+                Customer orders from your Amazon store → we purchase the item from a trusted US supplier → it arrives at our warehouse → we <strong>inspect and repack it in plain packaging</strong> → ship it to your customer.
               </p>
               <p className="typo-body" style={{ marginBottom: "14px" }}>
-                The customer receives a clean, professionally packaged order with zero trace of the original retailer. You keep <strong>30-40% profit margin</strong> on every sale. No inventory, no risk.
+                The customer receives a clean, professionally packaged order with no third-party invoices or marketing inserts. You keep <strong>30-40% profit margin</strong> on every sale. No inventory, no risk.
               </p>
               <p className="typo-body">
-                This 2-step process (retailer → warehouse → customer) keeps your account <strong>100% Amazon-compliant</strong> while you run a profitable business from anywhere in the world.
+                This 2-step process (retailer → warehouse → customer) follows Amazon&apos;s <strong>seller-of-record and packaging requirements</strong> while you run a profitable business from anywhere in the world.
               </p>
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function AmazonArbitragePage() {
               { img: "/images/process/discussion.png", title: "We List, You Sell", desc: "We find winning products and list them on your Amazon store. Sales start within days." },
               { img: "/images/process/get-access.png", title: "Customer Orders", desc: "A customer buys from your store. We immediately purchase the item from the retailer." },
               { img: "/images/process/planning.png", title: "Rebox & Ship", desc: "Our US warehouse removes all retailer branding, repackages in Amazon packaging, and ships." },
-              { img: "/images/process/growth.png", title: "You Profit", desc: "Customer gets an Amazon-branded package. Amazon pays you. We scale and repeat daily." },
+              { img: "/images/process/growth.png", title: "You Profit", desc: "Customer gets a clean, properly packaged order. Amazon pays you. We scale and repeat daily." },
             ].map((item, index) => (
               <div key={item.title} style={{ textAlign: "center", padding: "8px" }}>
                 <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}>

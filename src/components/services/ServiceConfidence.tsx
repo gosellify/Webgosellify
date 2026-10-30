@@ -103,7 +103,7 @@ function AnimatedCounter({
   prefix: string;
   suffix: string;
 }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
 
   useEffect(() => {
     const duration = 2000;

@@ -30,8 +30,7 @@ const navLinks: NavItem[] = [
     children: [
       { name: "Walmart WFS", href: "/services/walmart-wfs", desc: "Walmart Fulfillment Services" },
       { name: "Walmart Wholesale", href: "/services/walmart-wholesale", desc: "Wholesale store management" },
-      { name: "2 Step Walmart Dropshipping", href: "/services/walmart-dropshipping", desc: "Low-risk dropshipping model" },
-      { name: "Walmart Account Reinstatement", href: "/services/walmart-reinstatement", desc: "Suspended account recovery" },
+      { name: "Walmart Account Management", href: "/services/walmart-management", desc: "Full-service store management" },
     ],
   },
   {

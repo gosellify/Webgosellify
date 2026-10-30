@@ -22,15 +22,9 @@ const services = [
   },
   {
     img: "/images/services/icons/product-research.png",
-    title: "2 Step Walmart Dropshipping",
-    desc: "Source products from retailers, route through a prep center, then fulfill Walmart orders. A lower-risk entry point with no large upfront inventory investment needed.",
-    href: "/services/walmart-dropshipping",
-  },
-  {
-    img: "/images/services/icons/account-health.png",
-    title: "Walmart Account Reinstatement",
-    desc: "Walmart account suspended or deactivated? We analyze the issue, prepare a detailed appeal, and work with Walmart's team to restore your selling privileges.",
-    href: "/services/walmart-reinstatement",
+    title: "Walmart Account Management",
+    desc: "Complete store management on Walmart Marketplace: product research, listings, pricing, order fulfillment, returns and account health, tracked in the Gosellify Portal.",
+    href: "/services/walmart-management",
   },
 ];
 

@@ -14,12 +14,12 @@ import {
 const highlights = [
   {
     icon: FaBoxOpen,
-    title: "Up to 80% ROI",
-    desc: "Proven profit across 55+ stores",
+    title: "30–40% Avg ROI",
+    desc: "Across 55+ managed stores",
   },
   {
     icon: FaShieldAlt,
-    title: "Zero Risk Model",
+    title: "Profit-Share Model",
     desc: "Pay only once you see profit",
   },
   {
@@ -65,7 +65,7 @@ export default function HeroSection() {
             {/* Left Content */}
             <div style={{ padding: "55px 0 110px" }}>
               <span className="typo-label" style={{ display: "block", marginBottom: "10px" }}>
-                #1 Ecommerce Management Agency
+                Walmart &amp; Amazon Account Management Agency
               </span>
 
               <h1 className="typo-h1" style={{ marginBottom: "6px" }}>
@@ -75,7 +75,7 @@ export default function HeroSection() {
                 Fully managed Amazon, Walmart, eBay &amp; Shopify stores
               </p>
               <p className="typo-h3" style={{ color: "var(--color-accent)", marginBottom: "12px" }}>
-                100% Risk Free. Pay only once you see profit.
+                Performance-based pricing. Pay from profit.
               </p>
               <p className="typo-body" style={{ marginBottom: "20px", maxWidth: "480px" }}>
                 Start, grow &amp; scale your ecommerce business with our expert team.
@@ -176,7 +176,7 @@ export default function HeroSection() {
                   <circle cx="24" cy="24" r="5" fill="#e74c3c" />
                   <circle cx="42" cy="24" r="5" fill="#f59e0b" />
                   <circle cx="60" cy="24" r="5" fill="#16a34a" />
-                  <text x="220" y="28" textAnchor="middle" fill="#9494ac" fontSize="12" fontFamily="Roboto, sans-serif">Gosellify Dashboard</text>
+                  <text x="220" y="28" textAnchor="middle" fill="#9494ac" fontSize="12" fontFamily="Roboto, sans-serif">Gosellify Portal · Sample view</text>
 
                   {/* Revenue — values change with transition */}
                   <text x="30" y="80" fill="#999" fontSize="11" fontFamily="Roboto, sans-serif">TOTAL REVENUE</text>

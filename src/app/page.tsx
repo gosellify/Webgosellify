@@ -7,7 +7,7 @@ import AffiliateSection from "@/components/home/AffiliateSection";
 import WarehouseSection from "@/components/home/WarehouseSection";
 import WhyUsSection from "@/components/home/WhyUsSection";
 import BenefitsSections from "@/components/services/ServiceBenefits";
-import PartnersSection from "@/components/home/PartnersSection";
+import TechnologySection from "@/components/home/TechnologySection";
 import CTASection from "@/components/home/CTASection";
 
 export default function Home() {
@@ -16,13 +16,13 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <ServicesSection />
+      <TechnologySection />
       <ProcessSection />
       <FeaturesGrid />
       <AffiliateSection />
       <WarehouseSection />
       <WhyUsSection />
       <BenefitsSections />
-      <PartnersSection />
       <CTASection />
     </>
   );

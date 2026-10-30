@@ -32,7 +32,7 @@ const faqs = [
 ];
 
 function AnimatedStat({ value, suffix }: { value: number; suffix: string }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
   const ref = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
 

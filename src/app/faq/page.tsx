@@ -11,9 +11,9 @@ const faqs = [
       "Yes, 2 step dropshipping is legal. You will never face any legal issue with 2 step dropshipping model.",
   },
   {
-    question: "How Safe 2 Step Dropshipping Business?",
+    question: "How do you keep order fulfillment compliant?",
     answer:
-      "Its 100% safe business model. Amazon required sending products with Amazon's branded packaging or white branding. As well, no 3rd party retailer invoice into the parcel. Our warehouse will remove the walmart invoice and repackaging products with Amazon branded box.",
+      "Every order is routed through our US warehouse, inspected, and shipped in plain, unbranded packaging with no third-party invoices or marketing inserts, following each marketplace's packaging and fulfillment policies. Orders are never shipped directly from another retailer to a marketplace customer.",
   },
   {
     question:
@@ -40,7 +40,7 @@ const faqs = [
   {
     question: "Where do you source products?",
     answer:
-      "We use authentic products sources only and use sourcing where its cheapest. We use Walmart, Amazon Prime, Sams Club, Target, Home Depot, Costco Wholesale.",
+      "We source new, authentic products from reputable US wholesalers, authorized distributors and retailers, and keep purchase records for every order so authenticity can always be proven.",
   },
   {
     question: "Will you guys manage my whole business?",

@@ -14,7 +14,7 @@ import CTASection from "@/components/home/CTASection";
 const highlights = [
   {
     icon: FaShieldAlt,
-    title: "100% Risk Free",
+    title: "Profit-Share Model",
     desc: "Pay only once you see profit",
   },
   {
@@ -159,7 +159,7 @@ export default function PricingPage() {
                 We provide service with profit sharing model
               </p>
               <p className="typo-h3" style={{ color: "var(--color-accent)", marginBottom: "12px" }}>
-                100% Risk Free. Pay only once you see profit.
+                Performance-based pricing. Pay from profit.
               </p>
               <p className="typo-body" style={{ marginBottom: "20px", maxWidth: "480px" }}>
                 No one will offer profit sharing model and no payment before you

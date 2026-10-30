@@ -3,7 +3,7 @@
 const features = [
   { img: "/images/features/zero-work.webp", title: "Zero Work From You", description: "We handle everything — you just watch your business grow." },
   { img: "/images/features/personal-manager.webp", title: "Personal Manager", description: "Dedicated account manager as your single point of contact." },
-  { img: "/images/features/safety.webp", title: "100% Safety", description: "All marketplace guidelines followed to keep accounts healthy." },
+  { img: "/images/features/safety.webp", title: "Account Health First", description: "All marketplace guidelines followed to keep accounts healthy." },
   { img: "/images/features/calculation.webp", title: "Accurate Calculation", description: "Transparent profit calculations with detailed reporting." },
   { img: "/images/features/research.webp", title: "Product Research", description: "High-demand, low-competition products for maximum ROI." },
   { img: "/images/features/inventory.webp", title: "Inventory Management", description: "Optimal stock levels to minimize storage costs." },

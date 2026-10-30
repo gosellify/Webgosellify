@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaWhatsapp, FaCheckCircle, FaTimesCircle, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import ServiceConfidence from "@/components/services/ServiceConfidence";
 import CTASection from "@/components/home/CTASection";
+import TechnologySection from "@/components/home/TechnologySection";
 
 const comparisonData = [
   { feature: "Full Walmart listing optimization", us: true, diy: "Trial & error", others: "Basic" },
@@ -359,6 +360,7 @@ export default function WalmartManagementPage() {
         </div>
       </section>
 
+      <TechnologySection />
       <CTASection />
     </>
   );
