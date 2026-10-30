@@ -6,7 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 const warehouseFeatures = [
   "FBA Prep & WFS Prep",
-  "2-Step Dropshipping",
+  "Order Inspection & Repackaging",
   "Storage & Inventory",
   "Direct-to-Customer Shipping",
 ];

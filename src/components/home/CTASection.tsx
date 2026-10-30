@@ -39,7 +39,7 @@ export default function CTASection() {
           </h2>
           <p className="typo-subtext" style={{ color: "#9494ac", maxWidth: "520px", margin: "0 auto 24px" }}>
             Connect with our in-house team of highly vetted ecommerce experts eager to propel your
-            Amazon, Walmart, or Shopify store to new heights — with transparent pricing and guaranteed results.
+            Amazon, Walmart, or Shopify store to new heights — with transparent pricing and detailed monthly reporting.
           </p>
 
           <div className="flex flex-wrap justify-center" style={{ gap: "12px" }}>
