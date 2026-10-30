@@ -140,7 +140,7 @@ export default function WalmartWFSPage() {
             {[
               {
                 problem: "WFS prep requirements are confusing?",
-                solution: "We've prepped thousands of WFS shipments. Labeling, packaging, poly bags, bundles — every item meets Walmart's exact spec. Zero rejections, guaranteed.",
+                solution: "We've prepped thousands of WFS shipments. Labeling, packaging, poly bags, bundles — every item meets Walmart's exact spec. Prepped to Walmart WFS standards.",
               },
               {
                 problem: "Shipping to Walmart warehouses is expensive?",
