@@ -179,4 +179,14 @@
 </url>
 
 
+  <url>
+    <loc>https://www.gosellify.com/profit-check</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.gosellify.com/tools/profit-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

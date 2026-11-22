@@ -102,7 +102,7 @@ export default function HeroSection() {
                         width: "32px",
                         height: "32px",
                         borderRadius: "7px",
-                        backgroundColor: "rgba(22,163,74,0.1)",
+                        backgroundColor: "rgba(21,96,255,0.1)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -159,9 +159,9 @@ export default function HeroSection() {
                       @keyframes pulseGlow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
                       .roi-badge { animation: pulseGlow 2s ease-in-out infinite; }
                       @keyframes playPulse {
-                        0% { box-shadow: 0 4px 20px rgba(22,163,74,0.4), 0 0 0 0 rgba(22,163,74,0.4); }
-                        70% { box-shadow: 0 4px 20px rgba(22,163,74,0.4), 0 0 0 16px rgba(22,163,74,0); }
-                        100% { box-shadow: 0 4px 20px rgba(22,163,74,0.4), 0 0 0 0 rgba(22,163,74,0); }
+                        0% { box-shadow: 0 4px 20px rgba(21,96,255,0.4), 0 0 0 0 rgba(21,96,255,0.4); }
+                        70% { box-shadow: 0 4px 20px rgba(21,96,255,0.4), 0 0 0 16px rgba(21,96,255,0); }
+                        100% { box-shadow: 0 4px 20px rgba(21,96,255,0.4), 0 0 0 0 rgba(21,96,255,0); }
                       }
                     `}</style>
                   </defs>
@@ -171,39 +171,39 @@ export default function HeroSection() {
                   <rect x="0" y="0" width="440" height="440" rx="16" stroke="#e8e8ee" strokeWidth="1" />
 
                   {/* Header bar */}
-                  <rect x="0" y="0" width="440" height="48" rx="16" fill="#1a1a2e" />
-                  <rect x="0" y="16" width="440" height="32" fill="#1a1a2e" />
+                  <rect x="0" y="0" width="440" height="48" rx="16" fill="#0A1B4D" />
+                  <rect x="0" y="16" width="440" height="32" fill="#0A1B4D" />
                   <circle cx="24" cy="24" r="5" fill="#e74c3c" />
-                  <circle cx="42" cy="24" r="5" fill="#f59e0b" />
-                  <circle cx="60" cy="24" r="5" fill="#16a34a" />
+                  <circle cx="42" cy="24" r="5" fill="#FFB21A" />
+                  <circle cx="60" cy="24" r="5" fill="#1560FF" />
                   <text x="220" y="28" textAnchor="middle" fill="#9494ac" fontSize="12" fontFamily="Roboto, sans-serif">Gosellify Portal · Sample view</text>
 
                   {/* Revenue — values change with transition */}
                   <text x="30" y="80" fill="#999" fontSize="11" fontFamily="Roboto, sans-serif">TOTAL REVENUE</text>
-                  <text x="30" y="108" fill="#1a1a2e" fontSize="28" fontWeight="800" fontFamily="Roboto, sans-serif">
+                  <text x="30" y="108" fill="#0A1B4D" fontSize="28" fontWeight="800" fontFamily="Roboto, sans-serif">
                     {data.revenue}
                   </text>
-                  <rect className="roi-badge" x="210" y="90" width="72" height="24" rx="12" fill="rgba(22,163,74,0.1)" />
-                  <text className="roi-badge" x="246" y="106" textAnchor="middle" fill="#16a34a" fontSize="12" fontWeight="700" fontFamily="Roboto, sans-serif">
+                  <rect className="roi-badge" x="210" y="90" width="72" height="24" rx="12" fill="rgba(21,96,255,0.1)" />
+                  <text className="roi-badge" x="246" y="106" textAnchor="middle" fill="#1560FF" fontSize="12" fontWeight="700" fontFamily="Roboto, sans-serif">
                     {data.roi} ROI
                   </text>
 
                   {/* Mini stat cards — values update */}
                   <rect x="30" y="130" width="115" height="55" rx="8" fill="#f6f7f9" />
                   <text x="42" y="152" fill="#999" fontSize="10" fontFamily="Roboto, sans-serif">Orders</text>
-                  <text x="42" y="172" fill="#1a1a2e" fontSize="17" fontWeight="700" fontFamily="Roboto, sans-serif">
+                  <text x="42" y="172" fill="#0A1B4D" fontSize="17" fontWeight="700" fontFamily="Roboto, sans-serif">
                     {data.orders}
                   </text>
 
                   <rect x="160" y="130" width="115" height="55" rx="8" fill="#f6f7f9" />
                   <text x="172" y="152" fill="#999" fontSize="10" fontFamily="Roboto, sans-serif">Profit</text>
-                  <text x="172" y="172" fill="#16a34a" fontSize="17" fontWeight="700" fontFamily="Roboto, sans-serif">
+                  <text x="172" y="172" fill="#1560FF" fontSize="17" fontWeight="700" fontFamily="Roboto, sans-serif">
                     {data.profit}
                   </text>
 
                   <rect x="290" y="130" width="120" height="55" rx="8" fill="#f6f7f9" />
                   <text x="302" y="152" fill="#999" fontSize="10" fontFamily="Roboto, sans-serif">Active Stores</text>
-                  <text x="302" y="172" fill="#1a1a2e" fontSize="17" fontWeight="700" fontFamily="Roboto, sans-serif">
+                  <text x="302" y="172" fill="#0A1B4D" fontSize="17" fontWeight="700" fontFamily="Roboto, sans-serif">
                     {data.stores}
                   </text>
 
@@ -220,7 +220,7 @@ export default function HeroSection() {
                       width="32"
                       height={h}
                       rx="4"
-                      fill={h > 140 ? "#16a34a" : "#dcfce7"}
+                      fill={h > 140 ? "#1560FF" : "#EEF4FF"}
                       style={{ transition: "y 0.8s ease, height 0.8s ease, fill 0.5s ease" }}
                     />
                   ))}

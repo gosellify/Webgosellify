@@ -11,8 +11,8 @@ export default function CTASection() {
         overflow: "hidden",
       }}
     >
-      <div style={{ position: "absolute", top: "-50px", left: "-50px", width: "180px", height: "180px", borderRadius: "50%", background: "rgba(22,163,74,0.06)" }} />
-      <div style={{ position: "absolute", bottom: "-60px", right: "-30px", width: "220px", height: "220px", borderRadius: "50%", background: "rgba(22,163,74,0.04)" }} />
+      <div style={{ position: "absolute", top: "-50px", left: "-50px", width: "180px", height: "180px", borderRadius: "50%", background: "rgba(21,96,255,0.06)" }} />
+      <div style={{ position: "absolute", bottom: "-60px", right: "-30px", width: "220px", height: "220px", borderRadius: "50%", background: "rgba(21,96,255,0.04)" }} />
 
       <div className="container-main" style={{ position: "relative" }}>
         <div style={{ textAlign: "center" }}>
@@ -21,8 +21,8 @@ export default function CTASection() {
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              backgroundColor: "rgba(22,163,74,0.12)",
-              border: "1px solid rgba(22,163,74,0.2)",
+              backgroundColor: "rgba(21,96,255,0.12)",
+              border: "1px solid rgba(21,96,255,0.2)",
               borderRadius: "50px",
               padding: "5px 16px",
               marginBottom: "16px",

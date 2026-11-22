@@ -73,8 +73,8 @@ export default function ContactPage() {
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
-                  el.style.boxShadow = "0 8px 24px rgba(22,163,74,0.1)";
-                  el.style.borderColor = "rgba(22,163,74,0.3)";
+                  el.style.boxShadow = "0 8px 24px rgba(21,96,255,0.1)";
+                  el.style.borderColor = "rgba(21,96,255,0.3)";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
@@ -134,7 +134,7 @@ export default function ContactPage() {
                       width: "38px",
                       height: "38px",
                       borderRadius: "8px",
-                      background: "rgba(22,163,74,0.1)",
+                      background: "rgba(21,96,255,0.1)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -166,7 +166,7 @@ export default function ContactPage() {
                       width: "38px",
                       height: "38px",
                       borderRadius: "8px",
-                      background: "rgba(22,163,74,0.1)",
+                      background: "rgba(21,96,255,0.1)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -198,7 +198,7 @@ export default function ContactPage() {
                       width: "38px",
                       height: "38px",
                       borderRadius: "8px",
-                      background: "rgba(22,163,74,0.1)",
+                      background: "rgba(21,96,255,0.1)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -235,8 +235,8 @@ export default function ContactPage() {
                   style={{
                     padding: "12px",
                     borderRadius: "8px",
-                    background: "#dcfce7",
-                    color: "#15803d",
+                    background: "#EEF4FF",
+                    color: "#0E4AD6",
                     fontSize: "15px",
                     textAlign: "center",
                     marginBottom: "16px",

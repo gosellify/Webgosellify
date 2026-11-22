@@ -77,7 +77,7 @@ export default function WhyUsSection() {
                   width: "48px",
                   height: "48px",
                   borderRadius: "10px",
-                  backgroundColor: "rgba(22,163,74,0.08)",
+                  backgroundColor: "rgba(21,96,255,0.08)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",

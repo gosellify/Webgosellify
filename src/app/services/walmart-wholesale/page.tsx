@@ -75,7 +75,7 @@ export default function WalmartWholesalePage() {
         <div className="container-main" style={{ textAlign: "center" }}>
           <span className="typo-label" style={{ marginBottom: "8px", display: "block" }}>WALMART WHOLESALE</span>
           <h1 className="typo-h1" style={{ marginBottom: "14px", maxWidth: "850px", marginLeft: "auto", marginRight: "auto" }}>
-            Sell Branded Products on Walmart. <span style={{ color: "#0071dc" }}>Wholesale Margins, Growing Platform.</span>
+            Sell Branded Products on Walmart. <span style={{ color: "#1560FF" }}>Wholesale Margins, Growing Platform.</span>
           </h1>
           <p className="typo-body" style={{ marginBottom: "24px", fontSize: "17px", maxWidth: "750px", marginLeft: "auto", marginRight: "auto" }}>
             Source from authorized distributors, sell established brands on Walmart Marketplace. Reliable supply chains, consistent 20-35% margins, and a platform with less competition than Amazon.
@@ -234,7 +234,7 @@ export default function WalmartWholesalePage() {
       <section style={{ padding: "45px 0", backgroundColor: "var(--color-dark)" }}>
         <div className="container-main" style={{ textAlign: "center" }}>
           <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#fff", marginBottom: "6px" }}>
-            We Don&apos;t Get Paid Until <span style={{ color: "#0071dc" }}>You Get Paid</span>
+            We Don&apos;t Get Paid Until <span style={{ color: "#1560FF" }}>You Get Paid</span>
           </h2>
           <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.7)", maxWidth: "550px", margin: "0 auto 20px" }}>
             Profit sharing model — zero management fees until your wholesale store is profitable. We invest our expertise, you invest capital. We both win.
@@ -278,7 +278,7 @@ export default function WalmartWholesalePage() {
                 {comparisonData.map((row, i) => (
                   <tr key={row.feature} style={{ backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc" }}>
                     <td style={{ padding: "12px 20px", fontSize: "13px", fontWeight: 500, textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>{row.feature}</td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(22,163,74,0.04)" : "rgba(22,163,74,0.07)", verticalAlign: "middle" }}>
+                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(21,96,255,0.04)" : "rgba(21,96,255,0.07)", verticalAlign: "middle" }}>
                       {row.us === true ? <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "var(--color-primary)", fontWeight: 600 }}>{row.us}</span>}
                     </td>
                     <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>

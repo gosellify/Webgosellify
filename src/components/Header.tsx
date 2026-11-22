@@ -1,259 +1,173 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes, FaChevronDown, FaWhatsapp, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaTimes, FaChevronDown, FaArrowRight, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import Logo from "@/components/brand/Logo";
 
+interface NavChild {
+  name: string;
+  href: string;
+  desc: string;
+}
 interface NavItem {
   name: string;
   href: string;
-  children?: { name: string; href: string; desc?: string }[];
+  children?: NavChild[];
 }
 
 const navLinks: NavItem[] = [
-  { name: "Home", href: "/" },
   {
     name: "Amazon",
     href: "/services/amazon",
     children: [
-      { name: "Amazon FBA", href: "/services/amazon-fba", desc: "Private label & FBA management" },
+      { name: "Amazon FBA", href: "/services/amazon-fba", desc: "Private label and FBA management" },
       { name: "Amazon Wholesale", href: "/services/amazon-wholesale", desc: "Full-service wholesale management" },
-      { name: "2 Step Amazon Dropshipping", href: "/services/amazon-arbitrage", desc: "Low-risk arbitrage model" },
-      { name: "Amazon Account Reinstatement", href: "/services/amazon-reinstatement", desc: "Suspended account recovery" },
+      { name: "2-Step Dropshipping", href: "/services/amazon-arbitrage", desc: "Low-risk arbitrage model" },
+      { name: "Account Reinstatement", href: "/services/amazon-reinstatement", desc: "Suspended account recovery" },
     ],
   },
   {
     name: "Walmart",
     href: "/services/walmart",
     children: [
+      { name: "Walmart Account Management", href: "/services/walmart-management", desc: "Full-service store management" },
       { name: "Walmart WFS", href: "/services/walmart-wfs", desc: "Walmart Fulfillment Services" },
       { name: "Walmart Wholesale", href: "/services/walmart-wholesale", desc: "Wholesale store management" },
-      { name: "Walmart Account Management", href: "/services/walmart-management", desc: "Full-service store management" },
     ],
   },
   {
     name: "Shopify",
     href: "/services/shopify",
     children: [
-      { name: "Shopify Dropshipping Store", href: "/services/shopify-dropshipping", desc: "Ready-to-sell dropship store" },
-      { name: "Shopify Store Redesign", href: "/services/shopify-redesign", desc: "Conversion-optimized redesign" },
-      { name: "Shopify Theme Development", href: "/services/shopify-theme-development", desc: "Custom theme from scratch" },
-      { name: "Shopify App Development", href: "/services/shopify-app-development", desc: "Custom app solutions" },
-      { name: "Shopify Store Marketing", href: "/services/shopify-marketing", desc: "SEO, ads & growth" },
+      { name: "Dropshipping Store", href: "/services/shopify-dropshipping", desc: "Ready-to-sell dropship store" },
+      { name: "Store Redesign", href: "/services/shopify-redesign", desc: "Conversion-focused redesign" },
+      { name: "Theme Development", href: "/services/shopify-theme-development", desc: "Custom theme from scratch" },
+      { name: "App Development", href: "/services/shopify-app-development", desc: "Custom app solutions" },
+      { name: "Store Marketing", href: "/services/shopify-marketing", desc: "SEO, ads and growth" },
     ],
   },
   {
-    name: "Others Services",
+    name: "More services",
     href: "/services",
     children: [
-      { name: "Etsy Dropshipping", href: "/services/etsy-dropshipping", desc: "Etsy store management" },
       { name: "eBay Dropshipping", href: "/services/ebay-dropshipping", desc: "eBay store management" },
-      { name: "Warehouse Service", href: "/services/3pl-warehouse", desc: "3PL storage & fulfillment" },
-      { name: "Company Filing LLC & LTD", href: "/services/company-filing", desc: "Business formation services" },
-      { name: "Company Tax Filing", href: "/services/tax-filing", desc: "Tax preparation & filing" },
+      { name: "Etsy Dropshipping", href: "/services/etsy-dropshipping", desc: "Etsy store management" },
+      { name: "3PL Warehouse", href: "/services/3pl-warehouse", desc: "Same-day prep and shipping" },
+      { name: "Company Filing", href: "/services/company-filing", desc: "LLC and LTD formation" },
+      { name: "Tax Filing", href: "/services/tax-filing", desc: "Tax preparation and filing" },
     ],
   },
-  { name: "Success Story", href: "/success-story" },
+  { name: "Results", href: "/success-story" },
   { name: "Pricing", href: "/pricing" },
-  {
-    name: "About",
-    href: "/about",
-    children: [
-      { name: "About Us", href: "/about" },
-      { name: "FAQ", href: "/faq" },
-      { name: "Contact Us", href: "/contact" },
-    ],
-  },
+  { name: "Tools", href: "/tools/profit-calculator" },
+  { name: "About", href: "/about" },
 ];
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const [open, setOpen] = useState<string | null>(null);
+  const [mobile, setMobile] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      setHidden(y > 500 && y > last);
+      last = y;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(100, (y / max) * 100) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setOpenMobileDropdown(null);
+    setMobile(false);
+    setOpen(null);
   }, [pathname]);
 
-  const isLinkActive = (link: NavItem) => {
-    if (pathname === link.href) return true;
-    if (link.children) {
-      return link.children.some((child) => pathname === child.href);
-    }
-    return false;
-  };
-
   return (
-    <header
-      style={{
-        backgroundColor: "#fff",
-        position: "sticky",
-        top: 0,
-        zIndex: 50,
-        transition: "box-shadow 0.3s",
-        boxShadow: scrolled
-          ? "0 2px 20px rgba(0,0,0,0.08)"
-          : "0 1px 3px rgba(0,0,0,0.04)",
-      }}
-    >
-      <div className="container-main">
-        <div
-          className="flex items-center justify-between"
-          style={{ height: "64px" }}
-        >
-          {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0">
-            <img
-              src="/images/logo.webp"
-              alt="Gosellify"
-              className="w-auto"
-              style={{ height: "42px" }}
-            />
+    <>
+      <div style={{ background: "var(--color-dark)", color: "#fff", fontSize: 14, fontWeight: 600 }}>
+        <div className="container-wide" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "6px 24px", paddingTop: 9, paddingBottom: 9 }}>
+          <span>
+            <span style={{ color: "var(--color-accent)" }}>Pay from profit.</span> No upfront management fee.
+          </span>
+          <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 22px" }}>
+            <a href="tel:+13073938789" style={{ color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <FaPhoneAlt size={12} color="#FFB21A" /> +1 307 393 8789
+            </a>
+            <a href="mailto:info@gosellify.com" style={{ color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <FaEnvelope size={13} color="#FFB21A" /> info@gosellify.com
+            </a>
+          </span>
+        </div>
+      </div>
+
+      <header
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 900,
+          background: scrolled ? "rgba(255,255,255,0.86)" : "#fff",
+          backdropFilter: scrolled ? "saturate(180%) blur(16px)" : "none",
+          WebkitBackdropFilter: scrolled ? "saturate(180%) blur(16px)" : "none",
+          boxShadow: scrolled ? "0 10px 30px rgba(10,27,77,0.10)" : "none",
+          transform: hidden && !mobile ? "translateY(-110%)" : "translateY(0)",
+          transition: "transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .3s, background-color .3s",
+        }}
+        onMouseLeave={() => setOpen(null)}
+      >
+        <div className="container-wide" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, paddingTop: scrolled ? 10 : 16, paddingBottom: scrolled ? 10 : 16, transition: "padding .3s" }}>
+          <Link href="/" aria-label="Gosellify home" style={{ textDecoration: "none" }}>
+            <Logo />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav
-            className="hidden lg:flex items-center"
-            style={{ height: "64px" }}
-          >
-            {navLinks.map((link) => {
-              const isActive = isLinkActive(link);
-              const hasDropdown = !!link.children;
+          <nav className="hidden xl:flex items-center gap-1">
+            {navLinks.map((item) => {
+              const active = pathname === item.href || (item.children ? item.children.some((c) => c.href === pathname) : false);
               return (
-                <div
-                  key={link.name}
-                  className="relative group"
-                  style={{ height: "100%" }}
-                >
+                <div key={item.name} style={{ position: "relative" }} onMouseEnter={() => setOpen(item.children ? item.name : null)}>
                   <Link
-                    href={link.href}
+                    href={item.href}
                     style={{
-                      display: "flex",
+                      display: "inline-flex",
                       alignItems: "center",
-                      gap: "4px",
-                      padding: "0 12px",
-                      height: "100%",
-                      fontSize: "15px",
-                      fontWeight: 600,
-                      color: isActive
-                        ? "var(--color-primary)"
-                        : "var(--color-text)",
+                      gap: 6,
+                      padding: "10px 14px",
+                      borderRadius: 10,
+                      fontSize: 15,
+                      fontWeight: 700,
                       textDecoration: "none",
-                      transition: "color 0.2s",
-                      position: "relative",
+                      color: active ? "var(--color-primary)" : "var(--color-dark)",
+                      background: open === item.name ? "var(--color-primary-light)" : "transparent",
+                      transition: "background-color .2s, color .2s",
                     }}
-                    className="hover:!text-primary"
                   >
-                    {link.name}
-                    {hasDropdown && (
-                      <FaChevronDown
-                        style={{
-                          fontSize: "8px",
-                          transition: "transform 0.2s",
-                        }}
-                      />
-                    )}
-                    {/* Active indicator */}
-                    {isActive && (
-                      <span
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          left: "12px",
-                          right: "12px",
-                          height: "3px",
-                          backgroundColor: "var(--color-primary)",
-                          borderRadius: "3px 3px 0 0",
-                        }}
-                      />
-                    )}
+                    {item.name}
+                    {item.children && <FaChevronDown size={10} style={{ transition: "transform .25s", transform: open === item.name ? "rotate(180deg)" : "none" }} />}
                   </Link>
-
-                  {/* Dropdown */}
-                  {hasDropdown && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "calc(100% - 4px)",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        backgroundColor: "#fff",
-                        boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
-                        borderRadius: "10px",
-                        padding: "8px 0",
-                        minWidth: "250px",
-                        opacity: 0,
-                        visibility: "hidden" as const,
-                        transition: "all 0.2s ease",
-                        zIndex: 50,
-                      }}
-                      className="group-hover:!opacity-100 group-hover:!visible"
-                    >
-                      {/* CSS Arrow */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "-8px",
-                          left: "50%",
-                          transform: "translateX(-50%) rotate(45deg)",
-                          width: "16px",
-                          height: "16px",
-                          backgroundColor: "#fff",
-                          boxShadow: "-2px -2px 4px rgba(0,0,0,0.04)",
-                        }}
-                      />
-                      {link.children!.map((child, idx) => (
-                        <div key={child.name}>
-                          {idx > 0 && (
-                            <div style={{ display: "flex", justifyContent: "center", padding: "0 20px" }}>
-                              <div style={{ width: "100%", height: "0.5px", backgroundColor: "#ebebeb" }} />
-                            </div>
-                          )}
-                        <Link
-                          href={child.href}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            padding: "10px 20px",
-                            textDecoration: "none",
-                            transition: "background 0.15s",
-                          }}
-                          className="hover:!bg-gray-50"
-                        >
-                          <span
-                            style={{
-                              fontSize: "15px",
-                              fontWeight: 600,
-                              color: pathname === child.href ? "var(--color-primary)" : "var(--color-text)",
-                            }}
-                          >
-                            {child.name}
-                          </span>
-                          {child.desc && (
-                            <span
-                              style={{
-                                fontSize: "13px",
-                                color: "#999",
-                                marginTop: "1px",
-                              }}
-                            >
-                              {child.desc}
+                  {item.children && open === item.name && (
+                    <div className="slide-up-in" style={{ position: "absolute", top: "100%", left: 0, paddingTop: 12, zIndex: 20 }}>
+                      <div style={{ background: "#fff", border: "2px solid var(--color-line)", borderRadius: 20, boxShadow: "0 30px 60px rgba(10,27,77,0.18)", padding: 10, width: 340 }}>
+                        {item.children.map((c) => (
+                          <Link key={c.href} href={c.href} className="row-hover" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "12px 14px", borderRadius: 12, textDecoration: "none", color: "var(--color-dark)" }}>
+                            <span style={{ display: "flex", flexDirection: "column" }}>
+                              <span style={{ fontWeight: 800, fontSize: 15 }}>{c.name}</span>
+                              <span style={{ fontSize: 13, opacity: 0.75 }}>{c.desc}</span>
                             </span>
-                          )}
-                        </Link>
-                        </div>
-                      ))}
+                            <FaArrowRight size={12} />
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -261,186 +175,79 @@ export default function Header() {
             })}
           </nav>
 
-          {/* My Account + CTA Buttons */}
-          <div className="hidden lg:flex items-center" style={{ gap: "20px" }}>
-          <a
-            href="https://portal.gosellify.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              fontSize: "14px",
-              fontWeight: 600,
-              color: "var(--color-text)",
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
-            className="hover:!text-primary"
-          >
-            <FaUserCircle style={{ fontSize: "18px" }} />
-            Login
-          </a>
-          <a
-            href="https://wa.me/message/Q6XJRMT4HKTBF1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-accent"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "11px 24px",
-              fontSize: "14px",
-              animation: "none",
-            }}
-          >
-            <FaWhatsapp style={{ fontSize: "16px" }} />
-            Quick WhatsApp
-          </a>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span className="hidden md:inline-flex">
+              <a href="https://portal.gosellify.com/" className="btn-outline" style={{ padding: "12px 18px", fontSize: 15 }}>
+                Client login
+              </a>
+            </span>
+            <span className="hidden sm:inline-flex">
+              <Link href="/profit-check" className="btn-accent" style={{ padding: "14px 20px", fontSize: 15 }}>
+                Check my profit <FaArrowRight className="btn-arrow" size={13} />
+              </Link>
+            </span>
+            <span className="xl:hidden">
+            <button
+              type="button"
+              aria-label={mobile ? "Close menu" : "Open menu"}
+              aria-expanded={mobile}
+              onClick={() => setMobile(!mobile)}
+              style={{ width: 48, height: 48, borderRadius: 12, border: "2px solid var(--color-dark)", background: "#fff", color: "var(--color-dark)", display: "inline-flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+            >
+              {mobile ? <FaTimes size={18} /> : <FaBars size={18} />}
+            </button>
+            </span>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-            style={{
-              display: "none",
-              padding: "8px",
-              fontSize: "22px",
-              color: "var(--color-text)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
-            className="!flex lg:!hidden items-center justify-center"
-          >
-            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
         </div>
-      </div>
 
-      {/* Mobile Navigation */}
-      <div
-        style={{
-          maxHeight: mobileMenuOpen ? "800px" : "0",
-          overflow: "hidden",
-          transition: "max-height 0.35s ease",
-          borderTop: mobileMenuOpen ? "1px solid #f0f0f0" : "none",
-        }}
-        className="lg:!hidden"
-      >
-        <div style={{ padding: "8px 0 16px" }}>
-          {navLinks.map((link) => {
-            const isActive = isLinkActive(link);
-            const hasDropdown = !!link.children;
-            const isOpen = openMobileDropdown === link.name;
-            return (
-              <div key={link.name}>
-                {hasDropdown ? (
-                  <>
+        <div aria-hidden="true" style={{ height: 3, background: "transparent" }}>
+          <div style={{ height: 3, width: `${progress}%`, background: "linear-gradient(90deg, #1560FF, #FFB21A)", transition: "width .1s linear" }} />
+        </div>
+
+        {mobile && (
+          <div className="xl:hidden slide-up-in" style={{ background: "#fff", borderTop: "2px solid var(--color-line)", maxHeight: "calc(100vh - 120px)", overflowY: "auto" }}>
+            <div className="container-wide" style={{ paddingTop: 12, paddingBottom: 24, display: "flex", flexDirection: "column", gap: 4 }}>
+              {navLinks.map((item) => (
+                <div key={item.name}>
+                  {item.children ? (
                     <button
-                      onClick={() => setOpenMobileDropdown(isOpen ? null : link.name)}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "100%",
-                        padding: "12px 20px",
-                        fontSize: "16px",
-                        fontWeight: 600,
-                        color: isActive
-                          ? "var(--color-primary)"
-                          : "var(--color-text)",
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer",
-                        transition: "color 0.2s",
-                      }}
+                      type="button"
+                      onClick={() => setMobileOpen(mobileOpen === item.name ? null : item.name)}
+                      aria-expanded={mobileOpen === item.name}
+                      style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 6px", background: "none", border: "none", borderBottom: "1px solid var(--color-line)", fontWeight: 800, fontSize: 17, color: "var(--color-dark)", cursor: "pointer", fontFamily: "inherit" }}
                     >
-                      {link.name}
-                      <FaChevronDown
-                        style={{
-                          fontSize: "10px",
-                          transition: "transform 0.2s",
-                          transform: isOpen ? "rotate(180deg)" : "rotate(0)",
-                        }}
-                      />
+                      {item.name}
+                      <FaChevronDown size={12} style={{ transition: "transform .25s", transform: mobileOpen === item.name ? "rotate(180deg)" : "none" }} />
                     </button>
-                    <div
-                      style={{
-                        maxHeight: isOpen ? "400px" : "0",
-                        overflow: "hidden",
-                        transition: "max-height 0.3s ease",
-                        backgroundColor: "#f9f9f9",
-                      }}
-                    >
-                      {link.children!.map((child) => (
-                        <Link
-                          key={child.name}
-                          href={child.href}
-                          style={{
-                            display: "block",
-                            padding: "10px 20px 10px 36px",
-                            fontSize: "16px",
-                            color: pathname === child.href ? "var(--color-primary)" : "#555",
-                            textDecoration: "none",
-                            transition: "color 0.2s",
-                          }}
-                          className="hover:!text-primary"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {child.name}
+                  ) : (
+                    <Link href={item.href} style={{ display: "block", padding: "14px 6px", borderBottom: "1px solid var(--color-line)", fontWeight: 800, fontSize: 17, color: "var(--color-dark)", textDecoration: "none" }}>
+                      {item.name}
+                    </Link>
+                  )}
+                  {item.children && mobileOpen === item.name && (
+                    <div style={{ padding: "6px 0 10px 12px", display: "flex", flexDirection: "column" }}>
+                      <Link href={item.href} style={{ padding: "10px 6px", fontWeight: 700, color: "var(--color-primary)", textDecoration: "none" }}>
+                        All {item.name}
+                      </Link>
+                      {item.children.map((c) => (
+                        <Link key={c.href} href={c.href} style={{ padding: "10px 6px", fontWeight: 600, color: "var(--color-dark)", textDecoration: "none" }}>
+                          {c.name}
                         </Link>
                       ))}
                     </div>
-                  </>
-                ) : (
-                  <Link
-                    href={link.href}
-                    style={{
-                      display: "block",
-                      padding: "12px 20px",
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      color: isActive
-                        ? "var(--color-primary)"
-                        : "var(--color-text)",
-                      textDecoration: "none",
-                      transition: "color 0.2s",
-                    }}
-                    className="hover:!text-primary"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-          {/* Mobile CTA */}
-          <div style={{ padding: "8px 16px 4px" }}>
-            <a
-              href="https://wa.me/message/Q6XJRMT4HKTBF1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-accent"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                animation: "none",
-                width: "100%",
-              }}
-            >
-              <FaWhatsapp style={{ fontSize: "16px" }} />
-              Quick WhatsApp
-            </a>
+                  )}
+                </div>
+              ))}
+              <Link href="/profit-check" className="btn-accent" style={{ marginTop: 16 }}>
+                Check my profit <FaArrowRight className="btn-arrow" size={13} />
+              </Link>
+              <a href="https://portal.gosellify.com/" className="btn-outline" style={{ marginTop: 8 }}>
+                Client login
+              </a>
+            </div>
           </div>
-        </div>
-      </div>
-    </header>
+        )}
+      </header>
+    </>
   );
 }

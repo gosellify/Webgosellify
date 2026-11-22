@@ -58,7 +58,7 @@ export default function ShopifyRedesignPage() {
   return (
     <>
       {/* ── HERO (Dark Centered) ── */}
-      <section style={{ padding: "55px 0 70px", backgroundColor: "#1a1a2e" }}>
+      <section style={{ padding: "55px 0 70px", backgroundColor: "#0A1B4D" }}>
         <div className="container-main" style={{ textAlign: "center" }}>
           <span className="typo-label" style={{ marginBottom: "8px", display: "block", color: "var(--color-primary)" }}>SHOPIFY REDESIGN</span>
           <h1 className="typo-h1" style={{ marginBottom: "14px", maxWidth: "850px", marginLeft: "auto", marginRight: "auto", color: "#fff" }}>
@@ -140,7 +140,7 @@ export default function ShopifyRedesignPage() {
                   </div>
                   <span style={{ fontSize: "18px", color: "var(--color-primary)", fontWeight: 800 }}>&rarr;</span>
                   <div style={{
-                    backgroundColor: "rgba(22,163,74,0.08)",
+                    backgroundColor: "rgba(21,96,255,0.08)",
                     color: "var(--color-primary)",
                     padding: "6px 14px",
                     borderRadius: "6px",
@@ -216,7 +216,7 @@ export default function ShopifyRedesignPage() {
                 {comparisonData.map((row, i) => (
                   <tr key={row.feature} style={{ backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc" }}>
                     <td style={{ padding: "12px 20px", fontSize: "13px", fontWeight: 500, textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>{row.feature}</td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(22,163,74,0.04)" : "rgba(22,163,74,0.07)", verticalAlign: "middle" }}>
+                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(21,96,255,0.04)" : "rgba(21,96,255,0.07)", verticalAlign: "middle" }}>
                       {row.us === true ? <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "var(--color-primary)", fontWeight: 600 }}>{row.us}</span>}
                     </td>
                     <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>

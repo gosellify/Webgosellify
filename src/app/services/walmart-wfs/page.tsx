@@ -77,7 +77,7 @@ export default function WalmartWFSPage() {
             <div>
               <span className="typo-label" style={{ marginBottom: "8px", display: "block" }}>WALMART FULFILLMENT SERVICES (WFS)</span>
               <h1 className="typo-h1" style={{ marginBottom: "14px" }}>
-                Walmart Fulfillment Services — <span style={{ color: "#0071dc" }}>Let Walmart Ship For You</span>
+                Walmart Fulfillment Services — <span style={{ color: "#1560FF" }}>Let Walmart Ship For You</span>
               </h1>
               <p className="typo-body" style={{ marginBottom: "16px", fontSize: "17px" }}>
                 WFS is Walmart&apos;s version of FBA. Your products stored in Walmart warehouses, shipped with 2-day delivery, Pro Seller badge eligible. We handle every step — prep, ship, optimize, scale.
@@ -255,7 +255,7 @@ export default function WalmartWFSPage() {
       <section style={{ padding: "45px 0", backgroundColor: "var(--color-dark)" }}>
         <div className="container-main" style={{ textAlign: "center" }}>
           <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#fff", marginBottom: "6px" }}>
-            We Don&apos;t Get Paid Until <span style={{ color: "#0071dc" }}>You Get Paid</span>
+            We Don&apos;t Get Paid Until <span style={{ color: "#1560FF" }}>You Get Paid</span>
           </h2>
           <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.7)", maxWidth: "550px", margin: "0 auto 20px" }}>
             Profit sharing model — zero management fees until your WFS store is profitable. Our success is tied directly to yours.
@@ -299,7 +299,7 @@ export default function WalmartWFSPage() {
                 {comparisonData.map((row, i) => (
                   <tr key={row.feature} style={{ backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc" }}>
                     <td style={{ padding: "12px 20px", fontSize: "13px", fontWeight: 500, textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>{row.feature}</td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(22,163,74,0.04)" : "rgba(22,163,74,0.07)", verticalAlign: "middle" }}>
+                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(21,96,255,0.04)" : "rgba(21,96,255,0.07)", verticalAlign: "middle" }}>
                       {row.us === true ? <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "var(--color-primary)", fontWeight: 600 }}>{row.us}</span>}
                     </td>
                     <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>
