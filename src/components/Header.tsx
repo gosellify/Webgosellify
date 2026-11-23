@@ -127,8 +127,8 @@ const css = `
 @keyframes hdr-bar { from { transform: scaleY(.2); } to { transform: scaleY(1); } }
 .hdr-shell { border: 2px solid var(--color-line); border-radius: 22px; background: rgba(255,255,255,0.94); transition: box-shadow .3s, border-color .3s, background-color .3s; }
 .hdr-shell.is-scrolled { box-shadow: 0 18px 44px rgba(10,27,77,0.14); backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px); background: rgba(255,255,255,0.84); }
-.hdr-link { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 11px 13px; border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--color-dark); text-decoration: none; background: transparent; border: none; cursor: pointer; font-family: inherit; white-space: nowrap; transition: color .2s, background-color .2s; }
-.hdr-link::after { content: ""; position: absolute; left: 13px; right: 13px; bottom: 5px; height: 3px; border-radius: 2px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+.hdr-link { position: relative; display: inline-flex; align-items: center; gap: 5px; padding: 11px 9px; border-radius: 12px; font-size: 14.5px; font-weight: 700; color: var(--color-dark); text-decoration: none; background: transparent; border: none; cursor: pointer; font-family: inherit; white-space: nowrap; transition: color .2s, background-color .2s; }
+.hdr-link::after { content: ""; position: absolute; left: 9px; right: 9px; bottom: 5px; height: 3px; border-radius: 2px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
 .hdr-link:hover, .hdr-link.is-open { color: var(--color-primary); background: var(--color-primary-light); }
 .hdr-link.is-active::after, .hdr-link:hover::after, .hdr-link.is-open::after { transform: scaleX(1); }
 .hdr-panel { animation: hdr-panel .28s cubic-bezier(.2,.8,.2,1) both; background: #fff; border: 2px solid var(--color-line); border-radius: 26px; box-shadow: 0 40px 80px rgba(10,27,77,0.22); padding: 14px; display: flex; gap: 14px; }
@@ -215,6 +215,9 @@ export default function Header() {
             <a href="mailto:info@gosellify.com" style={{ color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}>
               <FaEnvelope size={13} color="#FFB21A" /> info@gosellify.com
             </a>
+            <a href="https://portal.gosellify.com/" style={{ color: "#FFB21A", textDecoration: "none", fontWeight: 800 }}>
+              Client login
+            </a>
           </span>
         </div>
       </div>
@@ -234,10 +237,10 @@ export default function Header() {
           <div className={`hdr-shell${scrolled ? " is-scrolled" : ""}`} style={{ position: "relative", overflow: "hidden" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "10px 12px 10px 18px" }}>
               <Link href="/" aria-label="Gosellify home" style={{ textDecoration: "none" }}>
-                <Logo />
+                <Logo size={38} fontSize={25} />
               </Link>
 
-              <nav className="hidden xl:flex items-center gap-1" aria-label="Main">
+              <nav className="hidden xl:flex items-center" aria-label="Main">
                 {navLinks.map((item) => {
                   const active = pathname === item.href || (item.children ? item.children.some((c) => c.href === pathname) : false);
                   const cls = `hdr-link${active ? " is-active" : ""}${open === item.name ? " is-open" : ""}`;
@@ -264,7 +267,7 @@ export default function Header() {
               </nav>
 
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span className="hidden md:inline-flex">
+                <span className="hidden 2xl:inline-flex">
                   <a href="https://portal.gosellify.com/" className="btn-outline" style={{ padding: "12px 18px", fontSize: 15, borderRadius: 14, whiteSpace: "nowrap" }}>
                     Client login
                   </a>

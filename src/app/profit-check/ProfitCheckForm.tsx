@@ -179,42 +179,42 @@ function buildSummary(a: Answers, c: Contact): string {
 }
 
 const CSS = `
-.pcf-opt { display: flex; align-items: center; gap: 14px; width: 100%; min-width: 0; text-align: left; padding: 18px 18px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; font-family: inherit; transition: transform .25s cubic-bezier(.2,.8,.2,1), background-color .25s, border-color .25s, color .25s, box-shadow .25s; }
-.pcf-opt:hover { transform: translateY(-3px); border-color: rgba(255,178,26,0.75); background: rgba(255,255,255,0.1); }
+.pcf-opt { display: flex; align-items: center; gap: 14px; width: 100%; min-width: 0; text-align: left; padding: 18px 18px; border-radius: 18px; border: 2px solid var(--color-line); background: #fff; color: var(--color-dark); cursor: pointer; font-family: inherit; transition: transform .25s cubic-bezier(.2,.8,.2,1), background-color .25s, border-color .25s, color .25s, box-shadow .25s; }
+.pcf-opt:hover { transform: translateY(-3px); border-color: var(--color-primary); box-shadow: 0 14px 30px rgba(10,27,77,0.1); }
 .pcf-opt:active { transform: translateY(0) scale(.99); }
-.pcf-opt[aria-pressed="true"] { background: #fff; color: #0A1B4D; border-color: #FFB21A; box-shadow: 0 18px 40px rgba(0,0,0,0.28), 0 0 0 4px rgba(255,178,26,0.22); }
-.pcf-opt .pcf-ico { width: 46px; height: 46px; border-radius: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 21px; background: rgba(255,255,255,0.1); color: #FFB21A; transition: background-color .25s, color .25s, transform .3s cubic-bezier(.2,.8,.2,1); }
+.pcf-opt:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+.pcf-opt[aria-pressed="true"] { background: var(--color-primary-light); color: var(--color-dark); border-color: var(--color-primary); box-shadow: 0 18px 40px rgba(10,27,77,0.12), 0 0 0 4px rgba(21,96,255,0.16); }
+.pcf-opt .pcf-ico { width: 46px; height: 46px; border-radius: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 21px; background: var(--color-primary-light); color: var(--color-primary); transition: background-color .25s, color .25s, transform .3s cubic-bezier(.2,.8,.2,1); }
 .pcf-opt:hover .pcf-ico { transform: rotate(-8deg) scale(1.08); }
-.pcf-opt[aria-pressed="true"] .pcf-ico { background: #EEF4FF; color: #1560FF; }
-.pcf-opt .pcf-sub { display: block; font-size: 14px; font-weight: 500; line-height: 1.4; margin-top: 3px; color: #C9D6F7; transition: color .25s; }
-.pcf-opt[aria-pressed="true"] .pcf-sub { color: #46557F; }
-.pcf-mark { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; margin-left: auto; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.3); font-size: 12px; color: transparent; transition: border-color .25s, background-color .25s; }
+.pcf-opt[aria-pressed="true"] .pcf-ico { background: var(--color-primary); color: #fff; }
+.pcf-opt .pcf-sub { display: block; font-size: 14px; font-weight: 500; line-height: 1.4; margin-top: 3px; color: var(--color-text-light); transition: color .25s; }
+.pcf-mark { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; margin-left: auto; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(10,27,77,0.4); background: #fff; font-size: 12px; color: transparent; transition: border-color .25s, background-color .25s; }
 .pcf-mark.sq { border-radius: 8px; }
-.pcf-opt[aria-pressed="true"] .pcf-mark { background: #FFB21A; border-color: #FFB21A; color: #0A1B4D; animation: pcf-pop .4s cubic-bezier(.2,.9,.3,1.4) both; }
+.pcf-opt[aria-pressed="true"] .pcf-mark { background: var(--color-primary); border-color: var(--color-primary); color: #fff; animation: pcf-pop .4s cubic-bezier(.2,.9,.3,1.4) both; }
 @keyframes pcf-pop { 0% { transform: scale(.3); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
 @keyframes pcf-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 @keyframes pcf-ring { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 @keyframes pcf-draw { to { stroke-dashoffset: 0; } }
 @keyframes pcf-halo { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
-.pcf-input { width: 100%; min-width: 0; padding: 15px 16px; font-size: 16px; font-family: inherit; font-weight: 600; color: #0A1B4D; background: #fff; border: 2px solid transparent; border-radius: 14px; outline: none; transition: border-color .2s, box-shadow .2s; }
-.pcf-input::placeholder { color: #8B97B8; font-weight: 500; }
-.pcf-input:focus { border-color: #FFB21A; box-shadow: 0 0 0 4px rgba(255,178,26,0.28); }
-.pcf-input[aria-invalid="true"] { border-color: #FFB21A; }
-.pcf-back { display: inline-flex; align-items: center; gap: 10px; padding: 16px 20px; border-radius: 14px; border: 2px solid transparent; background: transparent; color: #C9D6F7; font-family: inherit; font-size: 16px; font-weight: 800; line-height: 1; cursor: pointer; transition: color .2s, background-color .2s, transform .2s; }
-.pcf-back:hover { color: #fff; background: rgba(255,255,255,0.08); transform: translateX(-3px); }
-.pcf-next[disabled] { animation: none; opacity: .45; cursor: not-allowed; box-shadow: none; }
-.pcf-next[disabled]:hover { transform: none; box-shadow: none; }
+.pcf-input { width: 100%; min-width: 0; padding: 15px 16px; font-size: 16px; font-family: inherit; font-weight: 600; color: var(--color-dark); background: #fff; border: 2px solid var(--color-line); border-radius: 14px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.pcf-input::placeholder { color: var(--color-text-light); font-weight: 500; opacity: 1; }
+.pcf-input:hover { border-color: rgba(21,96,255,0.55); }
+.pcf-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(21,96,255,0.22); }
+.pcf-input[aria-invalid="true"] { border-color: var(--color-dark); }
+.pcf-input[aria-invalid="true"]:focus { border-color: var(--color-primary); }
+.pcf-next[disabled], .pcf-next[aria-disabled="true"], .pcf-next[disabled]:hover, .pcf-next[aria-disabled="true"]:hover { animation: none; background: var(--color-line); border-color: var(--color-line); color: var(--color-dark); box-shadow: none; }
+.pcf-next[disabled] { cursor: not-allowed; }
+.pcf-next[disabled]:hover { transform: none; }
 .pcf-next[disabled]::after { display: none; }
 .pcf-shake { animation: pcf-shake .3s ease both; }
 .pcf-big { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 22px 22px; border-radius: 20px; text-decoration: none; font-family: inherit; text-align: left; cursor: pointer; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background-color .25s, border-color .25s; }
 .pcf-big:hover { transform: translateY(-4px); }
-.pcf-big.amber { background: #FFB21A; color: #0A1B4D; border: 2px solid #FFB21A; }
+.pcf-big.amber { background: var(--color-accent); color: var(--color-dark); border: 2px solid var(--color-accent); }
 .pcf-big.amber:hover { box-shadow: 0 18px 40px rgba(255,178,26,0.45); }
-.pcf-big.white { background: #fff; color: #0A1B4D; border: 2px solid #fff; }
-.pcf-big.white:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.3); border-color: #FFB21A; }
-.pcf-ghost { display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); color: #fff; font-family: inherit; font-size: 15px; font-weight: 800; line-height: 1; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s, transform .2s; }
-.pcf-ghost:hover { background: #fff; color: #0A1B4D; transform: translateY(-2px); }
-.pcf-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 11px 0; border-bottom: 1px dashed #D9E2F5; }
+.pcf-big.white { background: #fff; color: var(--color-dark); border: 2px solid var(--color-line); }
+.pcf-big.white:hover { box-shadow: 0 18px 40px rgba(10,27,77,0.14); border-color: var(--color-primary); }
+.pcf-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 11px 0; border-bottom: 1px dashed rgba(255,255,255,0.22); }
+.pcf-sec { overflow: hidden; overflow: clip; }
 .pcf-ticket-tilt { transform: rotate(2deg); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
 .pcf-ticket-tilt:hover { transform: rotate(0deg) scale(1.01); }
 `;
@@ -269,9 +269,9 @@ type FieldProps = {
 function Field({ id, label, optional = false, error, children }: FieldProps) {
   return (
     <div style={{ minWidth: 0 }}>
-      <label htmlFor={id} style={{ display: "block", fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
+      <label htmlFor={id} style={{ display: "block", fontSize: 15, fontWeight: 800, color: "var(--color-dark)", marginBottom: 8 }}>
         {label}
-        {optional ? <span style={{ fontWeight: 600, color: "#C9D6F7" }}> (optional)</span> : null}
+        {optional ? <span style={{ fontWeight: 600, color: "var(--color-text-light)" }}> (optional)</span> : null}
       </label>
       {children}
       {error ? (
@@ -279,7 +279,7 @@ function Field({ id, label, optional = false, error, children }: FieldProps) {
           id={`${id}-error`}
           role="alert"
           className="slide-up-in"
-          style={{ display: "flex", alignItems: "flex-start", gap: 8, marginTop: 8, fontSize: 14, fontWeight: 700, lineHeight: 1.4, color: "var(--color-accent)" }}
+          style={{ display: "flex", alignItems: "flex-start", gap: 8, marginTop: 8, fontSize: 14, fontWeight: 700, lineHeight: 1.4, color: "var(--color-dark)" }}
         >
           <FaExclamationCircle aria-hidden="true" style={{ flexShrink: 0, marginTop: 3 }} />
           <span>{error}</span>
@@ -296,11 +296,11 @@ function Ticket({ rows, name, done, filled }: { rows: TicketRow[]; name: string;
     <div className="float-a">
       <div
         className="pcf-ticket-tilt"
-        style={{ background: "#fff", borderRadius: 26, boxShadow: "0 40px 80px rgba(0,0,0,0.38)", color: "var(--color-dark)", position: "relative" }}
+        style={{ background: "var(--color-dark)", borderRadius: 26, boxShadow: "0 36px 70px rgba(10,27,77,0.3)", color: "#fff", position: "relative" }}
       >
         <div style={{ padding: "24px 26px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.6, textTransform: "uppercase", color: "var(--color-primary)" }}>Live preview</p>
+            <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.6, textTransform: "uppercase", color: "var(--color-accent)" }}>Live preview</p>
             <p style={{ fontSize: 24, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.15 }}>Your Profit Check</p>
           </div>
           <span
@@ -314,8 +314,8 @@ function Ticket({ rows, name, done, filled }: { rows: TicketRow[]; name: string;
               fontWeight: 800,
               letterSpacing: 1.2,
               textTransform: "uppercase",
-              background: done ? "var(--color-accent)" : "var(--color-primary-light)",
-              color: "var(--color-dark)",
+              background: done ? "var(--color-accent)" : "rgba(255,255,255,0.12)",
+              color: done ? "var(--color-dark)" : "#fff",
               transform: done ? "rotate(-8deg)" : "none",
             }}
           >
@@ -325,15 +325,15 @@ function Ticket({ rows, name, done, filled }: { rows: TicketRow[]; name: string;
 
         {/* perforation */}
         <div aria-hidden="true" style={{ position: "relative", height: 22 }}>
-          <span style={{ position: "absolute", left: -11, top: 0, width: 22, height: 22, borderRadius: "50%", background: "var(--color-dark)" }} />
-          <span style={{ position: "absolute", right: -11, top: 0, width: 22, height: 22, borderRadius: "50%", background: "var(--color-dark)" }} />
-          <span style={{ position: "absolute", left: 22, right: 22, top: 10, borderTop: "2px dashed var(--color-line)" }} />
+          <span style={{ position: "absolute", left: -11, top: 0, width: 22, height: 22, borderRadius: "50%", background: "var(--color-primary-light)" }} />
+          <span style={{ position: "absolute", right: -11, top: 0, width: 22, height: 22, borderRadius: "50%", background: "var(--color-primary-light)" }} />
+          <span style={{ position: "absolute", left: 22, right: 22, top: 10, borderTop: "2px dashed rgba(255,255,255,0.28)" }} />
         </div>
 
         <div style={{ padding: "8px 26px 8px" }} aria-live="polite">
           {rows.map((r) => (
             <div key={r.label} className="pcf-row">
-              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-light)", flexShrink: 0 }}>{r.label}</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "#C9D6F7", flexShrink: 0 }}>{r.label}</span>
               {r.value ? (
                 <span
                   key={r.value}
@@ -343,7 +343,7 @@ function Ticket({ rows, name, done, filled }: { rows: TicketRow[]; name: string;
                   {r.value}
                 </span>
               ) : (
-                <span aria-hidden="true" style={{ width: 84, height: 10, borderRadius: 6, background: "var(--color-primary-light)", alignSelf: "center" }} />
+                <span aria-hidden="true" style={{ width: 84, height: 10, borderRadius: 6, background: "rgba(255,255,255,0.16)", alignSelf: "center" }} />
               )}
             </div>
           ))}
@@ -351,13 +351,13 @@ function Ticket({ rows, name, done, filled }: { rows: TicketRow[]; name: string;
 
         <div style={{ padding: "16px 26px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "var(--color-text-light)" }}>Prepared for</p>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "#C9D6F7" }}>Prepared for</p>
             <p style={{ fontSize: 17, fontWeight: 800, overflowWrap: "anywhere" }}>{name.trim() || "You"}</p>
           </div>
           {/* decorative ticket stripes */}
           <div aria-hidden="true" style={{ display: "flex", gap: 3, alignItems: "stretch", height: 38 }}>
             {[3, 1, 2, 1, 4, 1, 2, 3, 1, 2, 1, 3].map((w, i) => (
-              <span key={i} style={{ width: w * 2, background: i % 5 === 4 ? "var(--color-accent)" : "var(--color-dark)", borderRadius: 1 }} />
+              <span key={i} style={{ width: w * 2, background: i % 5 === 4 ? "var(--color-accent)" : "#fff", borderRadius: 1 }} />
             ))}
           </div>
         </div>
@@ -615,16 +615,16 @@ export default function ProfitCheckForm() {
         </a>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 16px", marginTop: 20 }}>
-        <button type="button" className="pcf-ghost" onClick={copyAnswers}>
+        <button type="button" className="btn-outline" onClick={copyAnswers}>
           {copied ? <FaCheck aria-hidden="true" /> : <FaCopy aria-hidden="true" />}
           <span aria-live="polite">{copied ? "Copied" : "Copy my answers"}</span>
         </button>
-        <button type="button" className="pcf-back" onClick={backToEdit}>
+        <button type="button" className="btn-outline" onClick={backToEdit}>
           <FaArrowLeft aria-hidden="true" /> Edit my answers
         </button>
       </div>
       {copyFailed ? (
-        <p role="alert" style={{ marginTop: 12, fontSize: 14, fontWeight: 700, color: "var(--color-accent)" }}>
+        <p role="alert" style={{ marginTop: 12, fontSize: 14, fontWeight: 700, color: "var(--color-dark)" }}>
           Your browser blocked the copy. Use the WhatsApp or email button instead.
         </p>
       ) : null}
@@ -636,19 +636,19 @@ export default function ProfitCheckForm() {
       <style>{CSS}</style>
 
       <section
-        className="bg-navy grid-dots-dark on-dark"
+        className="bg-tint grid-dots pcf-sec"
         aria-label="Profit Check"
-        style={{ position: "relative", overflow: "hidden", minHeight: "calc(100vh - 110px)", padding: "clamp(36px, 5vw, 72px) 0 clamp(64px, 8vw, 120px)" }}
+        style={{ position: "relative", minHeight: "calc(100vh - 110px)", padding: "clamp(36px, 5vw, 72px) 0 clamp(64px, 8vw, 120px)" }}
       >
-        <span aria-hidden="true" className="blob" style={{ width: 460, height: 460, background: "rgba(21,96,255,0.4)", top: -160, right: -120 }} />
-        <span aria-hidden="true" className="blob" style={{ width: 340, height: 340, background: "rgba(255,178,26,0.14)", bottom: -140, left: -100, animationDelay: "-6s" }} />
+        <span aria-hidden="true" className="blob" style={{ width: 460, height: 460, background: "rgba(21,96,255,0.1)", top: -160, right: -120 }} />
+        <span aria-hidden="true" className="blob" style={{ width: 340, height: 340, background: "rgba(255,178,26,0.22)", bottom: -140, left: -100, animationDelay: "-6s" }} />
 
         <div className="container-wide" style={{ position: "relative" }}>
           {/* progress */}
           <div ref={topRef} style={{ scrollMarginTop: 96 }}>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "8px 20px", marginBottom: 14 }}>
-              <span className="g-eyebrow on-dark">Profit Check</span>
-              <span style={{ fontSize: 15, fontWeight: 800, color: "#fff", fontVariantNumeric: "tabular-nums" }}>
+              <span className="g-eyebrow" style={{ color: "var(--color-primary-dark)" }}>Profit Check</span>
+              <span style={{ fontSize: 15, fontWeight: 800, color: "var(--color-dark)", fontVariantNumeric: "tabular-nums" }}>
                 {phase === "form" ? `Step ${step + 1} of ${TOTAL_STEPS}` : phase === "success" ? "Sent" : "Last step"}
               </span>
             </div>
@@ -658,7 +658,7 @@ export default function ProfitCheckForm() {
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={pct}
-              style={{ height: 10, borderRadius: 8, background: "rgba(255,255,255,0.12)", overflow: "hidden" }}
+              style={{ height: 10, borderRadius: 8, background: "var(--color-line)", overflow: "hidden" }}
             >
               <div
                 style={{
@@ -666,8 +666,7 @@ export default function ProfitCheckForm() {
                   height: "100%",
                   borderRadius: 8,
                   background: "var(--color-accent)",
-                  boxShadow: "0 0 18px rgba(255,178,26,0.6)",
-                  transition: "width .6s cubic-bezier(.2,.8,.2,1)",
+                                    transition: "width .6s cubic-bezier(.2,.8,.2,1)",
                 }}
               />
             </div>
@@ -679,7 +678,7 @@ export default function ProfitCheckForm() {
                     flex: 1,
                     height: 4,
                     borderRadius: 2,
-                    background: phase !== "form" || i <= step ? "rgba(255,178,26,0.9)" : "rgba(255,255,255,0.14)",
+                    background: phase !== "form" || i <= step ? "var(--color-accent)" : "var(--color-line)",
                     transition: "background-color .4s",
                   }}
                 />
@@ -692,13 +691,13 @@ export default function ProfitCheckForm() {
             <div style={{ flex: "1.5 1 520px", minWidth: 0 }}>
               {phase === "form" ? (
                 <div key={`step-${step}`} className="slide-up-in">
-                  <p style={{ fontSize: 15, fontWeight: 800, color: "var(--color-accent)", marginBottom: 12 }}>
+                  <p style={{ fontSize: 15, fontWeight: 800, color: "var(--color-primary-dark)", marginBottom: 12 }}>
                     Question {step + 1}
                   </p>
                   <h1
                     ref={headingRef}
                     tabIndex={-1}
-                    style={{ fontSize: "clamp(34px, 4.6vw, 68px)", lineHeight: 1.02, fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", outline: "none" }}
+                    style={{ fontSize: "clamp(34px, 4.6vw, 68px)", lineHeight: 1.02, fontWeight: 800, letterSpacing: "-0.04em", color: "var(--color-dark)", outline: "none" }}
                   >
                     {info.title}
                   </h1>
@@ -816,7 +815,7 @@ export default function ProfitCheckForm() {
                     <p
                       role="alert"
                       className="pcf-shake"
-                      style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 18, fontSize: 15, fontWeight: 700, color: "var(--color-accent)" }}
+                      style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 18, fontSize: 15, fontWeight: 700, color: "var(--color-dark)" }}
                     >
                       <FaExclamationCircle aria-hidden="true" />
                       {step === 0 ? "Pick at least one place to sell." : "Pick one option to continue."}
@@ -825,7 +824,7 @@ export default function ProfitCheckForm() {
 
                   <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 14px", marginTop: 30 }}>
                     {step > 0 ? (
-                      <button type="button" className="pcf-back" onClick={() => goTo(step - 1)}>
+                      <button type="button" className="btn-outline" onClick={() => goTo(step - 1)}>
                         <FaArrowLeft aria-hidden="true" /> Back
                       </button>
                     ) : null}
@@ -835,7 +834,6 @@ export default function ProfitCheckForm() {
                         className="btn-accent pcf-next"
                         onClick={next}
                         aria-disabled={!stepValid(step)}
-                        style={stepValid(step) ? undefined : { animation: "none", opacity: 0.55 }}
                       >
                         Continue <FaArrowRight aria-hidden="true" className="btn-arrow" />
                       </button>
@@ -846,14 +844,14 @@ export default function ProfitCheckForm() {
                       </button>
                     )}
                     {step < TOTAL_STEPS - 1 ? (
-                      <span className="hidden md:inline" style={{ fontSize: 14, fontWeight: 600, color: "#C9D6F7" }}>
+                      <span className="hidden md:inline" style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-light)" }}>
                         or press Enter
                       </span>
                     ) : null}
                   </div>
 
-                  <p style={{ display: "flex", alignItems: "center", gap: 9, marginTop: 26, fontSize: 14, fontWeight: 600, color: "#C9D6F7" }}>
-                    <FaLock aria-hidden="true" style={{ color: "var(--color-accent)", flexShrink: 0 }} />
+                  <p style={{ display: "flex", alignItems: "center", gap: 9, marginTop: 26, fontSize: 14, fontWeight: 600, color: "var(--color-text-light)" }}>
+                    <FaLock aria-hidden="true" style={{ color: "var(--color-primary)", flexShrink: 0 }} />
                     No payment details asked. Takes about 2 minutes.
                   </p>
                 </div>
@@ -861,11 +859,11 @@ export default function ProfitCheckForm() {
 
               {phase === "manual" ? (
                 <div key="manual" className="slide-up-in">
-                  <p style={{ fontSize: 15, fontWeight: 800, color: "var(--color-accent)", marginBottom: 12 }}>Your answers are ready</p>
+                  <p style={{ fontSize: 15, fontWeight: 800, color: "var(--color-primary-dark)", marginBottom: 12 }}>Your answers are ready</p>
                   <h1
                     ref={headingRef}
                     tabIndex={-1}
-                    style={{ fontSize: "clamp(34px, 4.6vw, 68px)", lineHeight: 1.02, fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", outline: "none" }}
+                    style={{ fontSize: "clamp(34px, 4.6vw, 68px)", lineHeight: 1.02, fontWeight: 800, letterSpacing: "-0.04em", color: "var(--color-dark)", outline: "none" }}
                   >
                     One last step: send your Profit Check
                   </h1>
@@ -880,17 +878,17 @@ export default function ProfitCheckForm() {
                 <div key="failed" className="slide-up-in">
                   <div
                     role="alert"
-                    style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "18px 20px", borderRadius: 18, border: "2px solid var(--color-accent)", background: "rgba(255,178,26,0.1)", marginBottom: 26, maxWidth: 720 }}
+                    style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "18px 20px", borderRadius: 18, border: "2px solid var(--color-accent)", background: "#fff", marginBottom: 26, maxWidth: 720 }}
                   >
-                    <FaExclamationCircle aria-hidden="true" style={{ color: "var(--color-accent)", fontSize: 22, flexShrink: 0, marginTop: 2 }} />
-                    <p style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5, color: "#fff" }}>
+                    <FaExclamationCircle aria-hidden="true" style={{ color: "var(--color-dark)", fontSize: 22, flexShrink: 0, marginTop: 2 }} />
+                    <p style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5, color: "var(--color-dark)" }}>
                       The form could not be sent. Your answers are safe on this page. Send them now on WhatsApp or by email with the buttons below.
                     </p>
                   </div>
                   <h1
                     ref={headingRef}
                     tabIndex={-1}
-                    style={{ fontSize: "clamp(32px, 4.2vw, 60px)", lineHeight: 1.04, fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", outline: "none" }}
+                    style={{ fontSize: "clamp(32px, 4.2vw, 60px)", lineHeight: 1.04, fontWeight: 800, letterSpacing: "-0.04em", color: "var(--color-dark)", outline: "none" }}
                   >
                     Send your Profit Check another way
                   </h1>
@@ -922,12 +920,12 @@ export default function ProfitCheckForm() {
                   <h1
                     ref={headingRef}
                     tabIndex={-1}
-                    style={{ fontSize: "clamp(34px, 4.6vw, 68px)", lineHeight: 1.02, fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", outline: "none" }}
+                    style={{ fontSize: "clamp(34px, 4.6vw, 68px)", lineHeight: 1.02, fontWeight: 800, letterSpacing: "-0.04em", color: "var(--color-dark)", outline: "none" }}
                   >
                     Your Profit Check is with our team.
                   </h1>
                   <p className="g-lead" style={{ marginTop: 16, maxWidth: 620 }}>
-                    Thank you{contact.name.trim() ? `, ${contact.name.trim().split(" ")[0]}` : ""}. The <BrandName dark /> team will review your answers and contact you with a plan. Have a question now? Message us on WhatsApp.
+                    Thank you{contact.name.trim() ? `, ${contact.name.trim().split(" ")[0]}` : ""}. The <BrandName /> team will review your answers and contact you with a plan. Have a question now? Message us on WhatsApp.
                   </p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 30 }}>
                     <a className="btn-accent" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
@@ -941,7 +939,7 @@ export default function ProfitCheckForm() {
             {/* right: live ticket */}
             <aside aria-label="Your Profit Check so far" style={{ flex: "1 1 360px", minWidth: 0, maxWidth: 520, marginLeft: "auto", marginRight: "auto", padding: "6px 8px 0" }}>
               <Ticket rows={rows} name={contact.name} done={phase !== "form"} filled={filled} />
-              <p style={{ marginTop: 26, fontSize: 14, fontWeight: 600, lineHeight: 1.5, color: "#C9D6F7", textAlign: "center" }}>
+              <p style={{ marginTop: 26, fontSize: 14, fontWeight: 600, lineHeight: 1.5, color: "var(--color-text-light)", textAlign: "center" }}>
                 This card fills in as you answer. Nothing is sent until the last step.
               </p>
             </aside>

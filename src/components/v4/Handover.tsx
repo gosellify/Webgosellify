@@ -43,18 +43,19 @@ const css = `
 @media (min-width: 1080px) { .v4ho-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
 .v4ho-list { display: grid; gap: 8px; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 1500px) { .v4ho-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.v4ho-row { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; padding: 12px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: #fff; font: inherit; text-align: left; cursor: pointer; transition: background-color .3s, border-color .3s, transform .3s cubic-bezier(.2,.8,.2,1); }
-.v4ho-row:hover { transform: translateX(4px); border-color: rgba(255,255,255,0.4); }
-.v4ho-row.done { background: rgba(255,178,26,0.1); border-color: rgba(255,178,26,0.5); }
-.v4ho-ico { width: 36px; height: 36px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; background: rgba(255,255,255,0.1); color: #fff; transition: background-color .3s, color .3s, transform .3s; }
-.v4ho-row.done .v4ho-ico { background: var(--color-accent); color: var(--color-dark); transform: rotate(-8deg); }
-.v4ho-switch { position: relative; width: 44px; height: 24px; border-radius: 999px; flex-shrink: 0; background: rgba(255,255,255,0.18); transition: background-color .3s; }
-.v4ho-row.done .v4ho-switch { background: var(--color-accent); }
-.v4ho-knob { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .35s cubic-bezier(.2,.9,.3,1.3), background-color .3s; }
-.v4ho-row.done .v4ho-knob { transform: translateX(20px); background: var(--color-dark); }
-.v4ho-tag { display: inline-flex; align-items: center; justify-content: center; min-width: 84px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.35); color: #fff; animation: v4ho-pop .35s cubic-bezier(.2,.8,.2,1) both; }
+.v4ho-row { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font: inherit; text-align: left; cursor: pointer; transition: background-color .3s, border-color .3s, transform .3s cubic-bezier(.2,.8,.2,1); }
+.v4ho-row:hover { transform: translateX(4px); border-color: var(--color-primary); }
+.v4ho-row.done { background: var(--color-primary-light); border-color: rgba(21,96,255,0.45); }
+.v4ho-ico { width: 36px; height: 36px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; background: var(--color-primary-light); color: var(--color-primary); transition: background-color .3s, color .3s, transform .3s; }
+.v4ho-row.done .v4ho-ico { background: var(--color-primary); color: #fff; transform: rotate(-8deg); }
+.v4ho-switch { position: relative; width: 44px; height: 24px; border-radius: 999px; flex-shrink: 0; background: var(--color-line); transition: background-color .3s; }
+.v4ho-row.done .v4ho-switch { background: var(--color-primary); }
+.v4ho-knob { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-dark); transition: transform .35s cubic-bezier(.2,.9,.3,1.3), background-color .3s; }
+.v4ho-row.done .v4ho-knob { transform: translateX(20px); background: #fff; }
+.v4ho-tag { display: inline-flex; align-items: center; justify-content: center; min-width: 84px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; flex-shrink: 0; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); animation: v4ho-pop .35s cubic-bezier(.2,.8,.2,1) both; }
 .v4ho-tag.done { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-dark); }
-.v4ho-stamp { display: inline-block; padding: 10px 20px; border: 4px solid var(--color-accent); border-radius: 14px; color: var(--color-accent); font-weight: 800; font-size: clamp(18px, 1.8vw, 26px); letter-spacing: 2px; text-transform: uppercase; background: rgba(10,27,77,0.92); box-shadow: 0 18px 40px rgba(0,0,0,0.35); white-space: nowrap; }
+.v4ho-stamp { display: inline-block; padding: 10px 20px; border: 4px solid var(--color-primary); border-radius: 14px; color: var(--color-primary); font-weight: 800; font-size: clamp(18px, 1.8vw, 26px); letter-spacing: 2px; text-transform: uppercase; background: #fff; box-shadow: 0 18px 40px rgba(10,27,77,0.16); white-space: nowrap; }
+.v4ho-shine { background: linear-gradient(100deg, #1560ff 20%, #0a1b4d 50%, #1560ff 80%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 4s linear infinite; }
 `;
 
 function allFalse(): boolean[] {
@@ -131,24 +132,24 @@ export default function Handover() {
   };
 
   return (
-    <section ref={sectionRef} className="g-section bg-navy grid-dots-dark on-dark" style={{ overflow: "hidden" }}>
+    <section ref={sectionRef} className="g-section bg-tint grid-dots" style={{ overflow: "hidden", color: "var(--color-dark)" }}>
       <style>{css}</style>
-      <div aria-hidden="true" className="blob" style={{ width: 520, height: 520, right: "-160px", top: "-160px", background: "rgba(21,96,255,0.35)" }} />
-      <div aria-hidden="true" className="blob" style={{ width: 360, height: 360, left: "-120px", bottom: "-140px", background: "rgba(255,178,26,0.14)", animationDelay: "-6s" }} />
+      <div aria-hidden="true" className="blob" style={{ width: 520, height: 520, right: "-160px", top: "-160px", background: "rgba(21,96,255,0.14)" }} />
+      <div aria-hidden="true" className="blob" style={{ width: 360, height: 360, left: "-120px", bottom: "-140px", background: "rgba(255,178,26,0.16)", animationDelay: "-6s" }} />
 
       <div className="container-main" style={{ position: "relative" }}>
         <div className="v4ho-grid">
           {/* Left: copy and counter */}
           <div style={{ minWidth: 0 }}>
             <Reveal>
-              <span className="g-eyebrow on-dark" style={{ marginBottom: 20 }}>
+              <span className="g-eyebrow" style={{ marginBottom: 20 }}>
                 Done for you
               </span>
               <h2 className="g-h2" style={{ marginBottom: 22 }}>
-                You own the store. <span className="shine-text">We do the work.</span>
+                You own the store. <span className="v4ho-shine">We do the work.</span>
               </h2>
               <p className="g-lead" style={{ maxWidth: 560 }}>
-                The store, the brand and the profit stay yours. <BrandName dark /> takes the daily work off your plate.
+                The store, the brand and the profit stay yours. <BrandName /> takes the daily work off your plate.
                 Tap a task to hand it over, or hand over all ten.
               </p>
             </Reveal>
@@ -163,8 +164,9 @@ export default function Handover() {
                   gap: "18px 28px",
                   padding: "clamp(20px, 2.4vw, 32px)",
                   borderRadius: 26,
-                  background: "var(--color-dark-light)",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#fff",
+                  border: "2px solid var(--color-line)",
+                  boxShadow: "0 18px 40px rgba(10,27,77,0.08)",
                 }}
               >
                 <div
@@ -187,21 +189,21 @@ export default function Handover() {
                       lineHeight: 0.9,
                       letterSpacing: "-0.06em",
                       fontVariantNumeric: "tabular-nums",
-                      color: allDone ? "var(--color-accent)" : "#fff",
+                      color: allDone ? "var(--color-primary)" : "var(--color-dark)",
                     }}
                   >
                     {remaining}
                   </span>
-                  <span style={{ fontSize: 18, fontWeight: 800, color: "#c9d6f7" }}>/ {tasks.length}</span>
+                  <span style={{ fontSize: 18, fontWeight: 800, color: "var(--color-text-light)" }}>/ {tasks.length}</span>
                 </div>
                 <div style={{ flex: "1 1 220px", minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1.6, textTransform: "uppercase", color: "var(--color-accent)", marginBottom: 6 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1.6, textTransform: "uppercase", color: "var(--color-primary)", marginBottom: 6 }}>
                     Tasks on your plate
                   </div>
-                  <p style={{ fontSize: 16, lineHeight: 1.5, color: "#c9d6f7", marginBottom: 14 }}>
+                  <p style={{ fontSize: 16, lineHeight: 1.5, color: "var(--color-text-light)", marginBottom: 14 }}>
                     {allDone ? "Nothing left for you. We report every sale and you check the numbers." : "These are still yours to do every day."}
                   </p>
-                  <div aria-hidden="true" style={{ height: 8, borderRadius: 999, background: "rgba(255,255,255,0.12)", overflow: "hidden" }}>
+                  <div aria-hidden="true" style={{ height: 8, borderRadius: 999, background: "var(--color-line)", overflow: "hidden" }}>
                     <div
                       style={{
                         height: "100%",
@@ -221,7 +223,7 @@ export default function Handover() {
                 <Link href="/profit-check" className="btn-accent">
                   Check my profit <FaArrowRight className="btn-arrow" aria-hidden="true" />
                 </Link>
-                <Link href="/pricing" className="btn-outline-white">
+                <Link href="/pricing" className="btn-outline">
                   How pay from profit works
                 </Link>
               </div>
@@ -234,15 +236,15 @@ export default function Handover() {
               style={{
                 position: "relative",
                 borderRadius: 30,
-                background: "var(--color-dark-light)",
-                border: "1px solid rgba(255,255,255,0.12)",
+                background: "#fff",
+                border: "2px solid var(--color-line)",
                 padding: "clamp(18px, 2.4vw, 34px)",
-                boxShadow: "0 40px 80px rgba(0,0,0,0.35)",
+                boxShadow: "0 30px 70px rgba(10,27,77,0.12)",
               }}
             >
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 18 }}>
-                <div style={{ fontWeight: 800, fontSize: "clamp(18px, 1.6vw, 22px)" }}>Who does what</div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 700, color: "#c9d6f7" }}>
+                <div style={{ fontWeight: 800, fontSize: "clamp(18px, 1.6vw, 22px)", color: "var(--color-dark)" }}>Who does what</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 700, color: "var(--color-text-light)" }}>
                   <span className="pulse-dot" aria-hidden="true" style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
                   {tasks.length - remaining} of {tasks.length} handed over
                 </div>
@@ -280,7 +282,7 @@ export default function Handover() {
                 <button
                   type="button"
                   onClick={onMain}
-                  className={allDone ? "btn-outline-white" : "btn-accent"}
+                  className={allDone ? "btn-outline" : "btn-accent"}
                   style={{ fontFamily: "inherit", flex: "1 1 240px" }}
                 >
                   {allDone ? (
@@ -293,8 +295,8 @@ export default function Handover() {
                     </>
                   )}
                 </button>
-                <span style={{ flex: "1 1 200px", minWidth: 0, display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#c9d6f7" }}>
-                  <FaCheck aria-hidden="true" style={{ color: "var(--color-accent)", flexShrink: 0 }} />
+                <span style={{ flex: "1 1 200px", minWidth: 0, display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "var(--color-text-light)" }}>
+                  <FaCheck aria-hidden="true" style={{ color: "var(--color-primary)", flexShrink: 0 }} />
                   No management fee until the store makes profit.
                 </span>
               </div>

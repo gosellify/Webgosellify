@@ -22,8 +22,8 @@ const tiles: Tile[] = [
 
 function Row({ outline, reverse }: { outline: boolean; reverse: boolean }) {
   const textStyle: CSSProperties = outline
-    ? { color: "transparent", WebkitTextStroke: "2px rgba(255,255,255,0.55)" }
-    : { color: "#fff" };
+    ? { color: "transparent", WebkitTextStroke: "2px var(--color-dark)" }
+    : { color: "var(--color-dark)" };
   return (
     <div className="marquee-wrap" style={{ overflow: "hidden" }}>
       <div className={reverse ? "marquee rev" : "marquee"} style={{ animationDuration: reverse ? "52s" : "44s" }}>
@@ -60,14 +60,14 @@ function Row({ outline, reverse }: { outline: boolean; reverse: boolean }) {
 
 export default function WarehouseBand() {
   return (
-    <section className="g-section bg-navy on-dark" style={{ overflow: "hidden" }}>
+    <section className="g-section" style={{ overflow: "hidden", background: "#fff", color: "var(--color-dark)" }}>
       <style>{`
         .v4wh-phrase { transition: color .3s; }
-        .v4wh-phrase:hover { color: var(--color-accent) !important; -webkit-text-stroke-color: var(--color-accent) !important; }
+        .v4wh-phrase:hover { color: var(--color-primary) !important; -webkit-text-stroke-color: var(--color-primary) !important; }
         @keyframes v4wh-drive { 0% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 100% { transform: translateX(-6px); } }
-        .v4wh-tile .v4wh-icon { width: 60px; height: 60px; border-radius: 18px; background: rgba(255,255,255,0.08); color: var(--color-accent); display: flex; align-items: center; justify-content: center; font-size: 26px; transition: background-color .35s, color .35s, transform .35s; }
+        .v4wh-tile .v4wh-icon { width: 60px; height: 60px; border-radius: 18px; background: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 26px; transition: background-color .35s, color .35s, transform .35s; }
         .v4wh-tile .v4wh-icon svg { animation: v4wh-drive 3.2s ease-in-out infinite; }
-        .v4wh-tile:hover .v4wh-icon { background: var(--color-accent); color: var(--color-dark); transform: rotate(-8deg) scale(1.1); }
+        .v4wh-tile:hover .v4wh-icon { background: var(--color-primary); color: #fff; transform: rotate(-8deg) scale(1.1); }
         .v4wh-tile .v4wh-line { height: 3px; width: 44px; border-radius: 2px; background: var(--color-accent); transition: width .45s cubic-bezier(.2,.8,.2,1); }
         .v4wh-tile:hover .v4wh-line { width: 100%; }
       `}</style>
@@ -75,9 +75,9 @@ export default function WarehouseBand() {
       <div className="container-wide" style={{ marginBottom: "clamp(32px, 4vw, 56px)" }}>
         <Reveal style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
           <div style={{ flex: "1 1 520px", minWidth: 0 }}>
-            <span className="g-eyebrow on-dark">Our US warehouses</span>
+            <span className="g-eyebrow">Our US warehouses</span>
             <h2 className="g-h2" style={{ marginTop: 18 }}>
-              Your orders, packed and <span className="t-amber">out the door.</span>
+              Your orders, packed and <span className="t-blue">out the door.</span>
             </h2>
           </div>
           <p className="g-lead" style={{ flex: "0 1 440px", minWidth: 0 }}>
@@ -95,12 +95,12 @@ export default function WarehouseBand() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(270px, 100%), 1fr))", gap: "clamp(14px, 1.6vw, 24px)" }}>
           {tiles.map((t, i) => (
             <Reveal key={t.title} delay={i * 110} style={{ minWidth: 0 }}>
-              <div className="g-card-dark v4wh-tile" style={{ height: "100%", padding: "clamp(22px, 2.2vw, 34px)", display: "flex", flexDirection: "column", gap: 16 }}>
+              <div className="g-card v4wh-tile" style={{ height: "100%", padding: "clamp(22px, 2.2vw, 34px)", display: "flex", flexDirection: "column", gap: 16 }}>
                 <span className="v4wh-icon" aria-hidden="true">
                   <t.icon style={{ animationDelay: `${i * 0.4}s` }} />
                 </span>
-                <h3 className="g-h3">{t.title}</h3>
-                <p style={{ color: "#c9d6f7", fontSize: 16, lineHeight: 1.6 }}>{t.text}</p>
+                <h3 className="g-h3" style={{ color: "var(--color-dark)" }}>{t.title}</h3>
+                <p style={{ color: "var(--color-text-light)", fontSize: 16, lineHeight: 1.6 }}>{t.text}</p>
                 <span className="v4wh-line" aria-hidden="true" style={{ marginTop: "auto" }} />
               </div>
             </Reveal>
@@ -108,7 +108,7 @@ export default function WarehouseBand() {
         </div>
 
         <Reveal delay={200} style={{ marginTop: "clamp(28px, 3.5vw, 48px)", display: "flex", flexWrap: "wrap", gap: 14 }}>
-          <Link href="/services/3pl-warehouse" className="btn-outline-white">
+          <Link href="/services/3pl-warehouse" className="btn-navy">
             See the 3PL warehouse service <FaArrowRight className="btn-arrow" aria-hidden="true" />
           </Link>
         </Reveal>
