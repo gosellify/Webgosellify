@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaArrowRight, FaInfoCircle, FaUndo } from "react-icons/fa";
+import { FaArrowRight, FaChartLine, FaCoins, FaFlagCheckered, FaInfoCircle, FaPercent, FaUndo } from "react-icons/fa";
 import { BrandName } from "@/components/brand/Logo";
+import { ServiceSection, StepList } from "@/components/services/ServiceBlocks";
+import type { TitledItem } from "@/components/services/ServiceBlocks";
 
 type Marketplace = "Amazon" | "Walmart" | "eBay" | "Other";
 type FieldKey = "price" | "cost" | "fee" | "ship" | "prep" | "units" | "ads";
@@ -73,17 +75,22 @@ const DEFINITIONS: { term: string; formula: string; text: string }[] = [
   },
 ];
 
+const STEP_ITEMS: TitledItem[] = STEPS.map((s) => ({ title: s.title, desc: s.text }));
+const DEF_ICONS: React.ReactNode[] = [<FaCoins key="a" />, <FaPercent key="b" />, <FaChartLine key="c" />, <FaFlagCheckered key="d" />];
+const DEF_TILES: string[] = ["icon-tile", "icon-tile amber", "icon-tile navy", "icon-tile"];
+
 const CSS = `
-.pcalc-input { width: 100%; min-width: 0; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: 700; color: #0A1B4D; background: transparent; border: 0; outline: none; font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
+.pcalc-input { width: 100%; min-width: 0; padding: 12px 14px; font-family: inherit; font-size: 16px; font-weight: 700; color: #0A1B4D; background: transparent; border: 0; outline: none; font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
 .pcalc-input::-webkit-outer-spin-button, .pcalc-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.pcalc-box { display: flex; align-items: center; background: #fff; border: 1px solid var(--color-line); border-radius: 8px; overflow: hidden; transition: border-color .15s; }
+.pcalc-box { display: flex; align-items: center; background: #fff; border: 1px solid var(--color-line); border-radius: 12px; overflow: hidden; transition: border-color .15s; }
 .pcalc-box:hover { border-color: var(--color-text-light); }
 .pcalc-box:focus-within { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
 .pcalc-unit { align-self: stretch; display: flex; align-items: center; justify-content: center; min-width: 38px; padding: 0 10px; background: var(--color-light-gray); color: var(--color-text-light); font-weight: 700; font-size: 15px; }
 .pcalc-range { width: 100%; margin: 8px 0 0; display: block; accent-color: #1560FF; cursor: pointer; }
-.pcalc-mp { flex: 1 1 90px; min-width: 0; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-family: inherit; font-size: 15px; font-weight: 700; line-height: 1.2; cursor: pointer; transition: border-color .15s; }
+.pcalc-mp { flex: 1 1 90px; min-width: 0; padding: 11px 12px; border-radius: 999px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-family: inherit; font-size: 15px; font-weight: 700; line-height: 1.2; cursor: pointer; transition: border-color .15s; }
 .pcalc-mp:hover { border-color: var(--color-primary); }
-.pcalc-mp[aria-pressed="true"] { border-color: var(--color-primary); color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.pcalc-mp[aria-pressed="true"] { border-color: var(--color-primary); color: #fff; background: var(--color-primary); }
+.pcalc-panel { background: #fff; border: 1px solid var(--color-line); border-radius: 16px; padding: clamp(18px, 2.6vw, 30px); min-width: 0; }
 .pcalc-reset { display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--color-primary); font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .pcalc-seg { height: 100%; min-width: 0; }
 `;
@@ -171,7 +178,13 @@ type StatProps = { label: string; value: string; sub: string; big?: boolean; tag
 
 function Stat({ label, value, sub, big = false, tag }: StatProps) {
   return (
-    <div style={{ minWidth: 0, padding: "14px 0", borderTop: "1px solid var(--color-line)", gridColumn: big ? "1 / -1" : undefined }}>
+    <div
+      style={
+        big
+          ? { minWidth: 0, padding: "18px 20px", borderRadius: 14, background: "var(--color-primary-light)", gridColumn: "1 / -1", marginBottom: 4 }
+          : { minWidth: 0, padding: "14px 0", borderBottom: "1px solid var(--color-line)" }
+      }
+    >
       <p style={{ fontSize: 14, fontWeight: 700, color: "var(--color-dark)" }}>
         {label}
         {tag ? <span style={{ fontWeight: 400, color: "var(--color-text-light)" }}> ({tag.toLowerCase()})</span> : null}
@@ -183,7 +196,7 @@ function Stat({ label, value, sub, big = false, tag }: StatProps) {
           fontWeight: 800,
           lineHeight: 1.2,
           letterSpacing: "-0.01em",
-          color: "var(--color-dark)",
+          color: big && !tag ? "var(--color-primary)" : "var(--color-dark)",
           fontVariantNumeric: "tabular-nums",
           overflowWrap: "anywhere",
         }}
@@ -294,24 +307,24 @@ export default function Calculator() {
       <style>{CSS}</style>
 
       {/* intro */}
-      <section style={{ background: "#fff", padding: "clamp(36px, 5vw, 64px) 0 28px" }}>
-        <div className="container-main">
+      <section style={{ background: "#fff", padding: "clamp(48px, 5vw, 72px) 0 clamp(36px, 4vw, 52px)" }}>
+        <div className="container-main center">
           <span className="g-eyebrow">Free tool</span>
-          <h1 className="g-h1" style={{ marginTop: 10, maxWidth: 760 }}>
-            Amazon and Walmart profit calculator
+          <h1 className="g-h1" style={{ margin: "18px auto 0", maxWidth: 760 }}>
+            Amazon and Walmart <span className="t-blue">profit calculator</span>
           </h1>
-          <p className="g-lead" style={{ marginTop: 14, maxWidth: 680 }}>
+          <p className="g-lead" style={{ marginTop: 16, maxWidth: 680 }}>
             Type in your own numbers and see your profit per unit, margin, ROI and monthly profit right away. No sign-up. Nothing is saved or sent.
           </p>
         </div>
       </section>
 
       {/* calculator */}
-      <section aria-label="Profit calculator" style={{ background: "#fff", paddingBottom: "clamp(48px, 6vw, 80px)" }}>
+      <section aria-label="Profit calculator" className="bg-tint" style={{ padding: "clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 80px)" }}>
         <div className="container-main">
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "32px 48px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: 24 }}>
             {/* inputs */}
-            <div style={{ flex: "1.2 1 460px", minWidth: 0 }}>
+            <div className="pcalc-panel" style={{ flex: "1.2 1 460px" }}>
               <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 14, flexWrap: "wrap", marginBottom: 18 }}>
                 <h2 className="g-h3">Your numbers</h2>
                 <button type="button" className="pcalc-reset" onClick={() => setValues(DEFAULTS)}>
@@ -344,10 +357,10 @@ export default function Calculator() {
 
             {/* results */}
             <div
-              className="bg-tint"
+              className="pcalc-panel"
               role="region"
               aria-label="Results"
-              style={{ flex: "1 1 400px", minWidth: 0, padding: "22px 24px", border: "1px solid var(--color-line)", borderRadius: 10 }}
+              style={{ flex: "1 1 400px", borderColor: "var(--color-primary)" }}
             >
               <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 14 }}>
                 <h2 className="g-h3">Your {marketplace === "Other" ? "" : `${marketplace} `}results</h2>
@@ -376,7 +389,7 @@ export default function Calculator() {
               <div aria-live="polite">
                 {note ? (
                   <p
-                    style={{ display: "flex", gap: 10, alignItems: "flex-start", marginTop: 6, padding: "12px 14px", borderRadius: 8, border: "1px solid var(--color-dark)", background: "#fff", fontSize: 14, fontWeight: 700, lineHeight: 1.45, color: "var(--color-dark)" }}
+                    style={{ display: "flex", gap: 10, alignItems: "flex-start", marginTop: 6, padding: "12px 14px", borderRadius: 12, border: "1px solid var(--color-accent)", background: "#fff", fontSize: 14, fontWeight: 700, lineHeight: 1.45, color: "var(--color-dark)" }}
                   >
                     <FaInfoCircle aria-hidden="true" style={{ flexShrink: 0, marginTop: 3 }} />
                     <span>{note}</span>
@@ -385,7 +398,7 @@ export default function Calculator() {
               </div>
 
               {/* where each dollar goes */}
-              <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid var(--color-line)" }}>
+              <div style={{ marginTop: 18 }}>
                 <h3 style={{ fontSize: 15, fontWeight: 700 }}>Where each dollar of the sale price goes</h3>
                 {unitLoss ? (
                   <p className="typo-small" style={{ marginTop: 4 }}>
@@ -395,7 +408,7 @@ export default function Calculator() {
                 <div
                   role="img"
                   aria-label={base > 0 ? `Split of the sale price: ${barSummary}` : "No numbers entered yet"}
-                  style={{ display: "flex", height: 22, borderRadius: 4, overflow: "hidden", marginTop: 12, background: "#fff", border: "1px solid var(--color-dark)" }}
+                  style={{ display: "flex", height: 22, borderRadius: 999, overflow: "hidden", marginTop: 12, background: "var(--color-light-gray)" }}
                 >
                   {segments.map((s) => (
                     <span key={s.key} className="pcalc-seg" style={{ flexGrow: s.share, flexBasis: 0, background: s.background }} />
@@ -423,52 +436,43 @@ export default function Calculator() {
       </section>
 
       {/* how to use + definitions */}
-      <section style={{ background: "#fff", paddingBottom: "clamp(48px, 6vw, 80px)" }}>
-        <div className="container-read" style={{ marginLeft: "max(0px, calc((100% - 1200px) / 2))" }}>
-          <hr className="rule" />
-          <h2 className="g-h2" style={{ marginTop: "clamp(36px, 4vw, 56px)" }}>
-            How to use this calculator
-          </h2>
-          <ol style={{ marginTop: 16, paddingLeft: 22 }}>
-            {STEPS.map((s) => (
-              <li key={s.title} style={{ marginTop: 14, paddingLeft: 4 }}>
-                <strong style={{ color: "var(--color-dark)" }}>{s.title}.</strong>{" "}
-                <span style={{ color: "var(--color-text-light)" }}>{s.text}</span>
-              </li>
-            ))}
-          </ol>
+      <ServiceSection eyebrow="How to use it" title="How to use this calculator">
+        <StepList steps={STEP_ITEMS} />
+      </ServiceSection>
 
-          <h2 className="g-h2" style={{ marginTop: "clamp(40px, 5vw, 64px)" }}>
-            What the numbers mean
-          </h2>
-          <p className="g-lead" style={{ marginTop: 12 }}>
-            Four numbers tell you if a product is worth selling. Here is how each one is worked out.
-          </p>
-          <dl style={{ marginTop: 20 }}>
-            {DEFINITIONS.map((d) => (
-              <div key={d.term} style={{ borderTop: "1px solid var(--color-line)", padding: "16px 0" }}>
+      <ServiceSection
+        eyebrow="The formulas"
+        title="What the numbers mean"
+        lead="Four numbers tell you if a product is worth selling. Here is how each one is worked out."
+        tint
+      >
+        <dl style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(440px, 100%), 1fr))", gap: 20, maxWidth: 1100 }}>
+          {DEFINITIONS.map((d, i) => (
+            <div key={d.term} className="g-card" style={{ padding: 24, minWidth: 0, display: "flex", gap: 18, alignItems: "flex-start" }}>
+              <span className={DEF_TILES[i % DEF_TILES.length]} aria-hidden="true">{DEF_ICONS[i % DEF_ICONS.length]}</span>
+              <div style={{ minWidth: 0 }}>
                 <dt className="g-h3">{d.term}</dt>
                 <dd>
-                  <p style={{ marginTop: 6, fontSize: 15, fontWeight: 700, color: "var(--color-dark)" }}>{d.formula}</p>
-                  <p style={{ marginTop: 6, color: "var(--color-text-light)" }}>{d.text}</p>
+                  <p style={{ marginTop: 8, display: "inline-block", fontSize: 14, fontWeight: 700, color: "var(--color-dark)", background: "var(--color-primary-light)", borderRadius: 8, padding: "6px 10px", lineHeight: 1.4 }}>{d.formula}</p>
+                  <p style={{ marginTop: 8, fontSize: 16, lineHeight: 1.6, color: "var(--color-text-light)" }}>{d.text}</p>
                 </dd>
               </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+            </div>
+          ))}
+        </dl>
+      </ServiceSection>
 
       {/* next step */}
-      <section className="bg-tint" style={{ padding: "clamp(40px, 5vw, 64px) 0" }}>
-        <div className="container-main">
-          <h2 className="g-h2" style={{ maxWidth: 720 }}>
+      <section className="bg-navy on-dark" style={{ padding: "clamp(56px, 6vw, 84px) 0" }}>
+        <div className="container-main center">
+          <h2 className="g-h2" style={{ maxWidth: 720, margin: "0 auto" }}>
             Want a team to run the numbers and the store?
           </h2>
           <p className="g-lead" style={{ marginTop: 12, maxWidth: 640 }}>
-            <BrandName /> manages Amazon and Walmart stores on a pay from profit model. No management fee until your store makes profit. No contract.
+            <BrandName dark /> manages Amazon and Walmart stores on a pay from profit model. No management fee until your store makes profit. No contract.
           </p>
-          <div style={{ marginTop: 22 }}>
-            <Link href="/profit-check" className="btn-primary">
+          <div style={{ marginTop: 26 }}>
+            <Link href="/profit-check" className="btn-accent">
               Start the 2-minute Profit Check <FaArrowRight aria-hidden="true" />
             </Link>
           </div>

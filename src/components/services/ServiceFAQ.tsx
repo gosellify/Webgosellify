@@ -1,3 +1,5 @@
+import { KitStyles } from "@/components/services/ServiceBlocks";
+
 interface FAQItem {
   question: string;
   answer: string;
@@ -9,7 +11,7 @@ interface ServiceFAQProps {
   tint?: boolean;
 }
 
-/* Plain question list. Uses native details/summary, so every answer is in the page HTML. */
+/* Rounded accordion rows. Uses native details/summary, so every answer is in the page HTML. */
 export default function ServiceFAQ({ faqs, title, tint }: ServiceFAQProps) {
   const faqLd = {
     "@context": "https://schema.org",
@@ -23,19 +25,20 @@ export default function ServiceFAQ({ faqs, title, tint }: ServiceFAQProps) {
 
   return (
     <section className={tint ? "g-section bg-tint" : "g-section"} style={tint ? undefined : { background: "#fff" }}>
+      <KitStyles />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <div className="container-main">
-        <h2 className="g-h2" style={{ marginBottom: 20 }}>{title ?? "Questions and answers"}</h2>
-        <div style={{ maxWidth: 760 }}>
+        <div className="center" style={{ marginBottom: 32 }}>
+          <span className="g-eyebrow" style={tint ? { background: "#fff" } : undefined}>FAQ</span>
+          <h2 className="g-h2" style={{ margin: "14px auto 0", maxWidth: 760 }}>{title ?? "Questions and answers"}</h2>
+        </div>
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
           {faqs.map((item, index) => (
-            <details key={item.question} open={index === 0} style={{ borderTop: "1px solid var(--color-line)", padding: "14px 0" }}>
-              <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--color-dark)", lineHeight: 1.45 }}>
-                {item.question}
-              </summary>
-              <p style={{ marginTop: 8, color: "var(--color-text-light)" }}>{item.answer}</p>
+            <details key={item.question} className="sv-faq" open={index === 0}>
+              <summary>{item.question}</summary>
+              <p className="sv-faq-a">{item.answer}</p>
             </details>
           ))}
-          <hr className="rule" />
         </div>
       </div>
     </section>

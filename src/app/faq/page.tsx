@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { FaComments } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
+import { ServiceHero } from "@/components/services/ServiceBlocks";
 
 type Faq = { question: string; answer: string };
 
@@ -66,45 +68,49 @@ export default function FAQPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>FAQ</span>
-          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
-            Ecommerce management service: questions and answers
-          </h1>
-          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "36px" }}>
-            These are the questions sellers ask us most before they start. The answers are short
-            and plain.
-          </p>
+      <ServiceHero
+        eyebrow="FAQ"
+        title="Ecommerce management service: questions and answers"
+        lead="These are the questions sellers ask us most before they start. The answers are short and plain."
+      />
 
-          <div style={{ maxWidth: "820px", borderTop: "1px solid var(--color-line)" }}>
-            {faqs.map((item) => (
-              <div key={item.question} style={{ padding: "20px 0", borderBottom: "1px solid var(--color-line)" }}>
-                <h2 className="g-h3" style={{ marginBottom: "6px" }}>{item.question}</h2>
-                <p className="typo-body">{item.answer}</p>
-              </div>
+      <section className="g-section bg-tint" style={{ paddingTop: "clamp(48px, 5vw, 72px)" }}>
+        <div className="container-main">
+          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            {faqs.map((item, index) => (
+              <details key={item.question} className="sv-faq" open={index === 0}>
+                <summary>
+                  <h2 style={{ fontSize: "inherit", fontWeight: "inherit", lineHeight: "inherit", letterSpacing: 0 }}>{item.question}</h2>
+                </summary>
+                <p className="sv-faq-a">{item.answer}</p>
+              </details>
             ))}
           </div>
 
-          <div style={{ maxWidth: "820px", marginTop: "32px" }}>
-            <h2 className="g-h3" style={{ marginBottom: "6px" }}>Still have a question?</h2>
-            <p className="typo-body">
-              Message us on{" "}
-              <a
-                href="https://wa.me/13073938789"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline"
-                style={{ color: "var(--color-primary)", fontWeight: 700 }}
-              >
-                WhatsApp
-              </a>{" "}
-              or use the{" "}
-              <Link href="/contact" className="link-underline" style={{ color: "var(--color-primary)", fontWeight: 700 }}>
-                contact page
-              </Link>
-              .
-            </p>
+          <div
+            style={{ maxWidth: "860px", margin: "28px auto 0", background: "#fff", border: "1px solid var(--color-line)", borderRadius: 16, padding: "22px 24px", display: "flex", flexWrap: "wrap", gap: 18, alignItems: "center" }}
+          >
+            <span className="icon-tile amber" aria-hidden="true"><FaComments /></span>
+            <div style={{ flex: "1 1 260px", minWidth: 0 }}>
+              <h2 className="g-h3" style={{ marginBottom: "4px" }}>Still have a question?</h2>
+              <p className="typo-body">
+                Message us on{" "}
+                <a
+                  href="https://wa.me/13073938789"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline"
+                  style={{ color: "var(--color-primary)", fontWeight: 700 }}
+                >
+                  WhatsApp
+                </a>{" "}
+                or use the{" "}
+                <Link href="/contact" className="link-underline" style={{ color: "var(--color-primary)", fontWeight: 700 }}>
+                  contact page
+                </Link>
+                .
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -1,3 +1,5 @@
+import { FeatureList, ServiceSection } from "@/components/services/ServiceBlocks";
+
 const features: { title: string; desc: string }[] = [
   {
     title: "Connected through the marketplace's official API",
@@ -27,35 +29,17 @@ const features: { title: string; desc: string }[] = [
 
 export default function TechnologySection() {
   return (
-    <section className="g-section" style={{ background: "#fff" }}>
-      <div className="container-main">
-        <div style={{ maxWidth: 760, marginBottom: 24 }}>
-          <span className="g-eyebrow">Our own software</span>
-          <h2 className="g-h2" style={{ marginTop: 8 }}>Every store runs on the Gosellify Portal</h2>
-          <p className="g-lead" style={{ marginTop: 12 }}>
-            We built the Portal for our own stores first. It connects each store through the marketplace&apos;s
-            official API, so our team and the store owner look at the same figures.
-          </p>
-        </div>
-        <dl style={{ maxWidth: 980 }}>
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
-                gap: "4px 40px",
-                padding: "14px 0",
-                borderTop: "1px solid var(--color-line)",
-              }}
-            >
-              <dt style={{ fontWeight: 700, color: "var(--color-dark)" }}>{feature.title}</dt>
-              <dd style={{ color: "var(--color-text-light)" }}>{feature.desc}</dd>
-            </div>
-          ))}
-        </dl>
-        <hr className="rule" style={{ maxWidth: 980 }} />
-      </div>
-    </section>
+    <ServiceSection
+      eyebrow="Our own software"
+      title="Every store runs on the Gosellify Portal"
+      lead={
+        <>
+          We built the Portal for our own stores first. It connects each store through the marketplace&apos;s
+          official API, so our team and the store owner look at the same figures.
+        </>
+      }
+    >
+      <FeatureList items={features} cols={3} />
+    </ServiceSection>
   );
 }

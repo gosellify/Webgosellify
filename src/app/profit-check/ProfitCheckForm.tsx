@@ -16,6 +16,7 @@ import {
   FaStore,
   FaWhatsapp,
 } from "react-icons/fa";
+import { pickIcon, tileClass } from "@/components/services/serviceIcons";
 import { BrandName } from "@/components/brand/Logo";
 
 const ENDPOINT = process.env.NEXT_PUBLIC_LEADS_ENDPOINT || "";
@@ -186,21 +187,25 @@ function buildSummary(a: Answers, c: Contact): string {
 }
 
 const CSS = `
-.pcf-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; text-align: left; padding: 13px 16px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); cursor: pointer; font-family: inherit; transition: border-color .15s, background-color .15s; }
+.pcf-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; text-align: left; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); cursor: pointer; font-family: inherit; transition: border-color .15s, background-color .15s; }
 .pcf-opt:hover { border-color: var(--color-primary); }
-.pcf-opt[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-light-gray); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.pcf-opt[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-primary-light); box-shadow: inset 0 0 0 1px var(--color-primary); }
 .pcf-opt .pcf-ico { flex-shrink: 0; display: flex; align-items: center; font-size: 18px; color: var(--color-text-light); }
 .pcf-opt[aria-pressed="true"] .pcf-ico { color: var(--color-primary); }
 .pcf-opt .pcf-sub { display: block; font-size: 14px; font-weight: 400; line-height: 1.4; margin-top: 2px; color: var(--color-text-light); }
 .pcf-mark { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-text-light); background: #fff; font-size: 10px; color: transparent; }
 .pcf-mark.sq { border-radius: 4px; }
 .pcf-opt[aria-pressed="true"] .pcf-mark { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
-.pcf-input { width: 100%; min-width: 0; padding: 11px 13px; font-size: 16px; font-family: inherit; color: var(--color-dark); background: #fff; border: 1px solid var(--color-line); border-radius: 8px; outline: none; transition: border-color .15s; }
+.pcf-input { width: 100%; min-width: 0; padding: 13px 15px; font-size: 16px; font-family: inherit; color: var(--color-dark); background: #fff; border: 1px solid var(--color-line); border-radius: 12px; outline: none; transition: border-color .15s; }
 .pcf-input::placeholder { color: var(--color-text-light); opacity: 1; }
 .pcf-input:hover { border-color: var(--color-text-light); }
 .pcf-input:focus { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
 .pcf-input[aria-invalid="true"] { border-color: var(--color-dark); }
 .pcf-next[disabled], .pcf-next[disabled]:hover { background: var(--color-line); border-color: var(--color-line); color: var(--color-dark); cursor: not-allowed; }
+.pcf-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 14px; }
+.pcf-dots i { display: block; width: 34px; height: 6px; border-radius: 999px; background: var(--color-line); }
+.pcf-dots i.on { background: var(--color-primary); }
+.pcf-panel { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 44px; margin: 28px auto 0; max-width: 1120px; background: #fff; border: 1px solid var(--color-line); border-radius: 16px; padding: clamp(18px, 3.2vw, 40px); }
 .pcf-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 10px 0; border-top: 1px solid var(--color-line); }
 `;
 
@@ -277,7 +282,7 @@ type TicketRow = { label: string; value: string };
 
 function Ticket({ rows, name, done, filled }: { rows: TicketRow[]; name: string; done: boolean; filled: number }) {
   return (
-    <div style={{ background: "#fff", border: "1px solid var(--color-line)", borderRadius: 10, padding: "20px 22px" }}>
+    <div style={{ background: "var(--color-primary-light)", borderRadius: 16, padding: "22px 24px" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
         <h2 className="g-h3">Your answers</h2>
         <span className="typo-small">{done ? "Ready to send" : `${filled} of ${TOTAL_STEPS} filled`}</span>
@@ -551,7 +556,7 @@ export default function ProfitCheckForm() {
   const sendButtons = (
     <>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 24 }}>
-        <a className="btn-primary" href={waHref} target="_blank" rel="noopener noreferrer">
+        <a className="btn-accent" href={waHref} target="_blank" rel="noopener noreferrer">
           <FaWhatsapp aria-hidden="true" /> Send on WhatsApp
         </a>
         <a className="btn-outline" href={mailHref}>
@@ -582,19 +587,23 @@ export default function ProfitCheckForm() {
     <>
       <style>{CSS}</style>
 
-      <section aria-label="Profit Check" style={{ background: "#fff", padding: "clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 80px)" }}>
+      <section aria-label="Profit Check" className="bg-tint" style={{ padding: "clamp(36px, 4vw, 56px) 0 clamp(48px, 6vw, 80px)" }}>
         <div className="container-main">
-          <div ref={topRef} style={{ scrollMarginTop: 96 }}>
-            <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-dark)" }}>
-              <span className="g-eyebrow" style={{ marginRight: 12 }}>Profit Check</span>
+          <div ref={topRef} className="center" style={{ scrollMarginTop: 96 }}>
+            <span className="g-eyebrow">Profit Check</span>
+            <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-dark)", marginTop: 12 }}>
               <span aria-live="polite">
                 {phase === "form" ? `Step ${step + 1} of ${TOTAL_STEPS}` : phase === "success" ? "Sent" : "Last step"}
               </span>
             </p>
-            <hr className="rule" style={{ marginTop: 14 }} />
+            <span className="pcf-dots" aria-hidden="true">
+              {STEP_INFO.map((item, i) => (
+                <i key={item.title} className={phase !== "form" || i <= step ? "on" : undefined} />
+              ))}
+            </span>
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "36px 56px", marginTop: 32 }}>
+          <div className="pcf-panel">
             {/* left: question */}
             <div style={{ flex: "1.6 1 480px", minWidth: 0 }}>
               {phase === "form" ? (
@@ -729,11 +738,11 @@ export default function ProfitCheckForm() {
                       </button>
                     ) : null}
                     {step < TOTAL_STEPS - 1 ? (
-                      <button type="button" className="btn-primary pcf-next" onClick={next} aria-disabled={!stepValid(step)}>
+                      <button type="button" className="btn-accent pcf-next" onClick={next} aria-disabled={!stepValid(step)}>
                         Continue <FaArrowRight aria-hidden="true" />
                       </button>
                     ) : (
-                      <button type="submit" form="pc-contact-form" className="btn-primary pcf-next" disabled={sending}>
+                      <button type="submit" form="pc-contact-form" className="btn-accent pcf-next" disabled={sending}>
                         {sending ? "Sending your Profit Check" : "Get my Profit Check"}
                         <FaArrowRight aria-hidden="true" />
                       </button>
@@ -789,7 +798,7 @@ export default function ProfitCheckForm() {
                     Thank you{contact.name.trim() ? `, ${contact.name.trim().split(" ")[0]}` : ""}. The <BrandName /> team will review your answers and contact you with a plan. Have a question now? Message us on WhatsApp.
                   </p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 24 }}>
-                    <a className="btn-primary" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                    <a className="btn-accent" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
                       <FaWhatsapp aria-hidden="true" /> Chat on WhatsApp
                     </a>
                   </div>
@@ -808,17 +817,21 @@ export default function ProfitCheckForm() {
         </div>
       </section>
 
-      <section aria-label="How working with us starts" className="bg-tint" style={{ padding: "clamp(40px, 5vw, 64px) 0" }}>
+      <section aria-label="How working with us starts" className="g-section" style={{ background: "#fff" }}>
         <div className="container-main">
-          <h2 className="g-h2">What you should know before you send it</h2>
-          <dl style={{ marginTop: 20, maxWidth: 760 }}>
-            {TILES.map((t) => (
-              <div key={t.title} style={{ borderTop: "1px solid var(--color-line)", padding: "14px 0", display: "flex", flexWrap: "wrap", gap: "4px 24px" }}>
-                <dt style={{ flex: "0 0 240px", fontWeight: 700, color: "var(--color-dark)" }}>{t.title}</dt>
-                <dd style={{ flex: "1 1 280px", minWidth: 0, color: "var(--color-text-light)" }}>{t.text}</dd>
+          <div className="center" style={{ marginBottom: 36 }}>
+            <span className="g-eyebrow">Before you send</span>
+            <h2 className="g-h2" style={{ margin: "14px auto 0", maxWidth: 760 }}>What you should know before you send it</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: 20 }}>
+            {TILES.map((t, i) => (
+              <div key={t.title} className="g-card" style={{ padding: 24, minWidth: 0 }}>
+                <span className={tileClass(i)} aria-hidden="true">{pickIcon(t.title)}</span>
+                <h3 className="g-h3" style={{ marginTop: 16 }}>{t.title}</h3>
+                <p style={{ marginTop: 6, fontSize: 16, lineHeight: 1.6, color: "var(--color-text-light)" }}>{t.text}</p>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </section>
     </>

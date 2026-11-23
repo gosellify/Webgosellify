@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CTASection from "@/components/home/CTASection";
+import { LinkCards, ServiceHero, ServiceSection } from "@/components/services/ServiceBlocks";
 
 export const metadata: Metadata = {
   title: "Ecommerce Management Services for Online Sellers",
@@ -132,62 +133,28 @@ const groups: Group[] = [
 export default function ServicesPage() {
   return (
     <>
-      <section className="g-section" style={{ background: "#fff", paddingBottom: "32px" }}>
-        <div className="container-main">
-          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Services</span>
-          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
-            Ecommerce management services for online sellers
-          </h1>
-          <p className="g-lead" style={{ maxWidth: "720px" }}>
+      <ServiceHero
+        eyebrow="Services"
+        title="Ecommerce management services for online sellers"
+        lead={
+          <>
             This is everything we do, on one page. Store management is paid from profit, with no
             management fee until the store makes profit. See{" "}
             <Link href="/pricing" className="link-underline" style={{ color: "var(--color-primary)" }}>
               pricing
             </Link>{" "}
             for how that works.
-          </p>
-        </div>
-      </section>
+          </>
+        }
+      />
 
-      <section style={{ background: "#fff", paddingBottom: "72px" }}>
-        <div className="container-main">
-          {groups.map((group) => (
-            <div
-              key={group.heading}
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "16px 48px",
-                padding: "36px 0",
-                borderTop: "1px solid var(--color-line)",
-              }}
-            >
-              <div style={{ flex: "1 1 260px", minWidth: 0, maxWidth: "340px" }}>
-                <h2 className="g-h2" style={{ marginBottom: "8px" }}>{group.heading}</h2>
-                <p className="typo-body">{group.intro}</p>
-              </div>
-              <ul style={{ flex: "2 1 420px", minWidth: 0, listStyle: "none" }}>
-                {group.services.map((service, i) => (
-                  <li
-                    key={service.href}
-                    style={{
-                      padding: i === 0 ? "0 0 14px" : "14px 0",
-                      borderBottom: i === group.services.length - 1 ? "none" : "1px solid var(--color-line)",
-                    }}
-                  >
-                    <h3 className="typo-h4">
-                      <Link href={service.href} className="link-underline" style={{ color: "var(--color-primary)" }}>
-                        {service.title}
-                      </Link>
-                    </h3>
-                    <p className="typo-body">{service.description}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+      {groups.map((group, index) => (
+        <ServiceSection key={group.heading} title={group.heading} lead={group.intro} tint={index % 2 === 0}>
+          <LinkCards
+            links={group.services.map((service) => ({ href: service.href, label: service.title, desc: service.description }))}
+          />
+        </ServiceSection>
+      ))}
 
       <CTASection />
     </>

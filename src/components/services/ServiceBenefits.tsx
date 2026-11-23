@@ -1,3 +1,6 @@
+import { FeatureList, ServiceSection } from "@/components/services/ServiceBlocks";
+import type { TitledItem } from "@/components/services/ServiceBlocks";
+
 const benefitItems: { title: string; content: string }[] = [
   {
     title: "The store stays yours",
@@ -26,33 +29,12 @@ const benefitItems: { title: string; content: string }[] = [
   },
 ];
 
+const cards: TitledItem[] = benefitItems.map((item) => ({ title: item.title, desc: item.content }));
+
 export default function ServiceBenefits() {
   return (
-    <section className="g-section" style={{ background: "#fff" }}>
-      <div className="container-main">
-        <div style={{ maxWidth: 760, marginBottom: 24 }}>
-          <span className="g-eyebrow">Working with us</span>
-          <h2 className="g-h2" style={{ marginTop: 8 }}>What to expect from Gosellify</h2>
-        </div>
-        <dl style={{ maxWidth: 980 }}>
-          {benefitItems.map((item) => (
-            <div
-              key={item.title}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
-                gap: "4px 40px",
-                padding: "16px 0",
-                borderTop: "1px solid var(--color-line)",
-              }}
-            >
-              <dt style={{ fontWeight: 700, color: "var(--color-dark)" }}>{item.title}</dt>
-              <dd style={{ color: "var(--color-text-light)" }}>{item.content}</dd>
-            </div>
-          ))}
-        </dl>
-        <hr className="rule" style={{ maxWidth: 980 }} />
-      </div>
-    </section>
+    <ServiceSection eyebrow="Working with us" title="What to expect from Gosellify">
+      <FeatureList items={cards} cols={3} />
+    </ServiceSection>
   );
 }

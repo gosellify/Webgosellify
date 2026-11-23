@@ -4,6 +4,9 @@ import Link from "next/link";
 import { FaAmazon, FaArrowRight, FaBoxOpen, FaEbay, FaEtsy, FaPlus, FaShopify, FaStore } from "react-icons/fa";
 import { BrandName } from "@/components/brand/Logo";
 import SetupForm from "./SetupForm";
+import { ServiceSection, StepList } from "@/components/services/ServiceBlocks";
+import type { TitledItem } from "@/components/services/ServiceBlocks";
+import { FaCheck, FaIdCard, FaShieldAlt, FaUserCheck } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Seller Account Setup Service for Amazon, Walmart and Temu",
@@ -233,32 +236,40 @@ const OWN_RULES: { title: string; text: string }[] = [
 
 const tabCss = MARKETS.map(
   (_, i) => `
-.sas-picker:has(#sas-m-${i}:checked) .sas-tab-${i} { border-color: var(--color-primary); color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.sas-picker:has(#sas-m-${i}:checked) .sas-tab-${i} { border-color: var(--color-primary); color: #fff; background: var(--color-primary); }
 .sas-picker:has(#sas-m-${i}:checked) .sas-panel-${i} { display: flex; }`
 ).join("");
 
 const css = `
 .sas-radio { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
-.sas-tab { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-weight: 700; font-size: 15px; cursor: pointer; transition: border-color .15s; }
+.sas-tab { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-weight: 700; font-size: 15px; cursor: pointer; transition: border-color .15s; }
 .sas-tab:hover { border-color: var(--color-primary); }
 .sas-tab:has(.sas-radio:focus-visible) { outline: 3px solid var(--color-primary); outline-offset: 2px; }
-.sas-panel { display: none; flex-wrap: wrap; align-items: flex-start; gap: 28px 48px; padding: clamp(20px, 2.6vw, 32px); border-radius: 10px; background: #fff; border: 1px solid var(--color-line); }
+.sas-panel { display: none; flex-wrap: wrap; align-items: flex-start; gap: 28px 48px; padding: clamp(20px, 2.6vw, 32px); border-radius: 16px; background: #fff; text-align: left; border: 1px solid var(--color-line); }
 .sas-list { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--color-dark); }
 .sas-inline { color: var(--color-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .sas-inline:hover { color: var(--color-dark); }
 .sas-light-link { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .sas-step { padding: 16px 0; border-top: 1px solid var(--color-line); }
-.sas-faq { border-top: 1px solid var(--color-line); }
-.sas-faq summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; cursor: pointer; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--color-dark); }
+.sas-faq { background: #fff; border: 1px solid var(--color-line); border-radius: 14px; text-align: left; transition: border-color .2s; }
+.sas-faq + .sas-faq { margin-top: 12px; }
+.sas-faq[open], .sas-faq:hover { border-color: var(--color-primary); }
+.sas-faq > p { padding: 0 22px 20px !important; }
+.sas-faq summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; cursor: pointer; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--color-dark); }
 .sas-faq summary:hover { color: var(--color-primary); }
 .sas-faq summary::-webkit-details-marker { display: none; }
 .sas-faq h3 { margin: 0; font: inherit; letter-spacing: inherit; }
-.sas-plus { flex-shrink: 0; font-size: 13px; color: var(--color-text-light); display: flex; }
-.sas-faq[open] .sas-plus { transform: rotate(45deg); }
+.sas-plus { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 11px; background: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center; transition: transform .2s; }
+.sas-chips { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; margin: 30px auto 0; max-width: 980px; padding: 0; }
+.sas-chips li { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--color-dark); background: #fff; border: 1px solid var(--color-line); border-radius: 999px; padding: 7px 14px 7px 8px; line-height: 1.3; text-align: left; }
+.sas-chips li > span { width: 22px; height: 22px; border-radius: 50%; background: var(--color-primary); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+.sas-faq[open] .sas-plus { transform: rotate(45deg); background: var(--color-primary); color: #fff; }
 ${tabCss}
 `;
 
-const readLeft: React.CSSProperties = { marginLeft: "max(0px, calc((100% - 1200px) / 2))" };
+const STEP_ITEMS: TitledItem[] = STEPS.map((s) => ({ title: s.title, desc: `${s.text} Who does it: ${s.who}.` }));
+const RULE_ICONS: React.ReactNode[] = [<FaUserCheck key="o" />, <FaIdCard key="v" />, <FaShieldAlt key="n" />];
+const RULE_TILES: string[] = ["icon-tile", "icon-tile amber", "icon-tile navy"];
 
 export default function SellerAccountSetupPage() {
   return (
@@ -267,47 +278,52 @@ export default function SellerAccountSetupPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }} />
 
       {/* Hero */}
-      <section style={{ background: "#fff", padding: "clamp(36px, 5vw, 64px) 0 clamp(48px, 6vw, 80px)" }}>
-        <div className="container-main">
-          <div style={{ maxWidth: 760 }}>
-            <span className="g-eyebrow">Seller account setup</span>
-            <h1 className="g-h1" style={{ marginTop: 10 }}>
-              Seller account setup, in your own name
-            </h1>
-            <p className="g-lead" style={{ marginTop: 16 }}>
-              <BrandName /> is an Amazon seller account setup service that also covers Walmart Marketplace, Temu, eBay, Etsy and Shopify. We check that you have what the marketplace asks for, prepare your application and guide you through identity verification. You own and control the account from day one.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 24 }}>
-              <a href="#setup-form" className="btn-primary">
-                Start my account setup <FaArrowRight aria-hidden="true" />
-              </a>
-              <a href="#what-they-ask" className="btn-outline">
-                See what each marketplace asks for
-              </a>
-            </div>
-            <ul className="sas-list" style={{ marginTop: 26, color: "var(--color-text-light)" }}>
-              {HERO_POINTS.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
-            <p className="typo-small" style={{ marginTop: 18 }}>
-              The marketplace decides every application. We do not promise approval, and we do not buy or sell seller accounts.
-            </p>
+      <section className="g-section" style={{ background: "#fff", paddingTop: "clamp(48px, 5vw, 72px)", paddingBottom: "clamp(48px, 5vw, 72px)" }}>
+        <div className="container-main center">
+          <span className="g-eyebrow">Seller account setup</span>
+          <h1 className="g-h1" style={{ margin: "18px auto 0", maxWidth: 860 }}>
+            Seller account setup, <span className="t-blue">in your own name</span>
+          </h1>
+          <p className="g-lead" style={{ marginTop: 18, maxWidth: 760 }}>
+            <BrandName /> is an Amazon seller account setup service that also covers Walmart Marketplace, Temu, eBay, Etsy and Shopify. We check that you have what the marketplace asks for, prepare your application and guide you through identity verification. You own and control the account from day one.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12, marginTop: 28 }}>
+            <a href="#setup-form" className="btn-accent">
+              Start my account setup <FaArrowRight aria-hidden="true" />
+            </a>
+            <a href="#what-they-ask" className="btn-outline">
+              See what each marketplace asks for
+            </a>
           </div>
+          <ul className="sas-chips">
+            {HERO_POINTS.map((p) => (
+              <li key={p}>
+                <span aria-hidden="true"><FaCheck /></span>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <p className="typo-small" style={{ margin: "22px auto 0", maxWidth: 680 }}>
+            The marketplace decides every application. We do not promise approval, and we do not buy or sell seller accounts.
+          </p>
         </div>
       </section>
 
       {/* Marketplace picker */}
       <section id="what-they-ask" className="g-section bg-tint" style={{ scrollMarginTop: 80 }}>
         <div className="container-main">
-          <h2 className="g-h2">What each marketplace asks for</h2>
-          <p className="g-lead" style={{ marginTop: 12, maxWidth: 720 }}>
-            Pick a marketplace. Each list comes from that marketplace&apos;s own pages, and each one links to the source so you can check it yourself.
-          </p>
-          <p className="typo-small" style={{ marginTop: 8 }}>Last reviewed: {REVIEWED}</p>
+          <div className="center" style={{ marginBottom: 32 }}>
+            <span className="g-eyebrow" style={{ background: "#fff" }}>Requirements</span>
+            <h2 className="g-h2" style={{ margin: "14px auto 0", maxWidth: 760 }}>What each marketplace asks for</h2>
+            <p className="g-lead" style={{ marginTop: 12, maxWidth: 720 }}>
+              Pick a marketplace. Each list comes from that marketplace&apos;s own pages, and each one links to the source so you can check it yourself.
+            </p>
+            <p className="typo-small" style={{ marginTop: 8 }}>Last reviewed: {REVIEWED}</p>
+          </div>
 
-          <div className="sas-picker" style={{ marginTop: 24 }}>
-            <div role="radiogroup" aria-label="Choose a marketplace" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className="sas-picker" style={{ maxWidth: 1100 }}>
+            <div role="radiogroup" aria-label="Choose a marketplace" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10, marginBottom: 20 }}>
               {MARKETS.map((m, i) => {
                 const Icon = m.icon;
                 return (
@@ -332,7 +348,7 @@ export default function SellerAccountSetupPage() {
                   </ul>
                 </div>
 
-                <div style={{ flex: "1 1 300px", minWidth: 0 }}>
+                <div style={{ flex: "1 1 300px", minWidth: 0, background: "var(--color-primary-light)", borderRadius: 14, padding: "20px 22px" }}>
                   <h4 className="typo-h4">Good to know</h4>
                   <p style={{ marginTop: 6, fontSize: 16, color: "var(--color-text-light)" }}>{m.note}</p>
                   <h4 className="typo-h4" style={{ marginTop: 18 }}>Official source</h4>
@@ -357,8 +373,9 @@ export default function SellerAccountSetupPage() {
               </div>
             ))}
           </div>
+          </div>
 
-          <p style={{ marginTop: 22, fontSize: 16, color: "var(--color-text-light)", maxWidth: 800 }}>
+          <p style={{ margin: "26px auto 0", fontSize: 16, color: "var(--color-text-light)", maxWidth: 800, textAlign: "center" }}>
             Missing a company or a tax ID? See{" "}
             <Link href="/services/company-filing" className="sas-inline">
               LLC and EIN filing
@@ -373,44 +390,44 @@ export default function SellerAccountSetupPage() {
       </section>
 
       {/* How it works */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-read" style={readLeft}>
-          <h2 className="g-h2">Five steps to your own account</h2>
-          <p className="g-lead" style={{ marginTop: 12 }}>
-            We do the checking and the preparation. You stay the owner, and you do the parts only an owner can do.
-          </p>
-          <ol style={{ listStyle: "none", margin: "20px 0 0", padding: 0, borderBottom: "1px solid var(--color-line)" }}>
-            {STEPS.map((s, i) => (
-              <li key={s.title} className="sas-step">
-                <h3 style={{ fontSize: 17, fontWeight: 700, lineHeight: 1.4 }}>
-                  {i + 1}. {s.title}
-                </h3>
-                <p style={{ marginTop: 4, color: "var(--color-text-light)" }}>{s.text}</p>
-                <p className="typo-small" style={{ marginTop: 4 }}>Who does it: {s.who}</p>
-              </li>
-            ))}
-          </ol>
-          <p style={{ marginTop: 18, color: "var(--color-text-light)" }}>
-            Related services:{" "}
-            <Link href="/services/company-filing" className="sas-inline">
-              company filing (LLC formation and EIN)
-            </Link>{" "}
-            and{" "}
-            <Link href="/services/tax-filing" className="sas-inline">
-              tax filing
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
+      <ServiceSection
+        eyebrow="The process"
+        title="Five steps to your own account"
+        lead="We do the checking and the preparation. You stay the owner, and you do the parts only an owner can do."
+      >
+        <StepList steps={STEP_ITEMS} />
+        <p style={{ marginTop: 32, color: "var(--color-text-light)", textAlign: "center" }}>
+          Related services:{" "}
+          <Link href="/services/company-filing" className="sas-inline">
+            company filing (LLC formation and EIN)
+          </Link>{" "}
+          and{" "}
+          <Link href="/services/tax-filing" className="sas-inline">
+            tax filing
+          </Link>
+          .
+        </p>
+      </ServiceSection>
 
       {/* We do not buy or sell seller accounts */}
       <section className="g-section bg-tint">
         <div className="container-main">
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "32px 56px" }}>
-            <div style={{ flex: "1.5 1 480px", minWidth: 0, maxWidth: 720 }}>
-              <h2 className="g-h2">We do not buy or sell seller accounts</h2>
-              <p style={{ marginTop: 14 }}>
+          <div className="center" style={{ marginBottom: 36 }}>
+            <span className="g-eyebrow" style={{ background: "#fff" }}>Our rule</span>
+            <h2 className="g-h2" style={{ margin: "14px auto 0", maxWidth: 760 }}>We do not buy or sell seller accounts</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 20, maxWidth: 1100, margin: "0 auto" }}>
+            {OWN_RULES.map((r, index) => (
+              <div key={r.title} className="g-card" style={{ padding: 24, minWidth: 0 }}>
+                <span className={RULE_TILES[index % 3]} aria-hidden="true">{RULE_ICONS[index % 3]}</span>
+                <h3 className="g-h3" style={{ marginTop: 16 }}>{r.title}</h3>
+                <p style={{ marginTop: 6, fontSize: 16, lineHeight: 1.6, color: "var(--color-text-light)" }}>{r.text}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ maxWidth: 1100, margin: "20px auto 0", background: "#fff", border: "1px solid var(--color-line)", borderRadius: 16, padding: "clamp(20px, 2.8vw, 34px)" }}>
+            <div style={{ maxWidth: 860 }}>
+              <p>
                 We do not buy, sell, rent, broker or transfer seller accounts. We do not open accounts in someone else&apos;s name or with made-up details. The safe route is your own account, opened with your real details.
               </p>
               <p style={{ marginTop: 14, color: "var(--color-text-light)" }}>
@@ -429,15 +446,6 @@ export default function SellerAccountSetupPage() {
               </p>
               <p className="typo-small" style={{ marginTop: 12 }}>Last reviewed: {REVIEWED}</p>
             </div>
-
-            <dl style={{ flex: "1 1 300px", minWidth: 0, borderBottom: "1px solid var(--color-line)" }}>
-              {OWN_RULES.map((r) => (
-                <div key={r.title} style={{ borderTop: "1px solid var(--color-line)", padding: "14px 0" }}>
-                  <dt style={{ fontWeight: 700, color: "var(--color-dark)" }}>{r.title}</dt>
-                  <dd style={{ marginTop: 2, fontSize: 16, color: "var(--color-text-light)" }}>{r.text}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </div>
       </section>
@@ -447,20 +455,23 @@ export default function SellerAccountSetupPage() {
 
       {/* FAQ */}
       <section className="g-section bg-tint">
-        <div className="container-read" style={readLeft}>
-          <h2 className="g-h2">Seller account setup questions</h2>
-          <p className="g-lead" style={{ marginTop: 12, marginBottom: 20 }}>
-            If yours is not here,{" "}
-            <a href="https://wa.me/13073938789" target="_blank" rel="noopener noreferrer" className="sas-inline">
-              message us on WhatsApp
-            </a>{" "}
-            or{" "}
-            <Link href="/faq" className="sas-inline">
-              see all questions
-            </Link>
-            .
-          </p>
-          <div style={{ borderBottom: "1px solid var(--color-line)" }}>
+        <div className="container-main">
+          <div className="center" style={{ marginBottom: 32 }}>
+            <span className="g-eyebrow" style={{ background: "#fff" }}>FAQ</span>
+            <h2 className="g-h2" style={{ margin: "14px auto 0", maxWidth: 760 }}>Seller account setup questions</h2>
+            <p className="g-lead" style={{ marginTop: 12, maxWidth: 680 }}>
+              If yours is not here,{" "}
+              <a href="https://wa.me/13073938789" target="_blank" rel="noopener noreferrer" className="sas-inline">
+                message us on WhatsApp
+              </a>{" "}
+              or{" "}
+              <Link href="/faq" className="sas-inline">
+                see all questions
+              </Link>
+              .
+            </p>
+          </div>
+          <div style={{ maxWidth: 860, margin: "0 auto" }}>
             {FAQS.map((f, i) => (
               <details key={f.q} className="sas-faq" open={i === 0}>
                 <summary>
@@ -477,9 +488,9 @@ export default function SellerAccountSetupPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy on-dark" style={{ padding: "clamp(40px, 5vw, 64px) 0" }}>
-        <div className="container-main">
-          <h2 className="g-h2" style={{ maxWidth: 720 }}>
+      <section className="bg-navy on-dark" style={{ padding: "clamp(56px, 6vw, 84px) 0" }}>
+        <div className="container-main center">
+          <h2 className="g-h2" style={{ maxWidth: 720, margin: "0 auto" }}>
             Once the account is open, we can run the store
           </h2>
           <p className="g-lead" style={{ marginTop: 12, maxWidth: 680 }}>
@@ -497,8 +508,8 @@ export default function SellerAccountSetupPage() {
             </Link>
             .
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 22 }}>
-            <Link href="/profit-check" className="btn-primary">
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12, marginTop: 26 }}>
+            <Link href="/profit-check" className="btn-accent">
               Start the 2-minute Profit Check <FaArrowRight aria-hidden="true" />
             </Link>
             <a href="#setup-form" className="btn-outline-white">

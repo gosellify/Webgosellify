@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FaBuilding, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaUserTie, FaUsers } from "react-icons/fa";
+import type { ReactNode } from "react";
 import CTASection from "@/components/home/CTASection";
+import Reveal from "@/components/motion/Reveal";
+import { ServiceHero, ServiceSection } from "@/components/services/ServiceBlocks";
+import { pickIcon, tileClass } from "@/components/services/serviceIcons";
 
 export const metadata: Metadata = {
   title: "About Our Ecommerce Store Management Agency",
@@ -27,6 +32,8 @@ const howWeWork: string[] = [
   "We run our own US warehouses with same-day prep and shipping.",
   "We work inside each marketplace's seller policies.",
 ];
+
+const factIcons: ReactNode[] = [<FaBuilding key="c" />, <FaMapMarkerAlt key="a" />, <FaUserTie key="f" />, <FaUsers key="t" />, <FaPhoneAlt key="p" />, <FaEnvelope key="e" />];
 
 type Member = { name: string; title: string; bio: string; photo: string };
 
@@ -73,152 +80,119 @@ export default function AboutPage() {
   return (
     <>
       {/* Intro */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>About us</span>
-          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
-            About Gosellify, an ecommerce store management agency
-          </h1>
-          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "36px" }}>
-            We manage Walmart Marketplace and Amazon stores for sellers. Our team does the daily
-            work: product research, listings, pricing, order fulfillment, returns and account
-            health.
-          </p>
-
-          <div style={{ borderTop: "1px solid var(--color-line)", maxWidth: "820px" }}>
-            {companyFacts.map((fact) => (
-              <div
-                key={fact.label}
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "2px 24px",
-                  padding: "12px 0",
-                  borderBottom: "1px solid var(--color-line)",
-                }}
-              >
-                <span className="typo-small" style={{ flex: "0 0 180px", fontWeight: 700, color: "var(--color-dark)", paddingTop: "3px" }}>
-                  {fact.label}
-                </span>
-                <span style={{ flex: "1 1 260px", minWidth: 0 }}>{fact.value}</span>
+      <ServiceHero
+        eyebrow="About us"
+        title="About Gosellify, an ecommerce store management agency"
+        lead="We manage Walmart Marketplace and Amazon stores for sellers. Our team does the daily work: product research, listings, pricing, order fulfillment, returns and account health."
+      >
+        <div className="sv-grid" style={{ marginTop: 48, textAlign: "left" }}>
+          {companyFacts.map((fact, index) => (
+            <Reveal key={fact.label} delay={(index % 3) * 60}>
+              <div className="g-card" style={{ padding: 22, display: "flex", gap: 16, alignItems: "flex-start" }}>
+                <span className={tileClass(index)} aria-hidden="true">{factIcons[index]}</span>
+                <div style={{ minWidth: 0 }}>
+                  <span className="typo-small" style={{ display: "block", fontWeight: 700 }}>{fact.label}</span>
+                  <span style={{ display: "block", fontWeight: 700, color: "var(--color-dark)", lineHeight: 1.45, overflowWrap: "anywhere" }}>{fact.value}</span>
+                </div>
               </div>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </ServiceHero>
 
       {/* Founder story */}
       <section className="g-section bg-tint">
         <div className="container-main">
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "40px", alignItems: "flex-start" }}>
-            <div style={{ flex: "1 1 420px", minWidth: 0 }}>
-              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
-                How Gosellify started
-              </h2>
-              <p className="typo-body" style={{ marginBottom: "14px" }}>
-                In 2018 I started as a freelance SEO on Fiverr. I worked with many clients and
-                helped improve their dropshipping stores.
-              </p>
-              <p className="typo-body" style={{ marginBottom: "14px" }}>
-                In 2020 I learned Amazon dropshipping and worked on real stores. In 2022 I started
-                my own business. It went well, so I decided to grow it with a team.
-              </p>
-              <p className="typo-body" style={{ marginBottom: "20px" }}>
-                In January 2024 I registered the company in the USA as Gosellify LLC. Today our
-                operations team works from Multan, Pakistan.
-              </p>
-              <p style={{ fontWeight: 700, color: "var(--color-dark)" }}>Muhammad Jamshed</p>
-              <p className="typo-small">Founder &amp; Head Of Business, Gosellify</p>
-            </div>
-
-            <figure style={{ flex: "0 1 400px", minWidth: 0, margin: 0 }}>
-              <div style={{ border: "1px solid var(--color-line)", borderRadius: "10px", overflow: "hidden", background: "#fff" }}>
-                <img
-                  src="/images/about/muhammad-jamshed.webp"
-                  alt="Muhammad Jamshed, founder of Gosellify, working on a laptop"
-                  width={922}
-                  height={922}
-                  loading="lazy"
-                  style={{ display: "block", width: "100%", height: "auto" }}
-                />
+          <Reveal>
+            <div
+              style={{ background: "#fff", border: "1px solid var(--color-line)", borderRadius: 16, padding: "clamp(22px, 3.4vw, 44px)", display: "flex", flexWrap: "wrap", gap: "32px 48px", alignItems: "center", maxWidth: 1080, margin: "0 auto" }}
+            >
+              <div style={{ flex: "1 1 420px", minWidth: 0 }}>
+                <span className="g-eyebrow">Founder&apos;s story</span>
+                <h2 className="g-h2" style={{ margin: "14px 0 16px" }}>
+                  How Gosellify started
+                </h2>
+                <p className="typo-body" style={{ marginBottom: "14px" }}>
+                  In 2018 I started as a freelance SEO on Fiverr. I worked with many clients and
+                  helped improve their dropshipping stores.
+                </p>
+                <p className="typo-body" style={{ marginBottom: "14px" }}>
+                  In 2020 I learned Amazon dropshipping and worked on real stores. In 2022 I started
+                  my own business. It went well, so I decided to grow it with a team.
+                </p>
+                <p className="typo-body" style={{ marginBottom: "20px" }}>
+                  In January 2024 I registered the company in the USA as Gosellify LLC. Today our
+                  operations team works from Multan, Pakistan.
+                </p>
+                <p style={{ fontWeight: 700, color: "var(--color-dark)" }}>Muhammad Jamshed</p>
+                <p className="typo-small">Founder &amp; Head Of Business, Gosellify</p>
               </div>
-              <figcaption className="typo-small" style={{ marginTop: "8px" }}>
-                Muhammad Jamshed, founder of Gosellify.
-              </figcaption>
-            </figure>
-          </div>
+
+              <figure style={{ flex: "0 1 380px", minWidth: 0, margin: 0 }}>
+                <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", boxShadow: "0 18px 40px rgba(10,27,77,0.14)" }}>
+                  <img
+                    src="/images/about/muhammad-jamshed.webp"
+                    alt="Muhammad Jamshed, founder of Gosellify, working on a laptop"
+                    width={922}
+                    height={922}
+                    loading="lazy"
+                    style={{ display: "block", width: "100%", height: "auto" }}
+                  />
+                </div>
+                <figcaption className="typo-small" style={{ marginTop: "10px", textAlign: "center" }}>
+                  Muhammad Jamshed, founder of Gosellify.
+                </figcaption>
+              </figure>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* How we work */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <div>
-            <h2 className="g-h2" style={{ marginBottom: "16px" }}>
-              How we work
-            </h2>
-            <ul style={{ listStyle: "none", maxWidth: "760px", borderTop: "1px solid var(--color-line)" }}>
-              {howWeWork.map((line) => (
-                <li key={line} style={{ padding: "12px 0", borderBottom: "1px solid var(--color-line)" }}>
-                  {line}
-                </li>
-              ))}
-            </ul>
-            <p className="typo-body" style={{ marginTop: "18px" }}>
-              See <Link href="/pricing" className="link-underline" style={{ color: "var(--color-primary)" }}>how pay from profit works</Link> or
-              read the <Link href="/faq" className="link-underline" style={{ color: "var(--color-primary)" }}>questions sellers ask us</Link>.
-            </p>
-          </div>
+      <ServiceSection eyebrow="Our rules" title="How we work">
+        <div className="sv-grid">
+          {howWeWork.map((line, index) => (
+            <Reveal key={line} delay={(index % 3) * 60}>
+              <div className="g-card" style={{ padding: 24 }}>
+                <span className={tileClass(index)} aria-hidden="true">{pickIcon(line)}</span>
+                <p style={{ marginTop: 16, color: "var(--color-dark)", fontWeight: 600, lineHeight: 1.55 }}>{line}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+        <p className="typo-body" style={{ marginTop: "28px", textAlign: "center" }}>
+          See <Link href="/pricing" className="link-underline" style={{ color: "var(--color-primary)" }}>how pay from profit works</Link> or
+          read the <Link href="/faq" className="link-underline" style={{ color: "var(--color-primary)" }}>questions sellers ask us</Link>.
+        </p>
+      </ServiceSection>
 
       {/* Team */}
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <h2 className="g-h2" style={{ marginBottom: "10px" }}>
-            The people behind Gosellify
-          </h2>
-          <p className="g-lead" style={{ maxWidth: "680px", marginBottom: "28px" }}>
-            These are the people who lead each department and work on client stores.
-          </p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))",
-              gap: "0 32px",
-              borderTop: "1px solid var(--color-line)",
-            }}
-          >
-            {teamMembers.map((member) => (
-              <div
-                key={member.name}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  padding: "18px 0",
-                  borderBottom: "1px solid var(--color-line)",
-                }}
-              >
+      <ServiceSection
+        eyebrow="Our team"
+        title="The people behind Gosellify"
+        lead="These are the people who lead each department and work on client stores."
+        tint
+      >
+        <div className="sv-grid">
+          {teamMembers.map((member, index) => (
+            <Reveal key={member.name} delay={(index % 3) * 60}>
+              <div className="g-card" style={{ padding: "28px 22px", textAlign: "center" }}>
                 <img
                   src={member.photo}
                   alt={member.name}
-                  width={72}
-                  height={72}
+                  width={96}
+                  height={96}
                   loading="lazy"
-                  style={{ width: "72px", height: "72px", borderRadius: "8px", objectFit: "cover", flexShrink: 0, border: "1px solid var(--color-line)" }}
+                  style={{ width: "96px", height: "96px", borderRadius: "50%", objectFit: "cover", border: "3px solid var(--color-primary-light)", margin: "0 auto", display: "block" }}
                 />
-                <div style={{ minWidth: 0 }}>
-                  <h3 className="typo-h4">{member.name}</h3>
-                  <p className="typo-small" style={{ fontWeight: 600, color: "var(--color-dark)" }}>{member.title}</p>
-                  <p className="typo-small">{member.bio}</p>
-                </div>
+                <h3 className="g-h3" style={{ marginTop: 16 }}>{member.name}</h3>
+                <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-primary)", marginTop: 2 }}>{member.title}</p>
+                <p className="typo-small" style={{ marginTop: 8 }}>{member.bio}</p>
               </div>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </ServiceSection>
 
       <CTASection />
     </>

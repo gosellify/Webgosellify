@@ -142,26 +142,29 @@ function buildSummary(a: Answers, c: Contact): string {
 const headingStyle: React.CSSProperties = { fontSize: 24, lineHeight: 1.25, outline: "none", maxWidth: 600 };
 
 const CSS = `
-.sasf-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; text-align: left; padding: 13px 16px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); cursor: pointer; font-family: inherit; transition: border-color .15s, background-color .15s; }
+.sasf-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; text-align: left; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); cursor: pointer; font-family: inherit; transition: border-color .15s, background-color .15s; }
 .sasf-opt:hover { border-color: var(--color-primary); }
-.sasf-opt[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-light-gray); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.sasf-opt[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-primary-light); box-shadow: inset 0 0 0 1px var(--color-primary); }
 .sasf-ico { flex-shrink: 0; display: flex; align-items: center; font-size: 18px; color: var(--color-text-light); }
 .sasf-opt[aria-pressed="true"] .sasf-ico { color: var(--color-primary); }
 .sasf-sub { display: block; font-size: 14px; font-weight: 400; line-height: 1.4; margin-top: 2px; color: var(--color-text-light); }
 .sasf-mark { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-text-light); background: #fff; font-size: 10px; color: transparent; }
 .sasf-mark.sq { border-radius: 4px; }
 .sasf-opt[aria-pressed="true"] .sasf-mark { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
-.sasf-chip, .sasf-tri { padding: 9px 14px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.2; cursor: pointer; transition: border-color .15s; }
+.sasf-chip, .sasf-tri { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.2; cursor: pointer; transition: border-color .15s; }
 .sasf-tri { flex: 1 1 90px; min-width: 0; font-weight: 700; padding: 11px 12px; }
 .sasf-chip:hover, .sasf-tri:hover { border-color: var(--color-primary); }
-.sasf-chip[aria-pressed="true"], .sasf-tri[aria-pressed="true"] { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-light-gray); box-shadow: inset 0 0 0 1px var(--color-primary); }
-.sasf-input { width: 100%; min-width: 0; padding: 11px 13px; font-size: 16px; font-family: inherit; color: var(--color-dark); background: #fff; border: 1px solid var(--color-line); border-radius: 8px; outline: none; transition: border-color .15s; }
+.sasf-chip[aria-pressed="true"], .sasf-tri[aria-pressed="true"] { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.sasf-input { width: 100%; min-width: 0; padding: 13px 15px; font-size: 16px; font-family: inherit; color: var(--color-dark); background: #fff; border: 1px solid var(--color-line); border-radius: 12px; outline: none; transition: border-color .15s; }
 .sasf-input::placeholder { color: var(--color-text-light); opacity: 1; }
 .sasf-input:hover { border-color: var(--color-text-light); }
 .sasf-input:focus { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
 .sasf-input[aria-invalid="true"] { border-color: var(--color-dark); }
 .sasf-next[disabled], .sasf-next[disabled]:hover { background: var(--color-line); border-color: var(--color-line); color: var(--color-dark); cursor: not-allowed; }
 .sasf-link { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; font-family: inherit; font-size: 15px; font-weight: 700; color: var(--color-primary); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.sasf-dots { display: flex; gap: 6px; }
+.sasf-dots i { display: block; width: 28px; height: 6px; border-radius: 999px; background: var(--color-line); }
+.sasf-dots i.on { background: var(--color-primary); }
 .sasf-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 10px 0; border-top: 1px solid var(--color-line); }
 `;
 
@@ -226,7 +229,7 @@ type BriefRow = { label: string; value: string };
 
 function Brief({ rows, done, filled }: { rows: BriefRow[]; done: boolean; filled: number }) {
   return (
-    <div style={{ background: "#fff", border: "1px solid var(--color-line)", borderRadius: 10, padding: "20px 22px" }}>
+    <div style={{ background: "var(--color-primary-light)", borderRadius: 16, padding: "22px 24px" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
         <h3 className="g-h3">Your answers</h3>
         <span className="typo-small">{done ? "Ready to send" : `${filled} of ${TOTAL_STEPS} filled`}</span>
@@ -493,7 +496,7 @@ export default function SetupForm() {
   const sendButtons = (
     <>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 24 }}>
-        <a className="btn-primary" href={waHref} target="_blank" rel="noopener noreferrer">
+        <a className="btn-accent" href={waHref} target="_blank" rel="noopener noreferrer">
           <FaWhatsapp aria-hidden="true" /> Send on WhatsApp
         </a>
         <a className="btn-outline" href={mailHref}>
@@ -525,22 +528,29 @@ export default function SetupForm() {
       <style>{CSS}</style>
 
       <div className="container-main">
-        <h2 className="g-h2">Tell us where you stand and we send back your checklist</h2>
-        <p className="g-lead" style={{ marginTop: 12, maxWidth: 700 }}>
-          Six short questions. The <BrandName /> team reads your answers and replies with what you have, what is missing and what to do next.
-        </p>
-
-        <div ref={topRef} style={{ scrollMarginTop: 96, marginTop: 28 }}>
-          <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-dark)" }}>
-            <span className="g-eyebrow" style={{ marginRight: 12 }}>Setup request</span>
-            <span aria-live="polite">
-              {phase === "form" ? `Step ${step + 1} of ${TOTAL_STEPS}` : phase === "success" ? "Sent" : "Last step"}
-            </span>
+        <div className="center">
+          <span className="g-eyebrow">Setup request</span>
+          <h2 className="g-h2" style={{ margin: "14px auto 0", maxWidth: 760 }}>Tell us where you stand and we send back your checklist</h2>
+          <p className="g-lead" style={{ marginTop: 12, maxWidth: 700 }}>
+            Six short questions. The <BrandName /> team reads your answers and replies with what you have, what is missing and what to do next.
           </p>
-          <hr className="rule" style={{ marginTop: 14 }} />
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "36px 56px", marginTop: 28 }}>
+        <div
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "28px 40px", marginTop: 36, maxWidth: 1100, marginLeft: "auto", marginRight: "auto", background: "#fff", border: "1px solid var(--color-line)", borderRadius: 16, padding: "clamp(18px, 3vw, 36px)" }}
+        >
+          <div ref={topRef} style={{ scrollMarginTop: 96, flex: "1 1 100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 12, paddingBottom: 18, borderBottom: "1px solid var(--color-line)" }}>
+            <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-dark)" }}>
+              <span aria-live="polite">
+                {phase === "form" ? `Step ${step + 1} of ${TOTAL_STEPS}` : phase === "success" ? "Sent" : "Last step"}
+              </span>
+            </p>
+            <span className="sasf-dots" aria-hidden="true">
+              {STEP_INFO.map((item, i) => (
+                <i key={item.title} className={phase !== "form" || i <= step ? "on" : undefined} />
+              ))}
+            </span>
+          </div>
           {/* left: question */}
           <div style={{ flex: "1.6 1 480px", minWidth: 0 }}>
             {phase === "form" ? (
@@ -733,11 +743,11 @@ export default function SetupForm() {
                     </button>
                   ) : null}
                   {step < TOTAL_STEPS - 1 ? (
-                    <button type="button" className="btn-primary sasf-next" onClick={next} aria-disabled={!stepValid(step)}>
+                    <button type="button" className="btn-accent sasf-next" onClick={next} aria-disabled={!stepValid(step)}>
                       Continue <FaArrowRight aria-hidden="true" />
                     </button>
                   ) : (
-                    <button type="submit" form="sas-contact-form" className="btn-primary sasf-next" disabled={sending}>
+                    <button type="submit" form="sas-contact-form" className="btn-accent sasf-next" disabled={sending}>
                       {sending ? "Sending your request" : "Send my setup request"}
                       <FaArrowRight aria-hidden="true" />
                     </button>

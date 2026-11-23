@@ -2,6 +2,10 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaArrowRight, FaCheck, FaTimes, FaWhatsapp } from "react-icons/fa";
+import ScreenShowcase from "@/components/v6/ScreenShowcase";
+import Reveal from "@/components/motion/Reveal";
+import { ServiceHero, ServiceSection, StepList } from "@/components/services/ServiceBlocks";
+import { pickIcon, tileClass } from "@/components/services/serviceIcons";
 import { BrandName } from "@/components/brand/Logo";
 import TemuFaqList from "./TemuFaqList";
 import { temuFaqs } from "./faqs";
@@ -199,15 +203,18 @@ const css = `
 .tmu-ext:hover { color: var(--color-dark); }
 .tmu-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px 56px; align-items: start; }
 @media (min-width: 1040px) { .tmu-hero { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
-.tmu-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 32px 56px; }
+.tmu-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 20px; text-align: left; }
+.tmu-two > .g-card { padding: clamp(20px, 2.6vw, 30px); min-width: 0; }
 .tmu-list { margin: 0; padding-left: 20px; display: grid; gap: 10px; color: var(--color-text-light); }
 .tmu-plain { list-style: none; margin: 0; padding: 0; }
-.tmu-plain li { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-top: 1px solid var(--color-line); }
+.tmu-plain li { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-top: 1px solid var(--color-line); font-size: 16px; }
+.tmu-plain li:first-child { border-top: 0; }
+.tmu-dot { flex-shrink: 0; margin-top: 2px; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; }
 .tmu-manage { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); column-gap: 56px; }
 .tmu-mrow { padding: 16px 0; border-top: 1px solid var(--color-line); }
 .tmu-table { width: 100%; border-collapse: collapse; background: #fff; }
-.tmu-table th, .tmu-table td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-line); font-size: 15px; line-height: 1.5; }
-.tmu-table thead th { background: var(--color-light-gray); color: var(--color-dark); font-weight: 700; white-space: nowrap; }
+.tmu-table th, .tmu-table td { padding: 14px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-line); font-size: 15px; line-height: 1.5; }
+.tmu-table thead th { background: var(--color-primary-light); color: var(--color-dark); font-weight: 700; white-space: nowrap; }
 .tmu-table tbody th { font-weight: 700; color: var(--color-dark); }
 .tmu-table td { color: var(--color-text-light); }
 .tmu-table tbody tr:last-child th, .tmu-table tbody tr:last-child td { border-bottom: 0; }
@@ -251,170 +258,144 @@ export default function TemuServicePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
       {/* Hero */}
-      <section style={{ background: "#fff", padding: "clamp(36px, 5vw, 64px) 0 clamp(48px, 6vw, 80px)" }}>
-        <div className="container-main">
-          <div className="tmu-hero">
-            <div style={{ minWidth: 0 }}>
-              <span className="g-eyebrow">Temu store management</span>
-              <h1 className="g-h1" style={{ marginTop: 10 }}>
-                Temu store management for sellers with stock in the US
-              </h1>
-              <p className="g-lead" style={{ marginTop: 16 }}>
-                <BrandName /> manages your Temu store for you: account application help, product selection, listings,
-                pricing, order fulfilment, customer service and account health. It is for sellers who hold, or will
-                hold, inventory in the US. Our US warehouses can store, prep and ship it.
-              </p>
-              <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
-                <Link href="/profit-check" className="btn-primary">
-                  Check my profit <FaArrowRight aria-hidden="true" />
-                </Link>
-                <a href="https://wa.me/13073938789" target="_blank" rel="noopener noreferrer" className="btn-outline">
-                  <FaWhatsapp aria-hidden="true" /> Ask on WhatsApp
-                </a>
-              </div>
-              <ul className="tmu-list" style={{ marginTop: 26 }}>
-                <li>US inventory only.</li>
-                <li>No dropshipping on Temu.</li>
-                <li>You own the account, the stock and the payouts.</li>
-              </ul>
-              <p className="typo-small" style={{ marginTop: 18 }}>
-                We are an independent agency. We are not part of Temu and we cannot promise that Temu will approve an
-                application. Last reviewed: November 2026.
-              </p>
-            </div>
-            <figure style={{ minWidth: 0, margin: 0 }}>
-              <div className="tmu-frame">
-                <img
-                  src="/images/portal/store-overview.jpg"
-                  width={1228}
-                  height={690}
-                  alt="Store overview screen of the Gosellify Portal showing sales, orders, units and a daily sales chart for a Walmart store"
-                  loading="eager"
-                  style={{ display: "block", width: "100%", height: "auto" }}
-                />
-              </div>
-              <figcaption className="typo-small" style={{ marginTop: 10 }}>
-                The Gosellify Portal, from our own Walmart store. Screenshot taken November 23, 2026. This is not a Temu
-                screen. We track every managed store in the same portal.
-              </figcaption>
-            </figure>
-          </div>
+      <ServiceHero
+        eyebrow="Temu store management"
+        title="Temu store management for sellers with stock in the US"
+        lead={
+          <>
+            <BrandName /> manages your Temu store for you: account application help, product selection, listings,
+            pricing, order fulfilment, customer service and account health. It is for sellers who hold, or will
+            hold, inventory in the US. Our US warehouses can store, prep and ship it.
+          </>
+        }
+        points={["US inventory only.", "No dropshipping on Temu.", "You own the account, the stock and the payouts."]}
+        note="We are an independent agency. We are not part of Temu and we cannot promise that Temu will approve an application. Last reviewed: November 2026."
+      >
+        <div style={{ marginTop: 20 }}>
+          <ScreenShowcase
+            variant="overview"
+            eager
+            caption="The Gosellify Portal, from our own Walmart store. Screenshot taken November 23, 2026. This is not a Temu screen. We track every managed store in the same portal."
+          />
         </div>
-      </section>
+      </ServiceHero>
 
       {/* How selling on Temu works */}
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <h2 className="g-h2">How selling on Temu works</h2>
-          <p className="g-lead" style={{ marginTop: 12, maxWidth: 760 }}>
+      <ServiceSection
+        eyebrow="The two models"
+        title="How selling on Temu works"
+        lead={
+          <>
             There are two models people talk about when they say &quot;sell on Temu&quot;. Only one of them matters for
             a seller with stock in the US.
-          </p>
-
-          <div className="tmu-two" style={{ marginTop: 32 }}>
-            <div style={{ minWidth: 0 }}>
-              <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-primary)" }}>The model we manage</p>
-              <h3 className="g-h3" style={{ marginTop: 4 }}>
-                Local seller: you hold stock in the US
-              </h3>
-              <p style={{ marginTop: 10, color: "var(--color-text-light)" }}>
-                Temu&apos;s Local Seller Program is for eligible local businesses that sell through local warehousing
-                and delivery. You register in Seller Center, list your products, and orders ship from inventory that
-                is already in the country.
-              </p>
-              <ul className="tmu-list" style={{ marginTop: 14 }}>
-                <li>
-                  Temu&apos;s US seller page shows three sign-up steps: create an account, complete the application,
-                  get the result. <Ext href={SRC.sellerCenter}>Temu Seller Center</Ext>
-                </li>
-                <li>
-                  The same page says Temu does not provide logistics services directly, so shipping is on the seller
-                  or a logistics partner.
-                </li>
-                <li>
-                  Temu teaches registration, products, orders, logistics and returns in its own academy.{" "}
-                  <Ext href={SRC.academy}>Temu Seller Academy</Ext>
-                </li>
-              </ul>
-            </div>
-
-            <div style={{ minWidth: 0 }}>
-              <p className="typo-small" style={{ fontWeight: 700 }}>Not what we manage</p>
-              <h3 className="g-h3" style={{ marginTop: 4 }}>
-                Fully managed: goods shipped from China
-              </h3>
-              <p style={{ marginTop: 10, color: "var(--color-text-light)" }}>
-                This is the model Temu became known for. Suppliers, mostly factories in China, hand goods to Temu, and
-                the goods ship from China to the shopper. It is built for manufacturers, not for a US seller with
-                local stock.
-              </p>
-              <ul className="tmu-list" style={{ marginTop: 14 }}>
-                <li>
-                  Caixin reported in May 2025 that Temu stopped offering this model for shipments to US buyers.{" "}
-                  <Ext href={SRC.caixin}>Caixin Global</Ext>
-                </li>
-                <li>
-                  Temu&apos;s seller site has a separate sign-up path for sellers registered in the Chinese Mainland
-                  or Hong Kong.
-                </li>
-                <li>
-                  Dropshipping is a third idea people ask about. One trade guide says Temu does not officially
-                  support it, and we do not offer it. <Ext href={SRC.worldfirst}>WorldFirst guide</Ext>
-                </li>
-              </ul>
-            </div>
+          </>
+        }
+        tint
+      >
+        <div className="tmu-two" style={{ maxWidth: 1100 }}>
+          <div className="g-card" style={{ borderColor: "var(--color-primary)" }}>
+            <span className="g-eyebrow">The model we manage</span>
+            <h3 className="g-h3" style={{ marginTop: 12 }}>
+              Local seller: you hold stock in the US
+            </h3>
+            <p style={{ marginTop: 10, color: "var(--color-text-light)" }}>
+              Temu&apos;s Local Seller Program is for eligible local businesses that sell through local warehousing
+              and delivery. You register in Seller Center, list your products, and orders ship from inventory that
+              is already in the country.
+            </p>
+            <ul className="tmu-list" style={{ marginTop: 14 }}>
+              <li>
+                Temu&apos;s US seller page shows three sign-up steps: create an account, complete the application,
+                get the result. <Ext href={SRC.sellerCenter}>Temu Seller Center</Ext>
+              </li>
+              <li>
+                The same page says Temu does not provide logistics services directly, so shipping is on the seller
+                or a logistics partner.
+              </li>
+              <li>
+                Temu teaches registration, products, orders, logistics and returns in its own academy.{" "}
+                <Ext href={SRC.academy}>Temu Seller Academy</Ext>
+              </li>
+            </ul>
           </div>
 
-          <h3 className="g-h3" style={{ marginTop: 44 }}>
-            How Temu opened to US sellers
-          </h3>
-          <div
-            style={{ marginTop: 14, overflowX: "auto", border: "1px solid var(--color-line)", borderRadius: 10, background: "#fff" }}
-            tabIndex={0}
-            role="region"
-            aria-label="Timeline of Temu opening to US sellers"
-          >
-            <table className="tmu-table" style={{ minWidth: 640 }}>
-              <thead>
-                <tr>
-                  <th scope="col">When</th>
-                  <th scope="col">What changed</th>
-                  <th scope="col">Source</th>
-                </tr>
-              </thead>
-              <tbody>
-                {moments.map((m) => (
-                  <tr key={m.when}>
-                    <th scope="row" style={{ whiteSpace: "nowrap" }}>{m.when}</th>
-                    <td>{m.what}</td>
-                    <td>
-                      <Ext href={m.src.href}>{m.src.label}</Ext>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="g-card">
+            <span className="g-eyebrow" style={{ background: "var(--color-light-gray)", color: "var(--color-text-light)" }}>Not what we manage</span>
+            <h3 className="g-h3" style={{ marginTop: 12 }}>
+              Fully managed: goods shipped from China
+            </h3>
+            <p style={{ marginTop: 10, color: "var(--color-text-light)" }}>
+              This is the model Temu became known for. Suppliers, mostly factories in China, hand goods to Temu, and
+              the goods ship from China to the shopper. It is built for manufacturers, not for a US seller with
+              local stock.
+            </p>
+            <ul className="tmu-list" style={{ marginTop: 14 }}>
+              <li>
+                Caixin reported in May 2025 that Temu stopped offering this model for shipments to US buyers.{" "}
+                <Ext href={SRC.caixin}>Caixin Global</Ext>
+              </li>
+              <li>
+                Temu&apos;s seller site has a separate sign-up path for sellers registered in the Chinese Mainland
+                or Hong Kong.
+              </li>
+              <li>
+                Dropshipping is a third idea people ask about. One trade guide says Temu does not officially
+                support it, and we do not offer it. <Ext href={SRC.worldfirst}>WorldFirst guide</Ext>
+              </li>
+            </ul>
           </div>
-          <p className="typo-small" style={{ marginTop: 12, maxWidth: 760 }}>
-            Programs, rules and fees change. Always confirm the current terms in{" "}
-            <Ext href={SRC.sellerCenter}>Temu Seller Center</Ext> before you apply or list. Last reviewed: November
-            2026.
-          </p>
         </div>
-      </section>
+
+        <h3 className="g-h3" style={{ marginTop: 48 }}>
+          How Temu opened to US sellers
+        </h3>
+        <div
+          style={{ marginTop: 16, maxWidth: 1100, overflowX: "auto", border: "1px solid var(--color-line)", borderRadius: 16, background: "#fff" }}
+          tabIndex={0}
+          role="region"
+          aria-label="Timeline of Temu opening to US sellers"
+        >
+          <table className="tmu-table" style={{ minWidth: 640 }}>
+            <thead>
+              <tr>
+                <th scope="col">When</th>
+                <th scope="col">What changed</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {moments.map((m) => (
+                <tr key={m.when}>
+                  <th scope="row" style={{ whiteSpace: "nowrap" }}>{m.when}</th>
+                  <td>{m.what}</td>
+                  <td>
+                    <Ext href={m.src.href}>{m.src.label}</Ext>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="typo-small" style={{ marginTop: 14, maxWidth: 760, textAlign: "center" }}>
+          Programs, rules and fees change. Always confirm the current terms in{" "}
+          <Ext href={SRC.sellerCenter}>Temu Seller Center</Ext> before you apply or list. Last reviewed: November
+          2026.
+        </p>
+      </ServiceSection>
 
       {/* What we manage */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <h2 className="g-h2">What we manage for you</h2>
-          <p className="g-lead" style={{ marginTop: 12, maxWidth: 680 }}>
-            The same daily work our team does for Amazon and Walmart stores, set up for a Temu seller account.
-          </p>
-          <div className="tmu-manage" style={{ marginTop: 28 }}>
-            {manage.map((m) => (
-              <div key={m.title} className="tmu-mrow">
-                <h3 style={{ fontSize: 17, fontWeight: 700, lineHeight: 1.4 }}>{m.title}</h3>
-                <p style={{ marginTop: 4, fontSize: 16, color: "var(--color-text-light)" }}>
+      <ServiceSection
+        eyebrow="Included"
+        title="What we manage for you"
+        lead="The same daily work our team does for Amazon and Walmart stores, set up for a Temu seller account."
+      >
+        <div className="sv-grid" style={{ "--sv-cols": 4 } as React.CSSProperties}>
+          {manage.map((m, index) => (
+            <Reveal key={m.title} delay={(index % 4) * 60}>
+              <div className="g-card" style={{ padding: 24 }}>
+                <span className={tileClass(index)} aria-hidden="true">{pickIcon(m.title)}</span>
+                <h3 className="g-h3" style={{ marginTop: 16 }}>{m.title}</h3>
+                <p style={{ marginTop: 6, fontSize: 16, lineHeight: 1.6, color: "var(--color-text-light)" }}>
                   {m.desc}
                   {m.href && m.linkLabel ? (
                     <>
@@ -426,147 +407,152 @@ export default function TemuServicePage() {
                   ) : null}
                 </p>
               </div>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </ServiceSection>
 
       {/* Fit */}
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <h2 className="g-h2">Who it fits, and who it does not</h2>
-          <div className="tmu-two" style={{ marginTop: 28 }}>
-            <div style={{ minWidth: 0 }}>
+      <ServiceSection eyebrow="Is it for you" title="Who it fits, and who it does not" tint>
+        <div className="tmu-two" style={{ maxWidth: 1100 }}>
+          <div className="g-card">
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 10 }}>
+              <span className="icon-tile" aria-hidden="true"><FaCheck /></span>
               <h3 className="g-h3">A good fit</h3>
-              <ul className="tmu-plain" style={{ marginTop: 12 }}>
-                {fits.map((t) => (
-                  <li key={t}>
-                    <FaCheck aria-hidden="true" style={{ color: "var(--color-primary)", flexShrink: 0, marginTop: 6, fontSize: 14 }} />
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
-            <div style={{ minWidth: 0 }}>
-              <h3 className="g-h3">Not a fit</h3>
-              <ul className="tmu-plain" style={{ marginTop: 12 }}>
-                {noFits.map((t) => (
-                  <li key={t}>
-                    <FaTimes aria-hidden="true" style={{ color: "var(--color-text-light)", flexShrink: 0, marginTop: 6, fontSize: 14 }} />
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="tmu-plain">
+              {fits.map((t) => (
+                <li key={t}>
+                  <span className="tmu-dot" aria-hidden="true" style={{ background: "var(--color-primary)", color: "#fff" }}><FaCheck /></span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <p style={{ marginTop: 24, fontSize: 16, color: "var(--color-text-light)", maxWidth: 760 }}>
-            Want a model without your own stock? Look at{" "}
-            <Link href="/services/amazon-arbitrage" className="tmu-ext">
-              2-step dropshipping on Amazon
-            </Link>{" "}
-            or{" "}
-            <Link href="/services/walmart-management" className="tmu-ext">
-              Walmart management services
-            </Link>{" "}
-            instead.
-          </p>
+          <div className="g-card">
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 10 }}>
+              <span className="icon-tile navy" aria-hidden="true"><FaTimes /></span>
+              <h3 className="g-h3">Not a fit</h3>
+            </div>
+            <ul className="tmu-plain">
+              {noFits.map((t) => (
+                <li key={t}>
+                  <span className="tmu-dot" aria-hidden="true" style={{ background: "var(--color-light-gray)", color: "var(--color-text-light)" }}><FaTimes /></span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </section>
+        <p style={{ marginTop: 28, fontSize: 16, color: "var(--color-text-light)", maxWidth: 760, textAlign: "center" }}>
+          Want a model without your own stock? Look at{" "}
+          <Link href="/services/amazon-arbitrage" className="tmu-ext">
+            2-step dropshipping on Amazon
+          </Link>{" "}
+          or{" "}
+          <Link href="/services/walmart-management" className="tmu-ext">
+            Walmart management services
+          </Link>{" "}
+          instead.
+        </p>
+      </ServiceSection>
 
       {/* How we start */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-read" style={{ marginLeft: "max(0px, calc((100% - 1200px) / 2))" }}>
-          <h2 className="g-h2">How we start</h2>
-          <p className="g-lead" style={{ marginTop: 12 }}>
+      <ServiceSection
+        eyebrow="The process"
+        title="How we start"
+        lead={
+          <>
             Five steps from first message to a managed store. Timing depends on Temu&apos;s review and on when your
             stock lands.
-          </p>
-          <ol style={{ marginTop: 18, paddingLeft: 22 }}>
-            {steps.map((s) => (
-              <li key={s.title} style={{ marginTop: 14, paddingLeft: 4 }}>
-                <strong style={{ color: "var(--color-dark)" }}>{s.title}.</strong>{" "}
-                <span style={{ color: "var(--color-text-light)" }}>{s.desc}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+          </>
+        }
+      >
+        <StepList steps={steps} />
+      </ServiceSection>
 
       {/* Comparison */}
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <h2 className="g-h2">Temu next to Amazon and Walmart</h2>
-          <p className="g-lead" style={{ marginTop: 12, maxWidth: 760 }}>
+      <ServiceSection
+        eyebrow="Comparison"
+        title="Temu next to Amazon and Walmart"
+        lead={
+          <>
             A short comparison with facts we could confirm on each marketplace&apos;s own pages. No fee numbers, because
             they change.
-          </p>
-          <div
-            style={{ marginTop: 24, overflowX: "auto", borderRadius: 10, border: "1px solid var(--color-line)", background: "#fff" }}
-            tabIndex={0}
-            role="region"
-            aria-label="Comparison of Temu, Amazon and Walmart"
-          >
-            <table className="tmu-table" style={{ minWidth: 820 }}>
-              <thead>
-                <tr>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Temu</th>
-                  <th scope="col">Amazon</th>
-                  <th scope="col">Walmart</th>
+          </>
+        }
+        tint
+      >
+        <div
+          style={{ maxWidth: 1100, overflowX: "auto", borderRadius: 16, border: "1px solid var(--color-line)", background: "#fff" }}
+          tabIndex={0}
+          role="region"
+          aria-label="Comparison of Temu, Amazon and Walmart"
+        >
+          <table className="tmu-table" style={{ minWidth: 820 }}>
+            <thead>
+              <tr>
+                <th scope="col">Topic</th>
+                <th scope="col">Temu</th>
+                <th scope="col">Amazon</th>
+                <th scope="col">Walmart</th>
+              </tr>
+            </thead>
+            <tbody>
+              {compare.map((r) => (
+                <tr key={r.label}>
+                  <th scope="row" style={{ width: "19%" }}>{r.label}</th>
+                  <td>
+                    <CellView c={r.temu} />
+                  </td>
+                  <td>
+                    <CellView c={r.amazon} />
+                  </td>
+                  <td>
+                    <CellView c={r.walmart} />
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {compare.map((r) => (
-                  <tr key={r.label}>
-                    <th scope="row" style={{ width: "19%" }}>{r.label}</th>
-                    <td>
-                      <CellView c={r.temu} />
-                    </td>
-                    <td>
-                      <CellView c={r.amazon} />
-                    </td>
-                    <td>
-                      <CellView c={r.walmart} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="typo-small" style={{ marginTop: 12 }}>
-            Last reviewed: November 2026. More background on the Temu program:{" "}
-            <Ext href={SRC.shipstation}>ShipStation seller guide</Ext>
-          </p>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </section>
+        <p className="typo-small" style={{ marginTop: 14, textAlign: "center" }}>
+          Last reviewed: November 2026. More background on the Temu program:{" "}
+          <Ext href={SRC.shipstation}>ShipStation seller guide</Ext>
+        </p>
+      </ServiceSection>
 
       {/* FAQ */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-read" style={{ marginLeft: "max(0px, calc((100% - 1200px) / 2))" }}>
-          <h2 className="g-h2">Temu seller questions</h2>
-          <p className="g-lead" style={{ marginTop: 12, marginBottom: 20 }}>
+      <ServiceSection
+        eyebrow="FAQ"
+        title="Temu seller questions"
+        lead={
+          <>
             If yours is not here,{" "}
             <a href="https://wa.me/13073938789" target="_blank" rel="noopener noreferrer" className="tmu-ext">
               message us on WhatsApp
             </a>
             .
-          </p>
+          </>
+        }
+      >
+        <div style={{ maxWidth: 860 }}>
           <TemuFaqList />
         </div>
-      </section>
+      </ServiceSection>
 
       {/* CTA */}
-      <section className="bg-navy on-dark" style={{ padding: "clamp(40px, 5vw, 64px) 0" }}>
-        <div className="container-main">
-          <h2 className="g-h2" style={{ maxWidth: 720 }}>
+      <section className="bg-navy on-dark" style={{ padding: "clamp(56px, 6vw, 84px) 0" }}>
+        <div className="container-main center">
+          <h2 className="g-h2" style={{ maxWidth: 720, margin: "0 auto" }}>
             See if Temu makes profit for your products
           </h2>
           <p className="g-lead" style={{ marginTop: 12, maxWidth: 640 }}>
             Answer a few quick questions. A manager reviews them and replies with a plan for your store. No contract.
             Cancel anytime.
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 22 }}>
-            <Link href="/profit-check" className="btn-primary">
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12, marginTop: 26 }}>
+            <Link href="/profit-check" className="btn-accent">
               Start the 2-minute Profit Check <FaArrowRight aria-hidden="true" />
             </Link>
             <a href="https://wa.me/13073938789" target="_blank" rel="noopener noreferrer" className="btn-outline-white">

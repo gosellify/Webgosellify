@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import HomeStyles from "@/components/v5/HomeStyles";
-import Hero from "@/components/v5/Hero";
-import Manage from "@/components/v5/Manage";
-import FounderNote from "@/components/v5/FounderNote";
-import PortalView from "@/components/v5/PortalView";
-import DailyWork from "@/components/v5/DailyWork";
-import HowPaid from "@/components/v5/HowPaid";
-import HowStart from "@/components/v5/HowStart";
-import Team from "@/components/v5/Team";
-import Faq from "@/components/v5/Faq";
-import Contact from "@/components/v5/Contact";
+import HomeStyles from "@/components/v6/home/HomeStyles";
+import Hero from "@/components/v6/home/Hero";
+import Services from "@/components/v6/home/Services";
+import Portal from "@/components/v6/home/Portal";
+import Daily from "@/components/v6/home/Daily";
+import Paid from "@/components/v6/home/Paid";
+import Founder from "@/components/v6/home/Founder";
+import Start from "@/components/v6/home/Start";
+import Team from "@/components/v6/home/Team";
+import Faq from "@/components/v6/home/Faq";
+import FinalCta from "@/components/v6/home/FinalCta";
 import { homeFaqs } from "@/components/v5/faqData";
 
 export const metadata: Metadata = {
@@ -60,15 +60,15 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <HomeStyles />
       <Hero />
-      <Manage />
-      <FounderNote />
-      <PortalView />
-      <DailyWork />
-      <HowPaid />
-      <HowStart />
+      <Services />
+      <Portal />
+      <Daily />
+      <Paid />
+      <Founder />
+      <Start />
       <Team />
       <Faq />
-      <Contact />
+      <FinalCta />
     </>
   );
 }

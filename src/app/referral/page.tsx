@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import CTASection from "@/components/home/CTASection";
+import { PlainList, ServiceHero, ServiceSection, StepList } from "@/components/services/ServiceBlocks";
+import type { TitledItem } from "@/components/services/ServiceBlocks";
 
 export const metadata: Metadata = {
   title: "Affiliate Referral Program for Ecommerce Sellers",
@@ -30,64 +32,30 @@ const terms: string[] = [
   "There are no guarantees of any amount.",
 ];
 
+const stepItems: TitledItem[] = steps.map((step) => ({ title: step.title, desc: step.text }));
+
 export default function ReferralPage() {
   return (
     <>
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Referral program</span>
-          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
-            Affiliate referral program for ecommerce sellers
-          </h1>
-          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "24px" }}>
-            Know a seller who needs help running their store? Introduce them to us. We pay you a
-            monthly commission for each referred client while they stay active.
-          </p>
-          <a
-            href="https://wa.me/13073938789"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-accent"
-          >
-            Join on WhatsApp
-          </a>
-        </div>
-      </section>
+      <ServiceHero
+        eyebrow="Referral program"
+        title="Affiliate referral program for ecommerce sellers"
+        lead="Know a seller who needs help running their store? Introduce them to us. We pay you a monthly commission for each referred client while they stay active."
+        primaryLabel="Join on WhatsApp"
+        primaryHref="https://wa.me/13073938789"
+        secondaryHref="/contact"
+        secondaryLabel="Contact us"
+      />
 
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 56px" }}>
-            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
-              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
-                How it works
-              </h2>
-              <ol style={{ listStyle: "none", borderTop: "1px solid var(--color-line)" }}>
-                {steps.map((step, i) => (
-                  <li key={step.title} style={{ padding: "14px 0", borderBottom: "1px solid var(--color-line)" }}>
-                    <h3 className="typo-h4">
-                      {i + 1}. {step.title}
-                    </h3>
-                    <p className="typo-body">{step.text}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
-              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
-                What to expect
-              </h2>
-              <ul style={{ listStyle: "none", borderTop: "1px solid var(--color-line)" }}>
-                {terms.map((term) => (
-                  <li key={term} className="typo-body" style={{ padding: "14px 0", borderBottom: "1px solid var(--color-line)" }}>
-                    {term}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      <ServiceSection eyebrow="Three steps" title="How it works" tint>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <StepList steps={stepItems} />
         </div>
-      </section>
+      </ServiceSection>
+
+      <ServiceSection eyebrow="The terms" title="What to expect">
+        <PlainList items={terms} />
+      </ServiceSection>
 
       <CTASection />
     </>

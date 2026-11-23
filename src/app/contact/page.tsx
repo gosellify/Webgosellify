@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import type { ReactNode } from "react";
+import { FaBuilding, FaClock, FaEnvelope, FaPhoneAlt, FaUsers, FaWhatsapp } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
+import { ServiceHero } from "@/components/services/ServiceBlocks";
+import { tileClass } from "@/components/services/serviceIcons";
 
 type Detail = { label: string; lines: string[]; href?: string; external?: boolean };
 
@@ -36,6 +40,21 @@ const details: Detail[] = [
   },
 ];
 
+const detailIcons: ReactNode[] = [<FaBuilding key="a" />, <FaUsers key="t" />, <FaPhoneAlt key="p" />, <FaWhatsapp key="w" />, <FaEnvelope key="e" />, <FaClock key="h" />];
+
+const fieldStyle = {
+  width: "100%",
+  padding: "14px 16px",
+  fontSize: "16px",
+  borderRadius: "12px",
+  border: "1px solid var(--color-line)",
+  background: "#fff",
+  color: "var(--color-dark)",
+  fontFamily: "inherit",
+} as const;
+
+const labelStyle = { display: "block", fontSize: "14px", fontWeight: 700, color: "var(--color-dark)", marginBottom: "6px" } as const;
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -53,80 +72,71 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="g-section" style={{ background: "#fff", paddingBottom: "40px" }}>
-        <div className="container-main">
-          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Contact</span>
-          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
-            Contact our ecommerce management team
-          </h1>
-          <p className="g-lead" style={{ maxWidth: "720px" }}>
-            Ask us about your store or about our services. WhatsApp is the fastest way to reach
-            us. You can also call, email or use the form.
-          </p>
-        </div>
-      </section>
+      <ServiceHero
+        eyebrow="Contact"
+        title="Contact our ecommerce management team"
+        lead="Ask us about your store or about our services. WhatsApp is the fastest way to reach us. You can also call, email or use the form."
+        primaryLabel="Message us on WhatsApp"
+        primaryHref="https://wa.me/13073938789"
+        secondaryHref="#message"
+        secondaryLabel="Use the form"
+      />
 
-      <section className="bg-tint" style={{ padding: "56px 0 72px" }}>
+      <section className="g-section bg-tint" style={{ paddingTop: "clamp(48px, 5vw, 72px)" }}>
         <div className="container-main">
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 56px", alignItems: "flex-start" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "32px 40px", alignItems: "flex-start" }}>
             {/* Left: Details */}
             <div style={{ flex: "1 1 380px", minWidth: 0 }}>
-              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
+              <h2 className="g-h2" style={{ marginBottom: "18px" }}>
                 Where to find us
               </h2>
-              <div style={{ borderTop: "1px solid var(--color-line)" }}>
-                {details.map((d) => (
-                  <div
-                    key={d.label}
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: "2px 24px",
-                      padding: "14px 0",
-                      borderBottom: "1px solid var(--color-line)",
-                    }}
-                  >
-                    <span className="typo-small" style={{ flex: "0 0 150px", fontWeight: 700, color: "var(--color-dark)", paddingTop: "3px" }}>
-                      {d.label}
-                    </span>
-                    <span style={{ flex: "1 1 200px", minWidth: 0 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 14 }}>
+                {details.map((d, index) => (
+                  <div key={d.label} className="g-card" style={{ padding: 20, display: "flex", gap: 14, alignItems: "flex-start", minWidth: 0 }}>
+                    <span className={tileClass(index)} aria-hidden="true">{detailIcons[index]}</span>
+                    <div style={{ minWidth: 0 }}>
+                      <span className="typo-small" style={{ display: "block", fontWeight: 700 }}>
+                        {d.label}
+                      </span>
                       {d.href ? (
                         <a
                           href={d.href}
                           target={d.external ? "_blank" : undefined}
                           rel={d.external ? "noopener noreferrer" : undefined}
                           className="link-underline"
-                          style={{ color: "var(--color-primary)", fontWeight: 600 }}
+                          style={{ color: "var(--color-primary)", fontWeight: 700, overflowWrap: "anywhere" }}
                         >
                           {d.lines[0]}
                         </a>
                       ) : (
                         d.lines.map((line) => (
-                          <span key={line} style={{ display: "block" }}>
+                          <span key={line} style={{ display: "block", fontWeight: 600, color: "var(--color-dark)", lineHeight: 1.45 }}>
                             {line}
                           </span>
                         ))
                       )}
-                    </span>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Right: Form */}
-            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
-              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
+            <div id="message" style={{ flex: "1 1 380px", minWidth: 0, background: "#fff", border: "1px solid var(--color-line)", borderRadius: 16, padding: "clamp(20px, 3vw, 32px)", scrollMarginTop: 100 }}>
+              <h2 className="g-h2" style={{ marginBottom: "18px" }}>
                 Send us a message
               </h2>
               {submitted && (
                 <div
+                  role="status"
                   style={{
                     padding: "12px",
-                    borderRadius: "8px",
-                    background: "#fff",
-                    border: "1px solid var(--color-line)",
+                    borderRadius: "12px",
+                    background: "var(--color-primary-light)",
+                    border: "1px solid var(--color-primary)",
                     color: "var(--color-dark)",
                     fontSize: "15px",
+                    fontWeight: 600,
                     textAlign: "center",
                     marginBottom: "16px",
                   }}
@@ -136,40 +146,48 @@ export default function ContactPage() {
               )}
 
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="w-full border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors bg-white"
-                  style={{ padding: "14px 16px", fontSize: "15px", borderRadius: "10px" }}
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-                <input
-                  type="email"
-                  required
-                  placeholder="Email Address"
-                  className="w-full border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors bg-white"
-                  style={{ padding: "14px 16px", fontSize: "15px", borderRadius: "10px" }}
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-                <input
-                  type="text"
-                  placeholder="Subject"
-                  className="w-full border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors bg-white"
-                  style={{ padding: "14px 16px", fontSize: "15px", borderRadius: "10px" }}
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                />
-                <textarea
-                  rows={5}
-                  placeholder="Your Message"
-                  className="w-full border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors resize-none bg-white"
-                  style={{ padding: "14px 16px", fontSize: "15px", borderRadius: "10px" }}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                />
-                <button type="submit" className="btn-primary" style={{ width: "100%" }}>
+                <label>
+                  <span style={labelStyle}>Your name</span>
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    style={fieldStyle}
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </label>
+                <label>
+                  <span style={labelStyle}>Email address</span>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email Address"
+                    style={fieldStyle}
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  />
+                </label>
+                <label>
+                  <span style={labelStyle}>Subject</span>
+                  <input
+                    type="text"
+                    placeholder="Subject"
+                    style={fieldStyle}
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  />
+                </label>
+                <label>
+                  <span style={labelStyle}>Your message</span>
+                  <textarea
+                    rows={5}
+                    placeholder="Your Message"
+                    style={{ ...fieldStyle, resize: "none" }}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  />
+                </label>
+                <button type="submit" className="btn-accent" style={{ width: "100%" }}>
                   Send Message
                 </button>
               </form>

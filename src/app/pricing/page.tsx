@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CTASection from "@/components/home/CTASection";
+import ScreenShowcase from "@/components/v6/ScreenShowcase";
+import { FeatureList, LinkCards, ServiceHero, ServiceSection } from "@/components/services/ServiceBlocks";
+import type { RelatedLink, TitledItem } from "@/components/services/ServiceBlocks";
 
 export const metadata: Metadata = {
   title: "Pricing: Profit Share Store Management",
@@ -114,161 +117,76 @@ const otherServices: Row[] = [
 
 const linkStyle = { color: "var(--color-primary)", fontWeight: 700 } as const;
 
+const payCards: TitledItem[] = payFromProfit.map((item) => ({ title: item.q, desc: item.a }));
+const managementLinks: RelatedLink[] = managementServices.map((service) => ({ href: service.href, label: service.title, desc: service.description }));
+
 export default function PricingPage() {
   return (
     <>
       {/* Intro */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Pricing</span>
-          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
-            Pricing: profit share store management
-          </h1>
-          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "14px" }}>
-            Our store management is paid from profit. You pay no management fee until your store
-            makes profit. After that we take a share of the profit. There is no contract and you
-            can cancel anytime.
-          </p>
-          <p className="typo-body" style={{ maxWidth: "720px", marginBottom: "24px" }}>
-            We cannot promise sales or profit. Every store and every product is different. What we
-            do commit to is showing you every order and every cost in your dashboard.
-          </p>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 24px" }}>
-            <Link href="/profit-check" className="btn-accent">
-              Start the Profit Check
-            </Link>
-            <a
-              href="https://wa.me/13073938789"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline"
-              style={linkStyle}
-            >
-              Ask about pricing on WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        eyebrow="Pricing"
+        title="Pricing: profit share store management"
+        lead="Our store management is paid from profit. You pay no management fee until your store makes profit. After that we take a share of the profit. There is no contract and you can cancel anytime."
+        primaryLabel="Start the Profit Check"
+        secondaryHref="https://wa.me/13073938789"
+        secondaryLabel="Ask about pricing on WhatsApp"
+        points={["No management fee until profit", "No contract", "Cancel anytime"]}
+        note="We cannot promise sales or profit. Every store and every product is different. What we do commit to is showing you every order and every cost in your dashboard."
+      />
 
       {/* Pay from profit explained */}
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <h2 className="g-h2" style={{ marginBottom: "20px" }}>
-            How pay from profit works
-          </h2>
-          <dl style={{ maxWidth: "860px", borderTop: "1px solid var(--color-line)" }}>
-            {payFromProfit.map((item) => (
-              <div
-                key={item.q}
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "4px 24px",
-                  padding: "16px 0",
-                  borderBottom: "1px solid var(--color-line)",
-                }}
-              >
-                <dt style={{ flex: "0 0 220px", fontWeight: 700, color: "var(--color-dark)" }}>{item.q}</dt>
-                <dd className="typo-body" style={{ flex: "1 1 320px", minWidth: 0 }}>{item.a}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <figure style={{ margin: "36px 0 0", maxWidth: "980px" }}>
-            <div style={{ border: "1px solid var(--color-line)", borderRadius: "10px", overflow: "hidden", background: "#fff" }}>
-              <img
-                src="/images/portal/store-profit.jpg"
-                alt="Profit and loss view in the Gosellify Portal showing sales, Walmart fees, product, labels and prep costs, and profit for November 2026 so far"
-                width={1228}
-                height={372}
-                loading="lazy"
-                style={{ display: "block", width: "100%", height: "auto" }}
-              />
-            </div>
-            <figcaption className="typo-small" style={{ marginTop: "8px" }}>
-              This is how profit is counted. November profit and loss so far for our own Walmart
-              store in the Gosellify Portal. Screenshot taken November 23, 2026.
-            </figcaption>
-          </figure>
+      <ServiceSection eyebrow="The model" title="How pay from profit works" tint>
+        <FeatureList items={payCards} cols={3} />
+        <div style={{ marginTop: 40, overflow: "hidden" }}>
+          <ScreenShowcase
+            variant="profit"
+            caption="This is how profit is counted. November profit and loss so far for our own Walmart store in the Gosellify Portal. Screenshot taken November 23, 2026."
+          />
         </div>
-      </section>
+      </ServiceSection>
 
       {/* Management services */}
-      <section className="g-section" style={{ background: "#fff" }}>
-        <div className="container-main">
-          <h2 className="g-h2" style={{ marginBottom: "10px" }}>
-            Store management services paid from profit
-          </h2>
-          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "24px" }}>
-            These services use the profit share model described above.
-          </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))",
-              gap: "0 40px",
-              borderTop: "1px solid var(--color-line)",
-            }}
-          >
-            {managementServices.map((service) => (
-              <div key={service.title} style={{ padding: "18px 0", borderBottom: "1px solid var(--color-line)" }}>
-                <h3 className="g-h3" style={{ marginBottom: "4px" }}>
-                  <Link href={service.href} style={{ color: "inherit", textDecoration: "none" }}>
-                    {service.title}
-                  </Link>
-                </h3>
-                <p className="typo-body" style={{ marginBottom: "6px" }}>{service.description}</p>
-                <Link href={service.href} className="link-underline" style={{ ...linkStyle, fontSize: "15px" }}>
-                  Read about {service.title}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceSection
+        eyebrow="Paid from profit"
+        title="Store management services paid from profit"
+        lead="These services use the profit share model described above."
+      >
+        <LinkCards links={managementLinks} cols={3} />
+      </ServiceSection>
 
       {/* Other services */}
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <h2 className="g-h2" style={{ marginBottom: "10px" }}>
-            Other services and prices
-          </h2>
-          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "24px" }}>
-            These are separate services with their own prices. Government and state fees are extra.
-          </p>
-          <div style={{ overflowX: "auto", background: "#fff", border: "1px solid var(--color-line)", borderRadius: "10px" }}>
-            <table style={{ width: "100%", minWidth: "640px", borderCollapse: "collapse", textAlign: "left" }}>
-              <thead>
-                <tr>
-                  <th scope="col" className="typo-small" style={{ padding: "12px 16px", fontWeight: 700, color: "var(--color-dark)", borderBottom: "1px solid var(--color-line)" }}>Service</th>
-                  <th scope="col" className="typo-small" style={{ padding: "12px 16px", fontWeight: 700, color: "var(--color-dark)", borderBottom: "1px solid var(--color-line)" }}>Price</th>
-                  <th scope="col" className="typo-small" style={{ padding: "12px 16px", fontWeight: 700, color: "var(--color-dark)", borderBottom: "1px solid var(--color-line)" }}>What it covers</th>
+      <ServiceSection
+        eyebrow="Fixed prices"
+        title="Other services and prices"
+        lead="These are separate services with their own prices. Government and state fees are extra."
+        tint
+      >
+        <div style={{ maxWidth: 1040, overflowX: "auto", background: "#fff", border: "1px solid var(--color-line)", borderRadius: 16 }}>
+          <table className="sv-table" style={{ minWidth: 640 }}>
+            <thead>
+              <tr>
+                <th scope="col">Service</th>
+                <th scope="col">Price</th>
+                <th scope="col">What it covers</th>
+              </tr>
+            </thead>
+            <tbody>
+              {otherServices.map((service) => (
+                <tr key={service.title} className="row-hover">
+                  <td style={{ width: "26%" }}>
+                    <Link href={service.href} className="link-underline" style={linkStyle}>
+                      {service.title}
+                    </Link>
+                  </td>
+                  <td style={{ whiteSpace: "nowrap", fontWeight: 700, color: "var(--color-dark)" }}>{service.price}</td>
+                  <td>{service.description}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {otherServices.map((service, i) => {
-                  const border = i === otherServices.length - 1 ? "none" : "1px solid var(--color-line)";
-                  return (
-                    <tr key={service.title}>
-                      <td style={{ padding: "14px 16px", borderBottom: border, verticalAlign: "top", width: "26%" }}>
-                        <Link href={service.href} className="link-underline" style={linkStyle}>
-                          {service.title}
-                        </Link>
-                      </td>
-                      <td style={{ padding: "14px 16px", borderBottom: border, verticalAlign: "top", whiteSpace: "nowrap", fontWeight: 600 }}>
-                        {service.price}
-                      </td>
-                      <td className="typo-small" style={{ padding: "14px 16px", borderBottom: border, verticalAlign: "top", fontSize: "15px" }}>
-                        {service.description}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </section>
+      </ServiceSection>
 
       <CTASection />
     </>
