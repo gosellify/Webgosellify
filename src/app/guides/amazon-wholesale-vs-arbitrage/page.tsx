@@ -10,6 +10,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  robots: { index: false, follow: false },
 };
 
 const SRC = {

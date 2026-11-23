@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaArrowRight, FaClock, FaRegCalendarCheck } from "react-icons/fa";
-import Reveal from "@/components/motion/Reveal";
+import { FaArrowRight } from "react-icons/fa";
 import { guides, GuideMeta } from "@/app/guides/guides";
 
 export interface TocItem {
@@ -15,94 +14,111 @@ type Props = {
   children: React.ReactNode;
 };
 
-/** Shared page frame for every guide: hero, sticky table of contents, article column, related guides and CTA. */
+type Related = { href: string; label: string };
+
+/** Service pages shown under a guide, by guide tag. Guides are not published yet, so they do not link to each other. */
+const RELATED: Record<string, Related[]> = {
+  Walmart: [
+    { href: "/services/walmart-management", label: "Walmart marketplace management services" },
+    { href: "/services/seller-account-setup", label: "Seller account setup" },
+    { href: "/services/walmart-wfs", label: "Walmart WFS" },
+  ],
+  Temu: [
+    { href: "/services/temu", label: "Temu store management" },
+    { href: "/services/seller-account-setup", label: "Seller account setup" },
+    { href: "/services/3pl-warehouse", label: "3PL and warehousing" },
+  ],
+  Comparison: [
+    { href: "/services/walmart-wfs", label: "Walmart WFS" },
+    { href: "/services/amazon-fba", label: "Amazon FBA management service" },
+    { href: "/services/3pl-warehouse", label: "3PL and warehousing" },
+  ],
+  Amazon: [
+    { href: "/services/amazon-wholesale", label: "Amazon wholesale" },
+    { href: "/services/amazon-arbitrage", label: "2-step dropshipping on Amazon" },
+    { href: "/services/amazon", label: "Amazon store management services" },
+  ],
+};
+
+const FALLBACK: Related[] = [{ href: "/services", label: "All services" }];
+
+/** Shared page frame for every guide: title block, table of contents, article column and related services. */
 export default function GuideLayout({ slug, toc, children }: Props) {
   const meta: GuideMeta | undefined = guides.find((g) => g.slug === slug);
-  const others: GuideMeta[] = guides.filter((g) => g.slug !== slug).slice(0, 3);
   if (!meta) return null;
+  const related: Related[] = RELATED[meta.tag] ?? FALLBACK;
 
   return (
     <>
       <style>{`
-.guide-body h2 { font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; font-weight: 800; letter-spacing: -0.03em; color: var(--color-dark); margin: 56px 0 16px; scroll-margin-top: 110px; }
-.guide-body h3 { font-size: 22px; line-height: 1.25; font-weight: 800; color: var(--color-dark); margin: 32px 0 10px; }
-.guide-body p { font-size: 18px; line-height: 1.75; color: var(--color-text-light); margin: 0 0 18px; }
-.guide-body ul, .guide-body ol { margin: 0 0 20px 22px; font-size: 18px; line-height: 1.75; color: var(--color-text-light); }
-.guide-body li { margin-bottom: 8px; }
+.guide-body h2 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.25; font-weight: 800; letter-spacing: -0.015em; color: var(--color-dark); margin: 44px 0 12px; scroll-margin-top: 100px; }
+.guide-body h3 { font-size: 20px; line-height: 1.3; font-weight: 700; color: var(--color-dark); margin: 28px 0 8px; }
+.guide-body p { font-size: 17px; line-height: 1.7; color: var(--color-text-light); margin: 0 0 16px; }
+.guide-body ul, .guide-body ol { margin: 0 0 18px 22px; font-size: 17px; line-height: 1.7; color: var(--color-text-light); }
+.guide-body li { margin-bottom: 6px; }
 .guide-body ul { list-style: disc; } .guide-body ol { list-style: decimal; }
-.guide-body a { color: var(--color-primary); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.guide-body a { color: var(--color-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.guide-body a.btn-accent, .guide-body a.btn-primary { color: #fff; font-weight: 700; text-decoration: none; }
 .guide-body strong { color: var(--color-dark); }
-.guide-body table { width: 100%; border-collapse: collapse; font-size: 16px; }
-.guide-body th { text-align: left; background: var(--color-dark); color: #fff; padding: 14px 16px; font-weight: 800; }
-.guide-body td { padding: 14px 16px; border-bottom: 1px solid var(--color-line); color: var(--color-text-light); vertical-align: top; }
-.guide-table { overflow-x: auto; border: 2px solid var(--color-line); border-radius: 18px; margin: 0 0 24px; }
-.guide-note { background: var(--color-primary-light); border: 2px solid var(--color-line); border-radius: 18px; padding: 20px 22px; margin: 0 0 24px; }
+.guide-body table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.guide-body th { text-align: left; background: var(--color-light-gray); color: var(--color-dark); padding: 12px 14px; font-weight: 700; border-bottom: 1px solid var(--color-line); }
+.guide-body td { padding: 12px 14px; border-bottom: 1px solid var(--color-line); color: var(--color-text-light); vertical-align: top; }
+.guide-body tr:last-child td { border-bottom: 0; }
+.guide-table { overflow-x: auto; border: 1px solid var(--color-line); border-radius: 10px; margin: 0 0 22px; }
+.guide-note { background: var(--color-light-gray); border: 1px solid var(--color-line); border-radius: 10px; padding: 16px 18px; margin: 0 0 22px; }
 .guide-note p { margin: 0; color: var(--color-dark); }
-.guide-toc a { display: block; padding: 9px 14px; border-radius: 10px; color: var(--color-dark); font-weight: 700; font-size: 15px; text-decoration: none; transition: background-color .2s, padding-left .2s; }
-.guide-toc a:hover { background: var(--color-primary-light); padding-left: 20px; }
-.guide-side { display: none; }
-@media (min-width: 1100px) { .guide-side { display: block; position: sticky; top: 110px; align-self: start; } }
+.guide-toc { margin: 0; padding-left: 20px; }
+.guide-toc li { margin-top: 4px; }
+.guide-toc a { color: var(--color-primary); font-size: 16px; text-decoration: underline; text-underline-offset: 3px; }
       `}</style>
 
-      <section className="bg-tint grid-dots" style={{ position: "relative", overflow: "hidden" }}>
-        <div className="blob" aria-hidden="true" style={{ width: 460, height: 460, background: "rgba(21,96,255,0.2)", top: -220, right: -100 }} />
-        <div className="container-main" style={{ position: "relative", paddingTop: "clamp(48px, 6vw, 88px)", paddingBottom: "clamp(40px, 5vw, 72px)" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center", fontSize: 14, fontWeight: 700, marginBottom: 18 }}>
-            <Link href="/guides" style={{ color: "var(--color-primary)", textDecoration: "none" }}>Guides</Link>
-            <span aria-hidden="true" style={{ color: "var(--color-text-light)" }}>/</span>
-            <span style={{ background: "var(--color-dark)", color: "#fff", padding: "4px 12px", borderRadius: 999 }}>{meta.tag}</span>
-          </div>
-          <h1 className="g-h1" style={{ fontSize: "clamp(36px, 4.6vw, 72px)", maxWidth: 1100 }}>{meta.title}</h1>
-          <p className="g-lead" style={{ maxWidth: 760, marginTop: 18 }}>{meta.description}</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 22px", marginTop: 22, fontSize: 15, fontWeight: 700, color: "var(--color-text-light)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><FaClock aria-hidden="true" /> {meta.minutes} min read</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><FaRegCalendarCheck aria-hidden="true" /> Last reviewed: {meta.reviewed}</span>
-            <span>By the Gosellify team</span>
-          </div>
+      <section style={{ background: "#fff" }}>
+        <div className="container-read" style={{ paddingTop: "clamp(36px, 5vw, 64px)" }}>
+          <span className="g-eyebrow">{meta.tag} guide</span>
+          <h1 className="g-h1" style={{ marginTop: 10 }}>{meta.title}</h1>
+          <p className="g-lead" style={{ marginTop: 14 }}>{meta.description}</p>
+          <p className="typo-small" style={{ marginTop: 14 }}>
+            By the Gosellify team. {meta.minutes} min read. Last reviewed: {meta.reviewed}
+          </p>
+          <hr className="rule" style={{ marginTop: 24 }} />
+          <nav aria-label="In this guide" style={{ marginTop: 20 }}>
+            <p style={{ fontSize: 15, fontWeight: 700, color: "var(--color-dark)" }}>In this guide</p>
+            <ol className="guide-toc">
+              {toc.map((t) => (
+                <li key={t.id}>
+                  <a href={`#${t.id}`}>{t.label}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
       </section>
 
       <section style={{ background: "#fff" }}>
-        <div className="container-main" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 56, paddingTop: 24, paddingBottom: "clamp(64px, 8vw, 120px)" }}>
-          <div className="guide-grid" style={{ display: "grid", gap: 64 }}>
-            <style>{`@media (min-width: 1100px) { .guide-grid { grid-template-columns: 300px minmax(0, 860px); } }`}</style>
-            <aside className="guide-side">
-              <div style={{ border: "2px solid var(--color-line)", borderRadius: 20, padding: 14 }}>
-                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.6, textTransform: "uppercase", color: "var(--color-primary)", padding: "6px 14px 10px" }}>In this guide</div>
-                <nav className="guide-toc" aria-label="In this guide">
-                  {toc.map((t) => (
-                    <a key={t.id} href={`#${t.id}`}>{t.label}</a>
-                  ))}
-                </nav>
-              </div>
-              <div className="bg-navy" style={{ borderRadius: 20, padding: 22, marginTop: 16, color: "#fff" }}>
-                <div style={{ fontWeight: 800, fontSize: 20, lineHeight: 1.2, marginBottom: 8 }}>Want a team to do this for you?</div>
-                <p style={{ color: "#c9d6f7", fontSize: 15, marginBottom: 14 }}>Answer 5 quick questions and get a plan for your store.</p>
-                <Link href="/profit-check" className="btn-accent" style={{ padding: "13px 18px", fontSize: 15 }}>
-                  Check my profit <FaArrowRight className="btn-arrow" size={12} />
-                </Link>
-              </div>
-            </aside>
-            <article className="guide-body" style={{ minWidth: 0 }}>{children}</article>
-          </div>
+        <div className="container-read" style={{ paddingTop: 8, paddingBottom: "clamp(48px, 6vw, 80px)" }}>
+          <article className="guide-body" style={{ minWidth: 0 }}>{children}</article>
         </div>
       </section>
 
-      <section className="g-section bg-tint">
-        <div className="container-main">
-          <span className="g-eyebrow">Keep reading</span>
-          <h2 className="g-h2" style={{ fontSize: "clamp(30px, 3.4vw, 50px)", margin: "14px 0 32px" }}>More seller guides</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 18 }}>
-            {others.map((g, i) => (
-              <Reveal key={g.slug} delay={i * 100}>
-                <Link href={`/guides/${g.slug}`} className="g-card" style={{ display: "flex", flexDirection: "column", gap: 12, padding: 28, height: "100%", textDecoration: "none", color: "var(--color-dark)" }}>
-                  <span style={{ alignSelf: "flex-start", fontSize: 12, fontWeight: 800, letterSpacing: 1.4, textTransform: "uppercase", color: "var(--color-primary)" }}>{g.tag}</span>
-                  <span className="g-h3">{g.title}</span>
-                  <span style={{ color: "var(--color-text-light)", fontSize: 16 }}>{g.description}</span>
-                  <span style={{ marginTop: "auto", fontWeight: 800, color: "var(--color-primary)", display: "inline-flex", alignItems: "center", gap: 8 }}>Read the guide <FaArrowRight size={12} /></span>
+      <section className="bg-tint" style={{ padding: "clamp(40px, 5vw, 64px) 0" }}>
+        <div className="container-read">
+          <h2 className="g-h2">Related services</h2>
+          <ul style={{ listStyle: "none", margin: "16px 0 0", padding: 0, borderBottom: "1px solid var(--color-line)" }}>
+            {related.map((r) => (
+              <li key={r.href} style={{ borderTop: "1px solid var(--color-line)", padding: "12px 0" }}>
+                <Link href={r.href} className="link-underline" style={{ fontWeight: 600, color: "var(--color-primary)" }}>
+                  {r.label}
                 </Link>
-              </Reveal>
+              </li>
             ))}
+          </ul>
+          <p style={{ marginTop: 22, color: "var(--color-text-light)" }}>
+            Want a team to do this for you? Answer a few quick questions and we reply with a plan for your store.
+          </p>
+          <div style={{ marginTop: 16 }}>
+            <Link href="/profit-check" className="btn-primary">
+              Check my profit <FaArrowRight aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>

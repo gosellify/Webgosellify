@@ -13,12 +13,10 @@ import {
   FaEtsy,
   FaExclamationCircle,
   FaLock,
-  FaShieldAlt,
   FaShopify,
   FaStore,
   FaWhatsapp,
 } from "react-icons/fa";
-import Reveal from "@/components/motion/Reveal";
 import { BrandName } from "@/components/brand/Logo";
 
 const ENDPOINT = process.env.NEXT_PUBLIC_LEADS_ENDPOINT || "";
@@ -141,47 +139,30 @@ function buildSummary(a: Answers, c: Contact): string {
   return lines.join("\n");
 }
 
+const headingStyle: React.CSSProperties = { fontSize: 24, lineHeight: 1.25, outline: "none", maxWidth: 600 };
+
 const CSS = `
-.sasf-opt { display: flex; align-items: center; gap: 14px; width: 100%; min-width: 0; text-align: left; padding: 18px 18px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; font-family: inherit; transition: transform .25s cubic-bezier(.2,.8,.2,1), background-color .25s, border-color .25s, color .25s, box-shadow .25s; }
-.sasf-opt:hover { transform: translateY(-3px); border-color: rgba(255,178,26,0.75); background: rgba(255,255,255,0.1); }
-.sasf-opt:active { transform: translateY(0) scale(.99); }
-.sasf-opt[aria-pressed="true"] { background: #fff; color: #0A1B4D; border-color: #FFB21A; box-shadow: 0 18px 40px rgba(0,0,0,0.28), 0 0 0 4px rgba(255,178,26,0.22); }
-.sasf-ico { width: 46px; height: 46px; border-radius: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 21px; background: rgba(255,255,255,0.1); color: #FFB21A; transition: background-color .25s, color .25s, transform .3s cubic-bezier(.2,.8,.2,1); }
-.sasf-opt:hover .sasf-ico { transform: rotate(-8deg) scale(1.08); }
-.sasf-opt[aria-pressed="true"] .sasf-ico { background: #EEF4FF; color: #1560FF; }
-.sasf-sub { display: block; font-size: 14px; font-weight: 500; line-height: 1.4; margin-top: 3px; color: #C9D6F7; transition: color .25s; }
-.sasf-opt[aria-pressed="true"] .sasf-sub { color: #46557F; }
-.sasf-mark { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; margin-left: auto; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.3); font-size: 12px; color: transparent; transition: border-color .25s, background-color .25s; }
-.sasf-mark.sq { border-radius: 8px; }
-.sasf-opt[aria-pressed="true"] .sasf-mark { background: #FFB21A; border-color: #FFB21A; color: #0A1B4D; animation: sasf-pop .4s cubic-bezier(.2,.9,.3,1.4) both; }
-@keyframes sasf-pop { 0% { transform: scale(.3); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
-@keyframes sasf-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-@keyframes sasf-ring { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-.sasf-chip { padding: 11px 16px; border-radius: 999px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-family: inherit; font-size: 15px; font-weight: 700; line-height: 1.2; cursor: pointer; transition: transform .2s, background-color .2s, border-color .2s, color .2s; }
-.sasf-chip:hover { transform: translateY(-2px); border-color: rgba(255,178,26,0.75); }
-.sasf-chip[aria-pressed="true"] { background: #FFB21A; border-color: #FFB21A; color: #0A1B4D; }
-.sasf-tri { flex: 1 1 96px; min-width: 0; padding: 14px 12px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); color: #fff; font-family: inherit; font-size: 16px; font-weight: 800; line-height: 1.2; cursor: pointer; transition: transform .2s, background-color .2s, border-color .2s, color .2s, box-shadow .2s; }
-.sasf-tri:hover { transform: translateY(-2px); border-color: rgba(255,178,26,0.75); }
-.sasf-tri[aria-pressed="true"] { background: #fff; border-color: #FFB21A; color: #0A1B4D; box-shadow: 0 0 0 4px rgba(255,178,26,0.22); }
-.sasf-input { width: 100%; min-width: 0; padding: 15px 16px; font-size: 16px; font-family: inherit; font-weight: 600; color: #0A1B4D; background: #fff; border: 2px solid transparent; border-radius: 14px; outline: none; transition: border-color .2s, box-shadow .2s; }
-.sasf-input::placeholder { color: #8B97B8; font-weight: 500; }
-.sasf-input:focus { border-color: #FFB21A; box-shadow: 0 0 0 4px rgba(255,178,26,0.28); }
-.sasf-input[aria-invalid="true"] { border-color: #FFB21A; }
-.sasf-back { display: inline-flex; align-items: center; gap: 10px; padding: 16px 20px; border-radius: 14px; border: 2px solid transparent; background: transparent; color: #C9D6F7; font-family: inherit; font-size: 16px; font-weight: 800; line-height: 1; cursor: pointer; transition: color .2s, background-color .2s, transform .2s; }
-.sasf-back:hover { color: #fff; background: rgba(255,255,255,0.08); transform: translateX(-3px); }
-.sasf-next[disabled] { animation: none; opacity: .45; cursor: not-allowed; box-shadow: none; }
-.sasf-shake { animation: sasf-shake .3s ease both; }
-.sasf-big { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 22px 22px; border-radius: 20px; text-decoration: none; font-family: inherit; text-align: left; cursor: pointer; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background-color .25s, border-color .25s; }
-.sasf-big:hover { transform: translateY(-4px); }
-.sasf-big.amber { background: #FFB21A; color: #0A1B4D; border: 2px solid #FFB21A; }
-.sasf-big.amber:hover { box-shadow: 0 18px 40px rgba(255,178,26,0.45); }
-.sasf-big.white { background: #fff; color: #0A1B4D; border: 2px solid #fff; }
-.sasf-big.white:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.3); border-color: #FFB21A; }
-.sasf-ghost { display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); color: #fff; font-family: inherit; font-size: 15px; font-weight: 800; line-height: 1; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s, transform .2s; }
-.sasf-ghost:hover { background: #fff; color: #0A1B4D; transform: translateY(-2px); }
-.sasf-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 11px 0; border-bottom: 1px dashed #D9E2F5; }
-.sasf-card-tilt { transform: rotate(1.5deg); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
-.sasf-card-tilt:hover { transform: rotate(0deg) scale(1.01); }
+.sasf-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; text-align: left; padding: 13px 16px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); cursor: pointer; font-family: inherit; transition: border-color .15s, background-color .15s; }
+.sasf-opt:hover { border-color: var(--color-primary); }
+.sasf-opt[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-light-gray); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.sasf-ico { flex-shrink: 0; display: flex; align-items: center; font-size: 18px; color: var(--color-text-light); }
+.sasf-opt[aria-pressed="true"] .sasf-ico { color: var(--color-primary); }
+.sasf-sub { display: block; font-size: 14px; font-weight: 400; line-height: 1.4; margin-top: 2px; color: var(--color-text-light); }
+.sasf-mark { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-text-light); background: #fff; font-size: 10px; color: transparent; }
+.sasf-mark.sq { border-radius: 4px; }
+.sasf-opt[aria-pressed="true"] .sasf-mark { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.sasf-chip, .sasf-tri { padding: 9px 14px; border-radius: 8px; border: 1px solid var(--color-line); background: #fff; color: var(--color-dark); font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.2; cursor: pointer; transition: border-color .15s; }
+.sasf-tri { flex: 1 1 90px; min-width: 0; font-weight: 700; padding: 11px 12px; }
+.sasf-chip:hover, .sasf-tri:hover { border-color: var(--color-primary); }
+.sasf-chip[aria-pressed="true"], .sasf-tri[aria-pressed="true"] { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-light-gray); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.sasf-input { width: 100%; min-width: 0; padding: 11px 13px; font-size: 16px; font-family: inherit; color: var(--color-dark); background: #fff; border: 1px solid var(--color-line); border-radius: 8px; outline: none; transition: border-color .15s; }
+.sasf-input::placeholder { color: var(--color-text-light); opacity: 1; }
+.sasf-input:hover { border-color: var(--color-text-light); }
+.sasf-input:focus { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.sasf-input[aria-invalid="true"] { border-color: var(--color-dark); }
+.sasf-next[disabled], .sasf-next[disabled]:hover { background: var(--color-line); border-color: var(--color-line); color: var(--color-dark); cursor: not-allowed; }
+.sasf-link { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; font-family: inherit; font-size: 15px; font-weight: 700; color: var(--color-primary); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.sasf-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 10px 0; border-top: 1px solid var(--color-line); }
 `;
 
 type OptionButtonProps = {
@@ -195,18 +176,18 @@ function OptionButton({ option, selected, multi, onPick }: OptionButtonProps) {
   const Icon = option.icon;
   return (
     <button type="button" className="sasf-opt" aria-pressed={selected} onClick={(e) => onPick(option.value, e.detail > 0)}>
+      <span className={multi ? "sasf-mark sq" : "sasf-mark"} aria-hidden="true">
+        <FaCheck />
+      </span>
+      <span style={{ minWidth: 0, flex: 1 }}>
+        <span style={{ display: "block", fontSize: 16, fontWeight: 700, lineHeight: 1.3 }}>{option.label}</span>
+        {option.sub ? <span className="sasf-sub">{option.sub}</span> : null}
+      </span>
       {Icon ? (
         <span className="sasf-ico" aria-hidden="true">
           <Icon />
         </span>
       ) : null}
-      <span style={{ minWidth: 0 }}>
-        <span style={{ display: "block", fontSize: 18, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em" }}>{option.label}</span>
-        {option.sub ? <span className="sasf-sub">{option.sub}</span> : null}
-      </span>
-      <span className={multi ? "sasf-mark sq" : "sasf-mark"} aria-hidden="true">
-        <FaCheck />
-      </span>
     </button>
   );
 }
@@ -222,17 +203,16 @@ type FieldProps = {
 function Field({ id, label, optional = false, error, children }: FieldProps) {
   return (
     <div style={{ minWidth: 0 }}>
-      <label htmlFor={id} style={{ display: "block", fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
+      <label htmlFor={id} style={{ display: "block", fontSize: 15, fontWeight: 700, color: "var(--color-dark)", marginBottom: 6 }}>
         {label}
-        {optional ? <span style={{ fontWeight: 600, color: "#C9D6F7" }}> (optional)</span> : null}
+        {optional ? <span style={{ fontWeight: 400, color: "var(--color-text-light)" }}> (optional)</span> : null}
       </label>
       {children}
       {error ? (
         <p
           id={`${id}-error`}
           role="alert"
-          className="slide-up-in"
-          style={{ display: "flex", alignItems: "flex-start", gap: 8, marginTop: 8, fontSize: 14, fontWeight: 700, lineHeight: 1.4, color: "var(--color-accent)" }}
+          style={{ display: "flex", alignItems: "flex-start", gap: 8, marginTop: 6, fontSize: 14, fontWeight: 700, lineHeight: 1.4, color: "var(--color-dark)" }}
         >
           <FaExclamationCircle aria-hidden="true" style={{ flexShrink: 0, marginTop: 3 }} />
           <span>{error}</span>
@@ -246,66 +226,38 @@ type BriefRow = { label: string; value: string };
 
 function Brief({ rows, done, filled }: { rows: BriefRow[]; done: boolean; filled: number }) {
   return (
-    <div className="float-a">
-      <div
-        className="sasf-card-tilt"
-        style={{ background: "#fff", borderRadius: 26, boxShadow: "0 40px 80px rgba(0,0,0,0.38)", color: "var(--color-dark)" }}
-      >
-        <div style={{ padding: "24px 26px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-          <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.6, textTransform: "uppercase", color: "var(--color-primary)" }}>Live preview</p>
-            <p style={{ fontSize: 24, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.15 }}>Your setup request</p>
+    <div style={{ background: "#fff", border: "1px solid var(--color-line)", borderRadius: 10, padding: "20px 22px" }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+        <h3 className="g-h3">Your answers</h3>
+        <span className="typo-small">{done ? "Ready to send" : `${filled} of ${TOTAL_STEPS} filled`}</span>
+      </div>
+      <div aria-live="polite">
+        {rows.map((r) => (
+          <div key={r.label} className="sasf-row">
+            <span style={{ fontSize: 14, color: "var(--color-text-light)", flexShrink: 0 }}>{r.label}</span>
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: r.value ? 700 : 400,
+                color: r.value ? "var(--color-dark)" : "var(--color-text-light)",
+                textAlign: "right",
+                minWidth: 0,
+                overflowWrap: "anywhere",
+              }}
+            >
+              {r.value || "Not answered yet"}
+            </span>
           </div>
-          <span
-            key={done ? "ready" : "draft"}
-            className={done ? "stamp-in" : undefined}
-            style={{
-              display: "inline-block",
-              padding: "7px 12px",
-              borderRadius: 10,
-              fontSize: 12,
-              fontWeight: 800,
-              letterSpacing: 1.2,
-              textTransform: "uppercase",
-              background: done ? "var(--color-accent)" : "var(--color-primary-light)",
-              color: "var(--color-dark)",
-              transform: done ? "rotate(-6deg)" : "none",
-            }}
-          >
-            {done ? "Ready to send" : `${filled} of ${TOTAL_STEPS} filled`}
-          </span>
-        </div>
-
-        <div style={{ padding: "0 26px 8px" }} aria-live="polite">
-          {rows.map((r) => (
-            <div key={r.label} className="sasf-row">
-              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-light)", flexShrink: 0 }}>{r.label}</span>
-              {r.value ? (
-                <span key={r.value} className="slide-up-in" style={{ fontSize: 15, fontWeight: 800, textAlign: "right", minWidth: 0, overflowWrap: "anywhere" }}>
-                  {r.value}
-                </span>
-              ) : (
-                <span aria-hidden="true" style={{ width: 84, height: 10, borderRadius: 6, background: "var(--color-primary-light)", alignSelf: "center" }} />
-              )}
-            </div>
+        ))}
+      </div>
+      <div style={{ borderTop: "1px solid var(--color-line)", paddingTop: 14, marginTop: 4 }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: "var(--color-dark)" }}>This form never asks for</p>
+        <ul style={{ margin: "6px 0 0", paddingLeft: 18, fontSize: 14, color: "var(--color-text-light)" }}>
+          {NEVER.map((n) => (
+            <li key={n}>{n}</li>
           ))}
-        </div>
-
-        <div style={{ margin: "14px 18px 0", padding: "16px 18px", borderRadius: 18, background: "var(--color-primary-light)" }}>
-          <p style={{ display: "flex", alignItems: "center", gap: 9, fontSize: 14, fontWeight: 800, marginBottom: 10 }}>
-            <FaShieldAlt aria-hidden="true" style={{ color: "var(--color-primary)", flexShrink: 0 }} />
-            This form never asks for
-          </p>
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 6 }}>
-            {NEVER.map((n) => (
-              <li key={n} style={{ display: "flex", alignItems: "center", gap: 9, fontSize: 14, fontWeight: 600, color: "var(--color-text-light)" }}>
-                <FaLock aria-hidden="true" style={{ fontSize: 11, color: "var(--color-dark)", flexShrink: 0 }} />
-                {n}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p style={{ padding: "14px 26px 22px", fontSize: 13, fontWeight: 600, lineHeight: 1.5, color: "var(--color-text-light)" }}>
+        </ul>
+        <p className="typo-small" style={{ marginTop: 10 }}>
           The account is opened in your name or your company name. You hold the login.
         </p>
       </div>
@@ -511,10 +463,8 @@ export default function SetupForm() {
   ];
 
   const info = STEP_INFO[step];
-  const pct = phase === "form" ? Math.round(((step + 1) / TOTAL_STEPS) * 100) : 100;
   const showErr = (key: RequiredKey): string => (touched[key] ? errors[key] : "");
-  const bigHeading: React.CSSProperties = { fontSize: "clamp(30px, 3.8vw, 58px)", lineHeight: 1.04, fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", outline: "none" };
-  const optionGrid: React.CSSProperties = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 14 };
+  const optionGrid: React.CSSProperties = { display: "grid", gap: 10, maxWidth: 560 };
 
   const nudgeText =
     step === 0
@@ -527,10 +477,10 @@ export default function SetupForm() {
 
   const triRow = (key: TriKey, label: string, labelId: string) => (
     <div style={{ minWidth: 0 }}>
-      <p id={labelId} style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 10 }}>
+      <p id={labelId} style={{ fontSize: 16, fontWeight: 700, color: "var(--color-dark)", marginBottom: 8 }}>
         {label}
       </p>
-      <div role="group" aria-labelledby={labelId} style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+      <div role="group" aria-labelledby={labelId} style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {TRI.map((t) => (
           <button key={t} type="button" className="sasf-tri" aria-pressed={answers[key] === t} onClick={() => pickTri(key, t)}>
             {t}
@@ -542,35 +492,28 @@ export default function SetupForm() {
 
   const sendButtons = (
     <>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 16, marginTop: 30 }}>
-        <a className="sasf-big amber" href={waHref} target="_blank" rel="noopener noreferrer">
-          <FaWhatsapp aria-hidden="true" style={{ fontSize: 34, flexShrink: 0 }} />
-          <span style={{ minWidth: 0 }}>
-            <span style={{ display: "block", fontSize: 20, fontWeight: 800, lineHeight: 1.2 }}>Send on WhatsApp</span>
-            <span style={{ display: "block", fontSize: 14, fontWeight: 600, marginTop: 3 }}>Opens a chat with your answers filled in</span>
-          </span>
-          <FaArrowRight aria-hidden="true" className="btn-arrow" style={{ marginLeft: "auto", flexShrink: 0 }} />
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 24 }}>
+        <a className="btn-primary" href={waHref} target="_blank" rel="noopener noreferrer">
+          <FaWhatsapp aria-hidden="true" /> Send on WhatsApp
         </a>
-        <a className="sasf-big white" href={mailHref}>
-          <FaEnvelope aria-hidden="true" style={{ fontSize: 30, flexShrink: 0, color: "var(--color-primary)" }} />
-          <span style={{ minWidth: 0 }}>
-            <span style={{ display: "block", fontSize: 20, fontWeight: 800, lineHeight: 1.2 }}>Send by email</span>
-            <span style={{ display: "block", fontSize: 14, fontWeight: 600, marginTop: 3, color: "var(--color-text-light)" }}>Opens your email app with a ready draft</span>
-          </span>
-          <FaArrowRight aria-hidden="true" className="btn-arrow" style={{ marginLeft: "auto", flexShrink: 0 }} />
+        <a className="btn-outline" href={mailHref}>
+          <FaEnvelope aria-hidden="true" /> Send by email
         </a>
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 16px", marginTop: 20 }}>
-        <button type="button" className="sasf-ghost" onClick={copyAnswers}>
+      <p className="typo-small" style={{ marginTop: 12, maxWidth: 560 }}>
+        WhatsApp opens a chat with your answers filled in. Email opens your email app with a ready draft.
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px 20px", marginTop: 20 }}>
+        <button type="button" className="sasf-link" onClick={copyAnswers}>
           {copied ? <FaCheck aria-hidden="true" /> : <FaCopy aria-hidden="true" />}
           <span aria-live="polite">{copied ? "Copied" : "Copy my answers"}</span>
         </button>
-        <button type="button" className="sasf-back" onClick={backToEdit}>
+        <button type="button" className="sasf-link" onClick={backToEdit}>
           <FaArrowLeft aria-hidden="true" /> Edit my answers
         </button>
       </div>
       {copyFailed ? (
-        <p role="alert" style={{ marginTop: 12, fontSize: 14, fontWeight: 700, color: "var(--color-accent)" }}>
+        <p role="alert" style={{ marginTop: 12, fontSize: 14, fontWeight: 700, color: "var(--color-dark)" }}>
           Your browser blocked the copy. Use the WhatsApp or email button instead.
         </p>
       ) : null}
@@ -578,72 +521,36 @@ export default function SetupForm() {
   );
 
   return (
-    <section
-      id="setup-form"
-      className="g-section bg-navy grid-dots-dark on-dark"
-      aria-label="Seller account setup request"
-      style={{ overflow: "hidden", scrollMarginTop: 80 }}
-    >
+    <section id="setup-form" className="g-section" aria-label="Seller account setup request" style={{ scrollMarginTop: 80, background: "#fff" }}>
       <style>{CSS}</style>
-      <span aria-hidden="true" className="blob" style={{ width: 460, height: 460, background: "rgba(21,96,255,0.4)", top: -160, right: -120 }} />
-      <span aria-hidden="true" className="blob" style={{ width: 340, height: 340, background: "rgba(255,178,26,0.14)", bottom: -140, left: -100, animationDelay: "-6s" }} />
 
-      <div className="container-wide" style={{ position: "relative" }}>
-        <Reveal style={{ maxWidth: 980, marginBottom: "clamp(28px, 4vw, 52px)" }}>
-          <span className="g-eyebrow on-dark" style={{ marginBottom: 18 }}>
-            Start your setup
-          </span>
-          <h2 className="g-h2">
-            Tell us where you stand. <span className="t-amber">We send back your checklist.</span>
-          </h2>
-          <p className="g-lead" style={{ marginTop: 18, maxWidth: 720 }}>
-            Six short questions. The <BrandName dark /> team reads your answers and replies with what you have, what is missing and what to do next.
-          </p>
-        </Reveal>
+      <div className="container-main">
+        <h2 className="g-h2">Tell us where you stand and we send back your checklist</h2>
+        <p className="g-lead" style={{ marginTop: 12, maxWidth: 700 }}>
+          Six short questions. The <BrandName /> team reads your answers and replies with what you have, what is missing and what to do next.
+        </p>
 
-        {/* progress */}
-        <div ref={topRef} style={{ scrollMarginTop: 96 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "8px 20px", marginBottom: 14 }}>
-            <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1.8, textTransform: "uppercase", color: "var(--color-accent)" }}>Setup request</span>
-            <span style={{ fontSize: 15, fontWeight: 800, color: "#fff", fontVariantNumeric: "tabular-nums" }}>
+        <div ref={topRef} style={{ scrollMarginTop: 96, marginTop: 28 }}>
+          <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-dark)" }}>
+            <span className="g-eyebrow" style={{ marginRight: 12 }}>Setup request</span>
+            <span aria-live="polite">
               {phase === "form" ? `Step ${step + 1} of ${TOTAL_STEPS}` : phase === "success" ? "Sent" : "Last step"}
             </span>
-          </div>
-          <div
-            role="progressbar"
-            aria-label="Setup request progress"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={pct}
-            style={{ height: 10, borderRadius: 8, background: "rgba(255,255,255,0.12)", overflow: "hidden" }}
-          >
-            <div
-              style={{
-                width: `${pct}%`,
-                height: "100%",
-                borderRadius: 8,
-                background: "var(--color-accent)",
-                boxShadow: "0 0 18px rgba(255,178,26,0.6)",
-                transition: "width .6s cubic-bezier(.2,.8,.2,1)",
-              }}
-            />
-          </div>
+          </p>
+          <hr className="rule" style={{ marginTop: 14 }} />
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "clamp(36px, 5vw, 88px)", marginTop: "clamp(28px, 4vw, 56px)" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "36px 56px", marginTop: 28 }}>
           {/* left: question */}
-          <div style={{ flex: "1.5 1 520px", minWidth: 0 }}>
+          <div style={{ flex: "1.6 1 480px", minWidth: 0 }}>
             {phase === "form" ? (
-              <div key={`step-${step}`} className="slide-up-in">
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--color-accent)", marginBottom: 12 }}>Question {step + 1}</p>
-                <h3 ref={headingRef} tabIndex={-1} style={bigHeading}>
+              <div key={`step-${step}`}>
+                <h3 ref={headingRef} tabIndex={-1} className="g-h3" style={headingStyle}>
                   {info.title}
                 </h3>
-                <p className="g-lead" style={{ marginTop: 14, maxWidth: 640 }}>
-                  {info.hint}
-                </p>
+                <p style={{ marginTop: 8, maxWidth: 600, color: "var(--color-text-light)" }}>{info.hint}</p>
 
-                <div style={{ marginTop: 28 }}>
+                <div style={{ marginTop: 22 }}>
                   {step === 0 ? (
                     <div style={optionGrid}>
                       {MARKETPLACES.map((o) => (
@@ -661,8 +568,8 @@ export default function SetupForm() {
                   ) : null}
 
                   {step === 2 ? (
-                    <div style={{ maxWidth: 640 }}>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 18 }}>
+                    <div style={{ maxWidth: 560 }}>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
                         {COUNTRIES.map((c) => (
                           <button key={c} type="button" className="sasf-chip" aria-pressed={answers.country === c} onClick={() => setCountry(c)}>
                             {c}
@@ -692,7 +599,7 @@ export default function SetupForm() {
                   ) : null}
 
                   {step === 3 ? (
-                    <div style={{ display: "grid", gap: 26, maxWidth: 640 }}>
+                    <div style={{ display: "grid", gap: 22, maxWidth: 560 }}>
                       {triRow("taxId", "Do you have an EIN or tax ID?", "sas-tax-label")}
                       {triRow("bank", "Do you have a business bank account?", "sas-bank-label")}
                     </div>
@@ -706,7 +613,7 @@ export default function SetupForm() {
                         ))}
                       </div>
                       {answers.soldBefore === "Yes" ? (
-                        <div className="slide-up-in" style={{ marginTop: 18, maxWidth: 640 }}>
+                        <div style={{ marginTop: 16, maxWidth: 560 }}>
                           <Field id="sas-where" label="Where did you sell?" optional error="">
                             <input
                               id="sas-where"
@@ -732,8 +639,8 @@ export default function SetupForm() {
                   ) : null}
 
                   {step === 5 ? (
-                    <form id="sas-contact-form" onSubmit={submit} noValidate>
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 18 }}>
+                    <form id="sas-contact-form" onSubmit={submit} noValidate style={{ maxWidth: 640 }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 16 }}>
                         <Field id="sas-name" label="Full name" error={showErr("name")}>
                           <input
                             id="sas-name"
@@ -786,7 +693,7 @@ export default function SetupForm() {
                           />
                         </Field>
                       </div>
-                      <div style={{ marginTop: 18 }}>
+                      <div style={{ marginTop: 16 }}>
                         <Field id="sas-message" label="Anything else we should know?" optional error="">
                           <textarea
                             id="sas-message"
@@ -801,7 +708,7 @@ export default function SetupForm() {
                             onChange={(e) => setField("message", e.target.value)}
                           />
                         </Field>
-                        <p id="sas-message-note" style={{ marginTop: 8, fontSize: 14, fontWeight: 600, color: "#C9D6F7" }}>
+                        <p id="sas-message-note" className="typo-small" style={{ marginTop: 6 }}>
                           Do not type passwords, ID numbers or bank numbers in this box.
                         </p>
                       </div>
@@ -812,52 +719,44 @@ export default function SetupForm() {
                 {nudge && !stepValid(step) && step < TOTAL_STEPS - 1 ? (
                   <p
                     role="alert"
-                    className="sasf-shake"
-                    style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 18, fontSize: 15, fontWeight: 700, color: "var(--color-accent)" }}
+                    style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 16, fontSize: 15, fontWeight: 700, color: "var(--color-dark)" }}
                   >
                     <FaExclamationCircle aria-hidden="true" />
                     {nudgeText}
                   </p>
                 ) : null}
 
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 14px", marginTop: 30 }}>
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 14px", marginTop: 26 }}>
                   {step > 0 ? (
-                    <button type="button" className="sasf-back" onClick={() => goTo(step - 1)}>
+                    <button type="button" className="btn-outline" onClick={() => goTo(step - 1)}>
                       <FaArrowLeft aria-hidden="true" /> Back
                     </button>
                   ) : null}
                   {step < TOTAL_STEPS - 1 ? (
-                    <button
-                      type="button"
-                      className="btn-accent sasf-next"
-                      onClick={next}
-                      aria-disabled={!stepValid(step)}
-                      style={stepValid(step) ? undefined : { animation: "none", opacity: 0.55 }}
-                    >
-                      Continue <FaArrowRight aria-hidden="true" className="btn-arrow" />
+                    <button type="button" className="btn-primary sasf-next" onClick={next} aria-disabled={!stepValid(step)}>
+                      Continue <FaArrowRight aria-hidden="true" />
                     </button>
                   ) : (
-                    <button type="submit" form="sas-contact-form" className="btn-accent sasf-next" disabled={sending}>
+                    <button type="submit" form="sas-contact-form" className="btn-primary sasf-next" disabled={sending}>
                       {sending ? "Sending your request" : "Send my setup request"}
-                      <FaArrowRight aria-hidden="true" className="btn-arrow" />
+                      <FaArrowRight aria-hidden="true" />
                     </button>
                   )}
                 </div>
 
-                <p style={{ display: "flex", alignItems: "flex-start", gap: 9, marginTop: 26, fontSize: 14, fontWeight: 600, lineHeight: 1.5, color: "#C9D6F7", maxWidth: 640 }}>
-                  <FaLock aria-hidden="true" style={{ color: "var(--color-accent)", flexShrink: 0, marginTop: 3 }} />
+                <p className="typo-small" style={{ display: "flex", alignItems: "flex-start", gap: 8, marginTop: 20, maxWidth: 600 }}>
+                  <FaLock aria-hidden="true" style={{ flexShrink: 0, marginTop: 3 }} />
                   We never ask for passwords, ID numbers, bank numbers or document uploads on this form. Takes about 1 minute.
                 </p>
               </div>
             ) : null}
 
             {phase === "manual" ? (
-              <div key="manual" className="slide-up-in">
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--color-accent)", marginBottom: 12 }}>Your answers are ready</p>
-                <h3 ref={headingRef} tabIndex={-1} style={bigHeading}>
+              <div key="manual">
+                <h3 ref={headingRef} tabIndex={-1} className="g-h3" style={headingStyle}>
                   One last step: send your setup request
                 </h3>
-                <p className="g-lead" style={{ marginTop: 16, maxWidth: 640 }}>
+                <p style={{ marginTop: 8, maxWidth: 600, color: "var(--color-text-light)" }}>
                   Your request is not sent yet. Pick how you want to send it. Your answers are already filled in, so you only need to press send.
                 </p>
                 {sendButtons}
@@ -865,17 +764,17 @@ export default function SetupForm() {
             ) : null}
 
             {phase === "failed" ? (
-              <div key="failed" className="slide-up-in">
+              <div key="failed">
                 <div
                   role="alert"
-                  style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "18px 20px", borderRadius: 18, border: "2px solid var(--color-accent)", background: "rgba(255,178,26,0.1)", marginBottom: 26, maxWidth: 720 }}
+                  style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "14px 16px", borderRadius: 8, border: "1px solid var(--color-dark)", background: "#fff", marginBottom: 24, maxWidth: 640 }}
                 >
-                  <FaExclamationCircle aria-hidden="true" style={{ color: "var(--color-accent)", fontSize: 22, flexShrink: 0, marginTop: 2 }} />
-                  <p style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5, color: "#fff" }}>
+                  <FaExclamationCircle aria-hidden="true" style={{ color: "var(--color-dark)", fontSize: 18, flexShrink: 0, marginTop: 4 }} />
+                  <p style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5, color: "var(--color-dark)" }}>
                     The form could not be sent. Your answers are safe on this page. Send them now on WhatsApp or by email with the buttons below.
                   </p>
                 </div>
-                <h3 ref={headingRef} tabIndex={-1} style={bigHeading}>
+                <h3 ref={headingRef} tabIndex={-1} className="g-h3" style={headingStyle}>
                   Send your setup request another way
                 </h3>
                 {sendButtons}
@@ -883,21 +782,18 @@ export default function SetupForm() {
             ) : null}
 
             {phase === "success" ? (
-              <div key="success" className="slide-up-in">
-                <span
-                  aria-hidden="true"
-                  style={{ width: 84, height: 84, borderRadius: "50%", background: "var(--color-accent)", color: "var(--color-dark)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 34, marginBottom: 24, animation: "sasf-ring .6s cubic-bezier(.2,.9,.3,1.2) both" }}
-                >
-                  <FaCheck />
-                </span>
-                <h3 ref={headingRef} tabIndex={-1} style={bigHeading}>
+              <div key="success">
+                <p style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 700, color: "var(--color-primary)", marginBottom: 8 }}>
+                  <FaCheck aria-hidden="true" /> Sent
+                </p>
+                <h3 ref={headingRef} tabIndex={-1} className="g-h3" style={headingStyle}>
                   Your setup request is sent
                 </h3>
-                <p className="g-lead" style={{ marginTop: 16, maxWidth: 640 }}>
+                <p style={{ marginTop: 8, maxWidth: 600, color: "var(--color-text-light)" }}>
                   Thank you{contact.name.trim() ? `, ${contact.name.trim()}` : ""}. Our team will read your answers and reply by email or WhatsApp with your checklist. We will never ask for your password.
                 </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 28 }}>
-                  <a className="btn-outline-white" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 22 }}>
+                  <a className="btn-outline" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
                     <FaWhatsapp aria-hidden="true" /> Chat on WhatsApp
                   </a>
                 </div>
@@ -905,8 +801,8 @@ export default function SetupForm() {
             ) : null}
           </div>
 
-          {/* right: live brief */}
-          <div style={{ flex: "1 1 360px", minWidth: 0, maxWidth: 520 }}>
+          {/* right: answers so far */}
+          <div style={{ flex: "1 1 320px", minWidth: 0, maxWidth: 440 }}>
             <Brief rows={rows} done={phase !== "form"} filled={filled} />
           </div>
         </div>

@@ -1,208 +1,95 @@
-"use client";
-
-import React, { useState } from "react";
-import Link from "next/link";
-import { FaWhatsapp, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import FeaturesGrid from "@/components/home/FeaturesGrid";
 import ServiceBenefits from "@/components/services/ServiceBenefits";
+import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
+import ServiceFAQ from "@/components/services/ServiceFAQ";
 import CTASection from "@/components/home/CTASection";
+import { ServiceHero, ServiceSection, RelatedLinks } from "@/components/services/ServiceBlocks";
+import type { RelatedLink } from "@/components/services/ServiceBlocks";
 
-const services = [
+const services: RelatedLink[] = [
   {
-    img: "/images/services/icons/order-fulfillment.png",
-    title: "Walmart WFS",
-    desc: "Walmart Fulfillment Services — similar to Amazon FBA. We set up your WFS account, manage inventory shipments, and optimize your listings for Walmart's fulfillment network.",
-    href: "/services/walmart-wfs",
-  },
-  {
-    img: "/images/services/icons/inventory.png",
-    title: "Walmart Wholesale",
-    desc: "Source branded products from authorized distributors and sell on Walmart Marketplace. We handle supplier relationships, pricing strategy, and ongoing account management.",
-    href: "/services/walmart-wholesale",
-  },
-  {
-    img: "/images/services/icons/product-research.png",
-    title: "Walmart Account Management",
-    desc: "Complete store management on Walmart Marketplace: product research, listings, pricing, order fulfillment, returns and account health, tracked in the Gosellify Portal.",
     href: "/services/walmart-management",
+    label: "Walmart account management",
+    desc: "Complete store management on Walmart Marketplace: product research, listings, pricing, order fulfillment, returns and account health, tracked in the Gosellify Portal.",
+  },
+  {
+    href: "/services/walmart-wfs",
+    label: "Walmart WFS",
+    desc: "Walmart Fulfillment Services. We prep your products, plan inventory shipments and manage listings for Walmart's fulfillment network.",
+  },
+  {
+    href: "/services/walmart-wholesale",
+    label: "Walmart wholesale",
+    desc: "Source branded products from authorized distributors and sell them on Walmart Marketplace. We handle supplier contact, pricing and daily account management.",
   },
 ];
 
 const faqs = [
   {
-    q: "How is Walmart Marketplace different from Amazon?",
-    a: "Walmart Marketplace has lower competition, no monthly seller fees (only referral fees per sale), and access to Walmart's massive customer base. Unlike Amazon, Walmart is still growing its seller base, meaning early movers have a significant advantage.",
+    question: "How is Walmart Marketplace different from Amazon?",
+    answer: "Walmart has its own application process, listing rules, fee schedule and seller performance standards. Check Walmart's current fee schedule and seller requirements on its official Marketplace pages before you decide, because they change.",
   },
   {
-    q: "What are the requirements to sell on Walmart?",
-    a: "You need a US business entity (LLC or Corporation), US EIN, US business address, and a track record of ecommerce experience or a strong business plan. Walmart is more selective than Amazon, but we help you build a compelling application.",
+    question: "What are the requirements to sell on Walmart?",
+    answer: "Walmart reviews every seller application and sets its own requirements, which change over time. Read the current list on Walmart's official Marketplace site. We help you prepare the application, but the decision is Walmart's.",
   },
   {
-    q: "How long does it take to get approved on Walmart?",
-    a: "Walmart application review typically takes 2-4 weeks. Store setup and listing optimization takes another 5-7 days. We prepare your application to maximize approval chances and handle the entire onboarding process.",
+    question: "How long does it take to get approved on Walmart?",
+    answer: "Review time is decided by Walmart and we cannot promise a date. Once the account is approved, we set up the store and start listing.",
   },
   {
-    q: "What is Walmart Fulfillment Services (WFS)?",
-    a: "WFS is Walmart's version of FBA. You ship inventory to Walmart's fulfillment centers, and they handle storage, packing, shipping, and customer service. WFS listings get the 'Fulfilled by Walmart' badge, improving visibility and trust.",
+    question: "What is Walmart Fulfillment Services (WFS)?",
+    answer: "WFS is Walmart's own fulfillment program. You send inventory to Walmart's fulfillment centers and Walmart stores, packs and ships the orders. We handle the prep and the shipping plans.",
   },
   {
-    q: "Can I sell on both Amazon and Walmart?",
-    a: "Absolutely. Many of our clients sell on both platforms. We help you diversify across marketplaces to reduce risk and maximize revenue. Different platforms often attract different customer segments.",
+    question: "Can I sell on both Amazon and Walmart?",
+    answer: "Yes. We manage each store separately. Selling on two marketplaces means your income does not depend on one account.",
   },
   {
-    q: "What if my Walmart seller application gets rejected?",
-    a: "We have extensive experience with Walmart applications. If your initial application is declined, we analyze the rejection reason, strengthen your profile, and reapply. Our approval rate is significantly higher than self-applications.",
+    question: "What if my Walmart seller application gets rejected?",
+    answer: "We look at the reason Walmart gives, help you correct what can be corrected, and help you apply again if Walmart allows it. We cannot guarantee approval.",
+  },
+  {
+    question: "How much capital do I need to start?",
+    answer: "You need $3,000 to $5,000 working capital depending on the business model.",
   },
 ];
 
 export default function WalmartPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <>
-      {/* ── HERO ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main" style={{ textAlign: "center" }}>
-          <span className="typo-label" style={{ marginBottom: "8px", display: "block" }}>WALMART MARKETPLACE SERVICES</span>
-          <h1 className="typo-h1" style={{ marginBottom: "14px", maxWidth: "850px", marginLeft: "auto", marginRight: "auto" }}>
-            Walmart Marketplace Services — Complete Store Management
-          </h1>
-          <p className="typo-body" style={{ marginBottom: "24px", fontSize: "17px", maxWidth: "750px", marginLeft: "auto", marginRight: "auto" }}>
-            Tap into the fastest-growing ecommerce marketplace with 120M+ monthly visitors and significantly lower competition.
+      <ServiceHero
+        eyebrow="Walmart Marketplace"
+        title="Walmart account management services for sellers"
+        lead="We manage Walmart Marketplace stores for sellers: full store management, WFS and wholesale. This page explains the three models so you can see which one fits your store."
+        secondaryHref="/pricing"
+        note="We are an independent agency. We are not part of Walmart and we cannot promise that Walmart will approve a seller application."
+      />
+
+      <ServiceSection eyebrow="About the marketplace" title="Selling on Walmart Marketplace" tint>
+        <div style={{ maxWidth: 760, display: "grid", gap: 14, color: "var(--color-text-light)" }}>
+          <p>
+            Walmart Marketplace lets approved third-party sellers list products on Walmart.com. Walmart reviews each
+            application, and it expects sellers to meet its standards for shipping, tracking and customer service.
           </p>
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-            <a href="https://wa.me/message/Q6XJRMT4HKTBF1" target="_blank" rel="noopener noreferrer" className="btn-primary btn-primary-pulse" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
-              <FaWhatsapp style={{ fontSize: "18px" }} /> Get Free Consultation
-            </a>
-            <Link href="/pricing" className="btn-outline">View Pricing</Link>
-          </div>
+          <p>
+            For many sellers it is a second channel next to Amazon. The listing format, the search ranking and the
+            seller metrics are different, so a Walmart store needs its own setup and its own daily routine.
+          </p>
+          <p>
+            Gosellify helps you prepare the application, set up the store, find products and run daily operations.
+            We also run our own Walmart store, so the work is familiar to our team.
+          </p>
         </div>
-      </section>
+      </ServiceSection>
 
-      {/* ── PLATFORM INTRODUCTION ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="typo-h2" style={{ marginBottom: "16px" }}>The Fastest-Growing Marketplace</h2>
-              <p className="typo-body" style={{ marginBottom: "14px" }}>
-                Walmart Marketplace attracts over 120 million unique monthly visitors and is rapidly expanding its third-party seller program. With no monthly seller fees and lower competition than Amazon, early movers have a massive advantage.
-              </p>
-              <p className="typo-body" style={{ marginBottom: "14px" }}>
-                Walmart&apos;s fulfillment infrastructure, trusted brand reputation, and growing online presence make it the ideal platform for sellers looking to diversify beyond Amazon or enter ecommerce for the first time.
-              </p>
-              <p className="typo-body">
-                Gosellify helps you navigate Walmart&apos;s approval process, set up your store, source products, and manage daily operations — giving you a head start on this rapidly growing platform.
-              </p>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <img src="/images/services/hero/walmart-platform.jpeg" alt="Walmart Marketplace" style={{ width: "100%", maxWidth: "500px", borderRadius: "12px", height: "auto" }} />
-            </div>
-          </div>
-        </div>
-      </section>
+      <RelatedLinks title="Our Walmart services" links={services} />
 
-      {/* ── OUR WALMART SERVICES ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">OUR SERVICES</span>
-            <h2 className="typo-h2">Our Walmart Services</h2>
-            <p className="typo-subtext">Full-service Walmart Marketplace solutions to help you launch and scale.</p>
-          </div>
+      <ServiceFeaturesGrid />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" style={{ marginTop: "32px" }}>
-            {services.map((service) => (
-              <Link
-                key={service.title}
-                href={service.href}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div
-                  className="card-hover"
-                  style={{
-                    backgroundColor: "#fff",
-                    borderRadius: "12px",
-                    padding: "28px 24px",
-                    border: "1px solid rgba(0,0,0,0.04)",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <img src={service.img} alt={service.title} style={{ width: "48px", height: "48px", objectFit: "contain", marginBottom: "14px" }} />
-                  <h3 className="typo-h3" style={{ marginBottom: "8px" }}>{service.title}</h3>
-                  <p className="typo-body" style={{ marginBottom: "16px", flex: 1 }}>{service.desc}</p>
-                  <span style={{ color: "var(--color-primary)", fontWeight: 600, fontSize: "14px" }}>
-                    Learn More →
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURES GRID ── */}
-      <FeaturesGrid />
-
-      {/* ── SERVICE BENEFITS ── */}
       <ServiceBenefits />
 
-      {/* ── FAQ ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">FAQ</span>
-            <h2 className="typo-h2">Frequently Asked Questions</h2>
-          </div>
+      <ServiceFAQ faqs={faqs} title="Questions about selling on Walmart" tint />
 
-          <div style={{ maxWidth: "750px", margin: "24px auto 0" }}>
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "8px",
-                  marginBottom: "8px",
-                  overflow: "hidden",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                }}
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    padding: "14px 18px",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    color: "var(--color-dark)",
-                    textAlign: "left",
-                  }}
-                >
-                  {faq.q}
-                  {openFaq === i ? <FaChevronUp style={{ fontSize: "12px", flexShrink: 0 }} /> : <FaChevronDown style={{ fontSize: "12px", flexShrink: 0 }} />}
-                </button>
-                <div style={{
-                  maxHeight: openFaq === i ? "300px" : "0",
-                  overflow: "hidden",
-                  transition: "max-height 0.3s ease",
-                }}>
-                  <p className="typo-body" style={{ padding: "0 18px 14px" }}>{faq.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
       <CTASection />
     </>
   );

@@ -1,343 +1,133 @@
-"use client";
-
-import React, { useState } from "react";
-import Link from "next/link";
-import { FaWhatsapp, FaCheckCircle, FaTimesCircle, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import ServiceConfidence from "@/components/services/ServiceConfidence";
+import ServiceFAQ from "@/components/services/ServiceFAQ";
 import CTASection from "@/components/home/CTASection";
+import {
+  ServiceHero,
+  ServiceSection,
+  TwoColRows,
+  StepList,
+  FeatureList,
+  PlainTable,
+  ProfitShareBlock,
+  RelatedLinks,
+} from "@/components/services/ServiceBlocks";
+import type { Cell, TextRow, TitledItem } from "@/components/services/ServiceBlocks";
 
-const comparisonData = [
-  { feature: "Brand approval & authorization", us: true, diy: "You apply blindly", others: "Limited brands" },
-  { feature: "Verified distributor network", us: true, diy: false, others: "Basic list" },
-  { feature: "Inventory management & forecasting", us: true, diy: "Spreadsheets", others: "Software only" },
-  { feature: "Competitive pricing strategy", us: true, diy: "Race to bottom", others: "Basic repricing" },
-  { feature: "WFS prep & shipping", us: true, diy: "You arrange", others: "Extra fee" },
-  { feature: "Account health monitoring", us: true, diy: false, others: "Weekly check" },
-  { feature: "Multi-supplier coordination", us: true, diy: "Overwhelming", others: false },
-  { feature: "Profit sharing — pay from profits only", us: true, diy: "N/A", others: false },
-  { feature: "24/7 WhatsApp support", us: true, diy: false, others: "Email only" },
+const problems: TextRow[] = [
+  { left: "Finding authorized distributors is slow.", right: "We contact distributors, check that they are authorized for the brand, and compare pricing and reliability before you order." },
+  { left: "Brand approvals on Walmart need paperwork.", right: "We prepare the documents Walmart asks for, such as invoices and authorization letters from the distributor. Walmart and the brand decide the outcome." },
+  { left: "You are not sure Walmart is worth it next to Amazon.", right: "We check demand, competing offers and fees for each product before you buy stock, so the decision is made per product." },
+  { left: "Other sellers undercut the price.", right: "We follow the brand's MAP policy and set repricing rules based on your margin, so we do not chase the price below cost." },
+  { left: "Inventory across suppliers is hard to follow.", right: "We track stock, sales rate and reorder points for every supplier and tell you when to reorder." },
+  { left: "Walmart's compliance rules are strict.", right: "We check listing quality, shipping speed and defect rates daily and act when a metric starts to slip." },
 ];
 
-const whatYouGet = [
-  { img: "/images/services/icons/safety.png", title: "Brand Approval", desc: "We secure brand authorizations and ungating approvals on Walmart. Our distributor relationships give you access to brands others cannot sell." },
-  { img: "/images/services/icons/product-research.png", title: "Supplier Sourcing", desc: "Verified distributors, competitive pricing, reliable supply chains. We vet every supplier for authenticity, pricing, and fulfillment reliability." },
-  { img: "/images/services/icons/inventory.png", title: "Inventory Management", desc: "Demand forecasting, reorder automation, multi-SKU tracking. Your inventory levels are optimized for maximum sales with minimum capital tied up." },
-  { img: "/images/services/icons/marketing.png", title: "Pricing Strategy", desc: "Competitive analysis, margin-based repricing, MAP compliance. We price to win the Buy Box while protecting your profit margins." },
-  { img: "/images/services/icons/order-fulfillment.png", title: "WFS Prep", desc: "Products prepped, labeled, and shipped to Walmart WFS warehouses. Professional prep that meets every requirement, every time." },
-  { img: "/images/services/icons/account-health.png", title: "Account Health", desc: "Performance metrics monitored daily. IP complaints handled immediately. Your seller account stays clean and your wholesale business stays protected." },
-  { img: "/images/services/icons/customer-support.png", title: "Customer Support", desc: "Buyer messages, returns, refunds — all handled within 4 hours. Your customer satisfaction metrics stay best-in-class." },
-  { img: "/images/services/icons/scalability.png", title: "Growth & Scaling", desc: "New brands, new categories, higher volume. We scale your wholesale operation systematically — more SKUs, more revenue, same hands-off experience." },
+const steps: TitledItem[] = [
+  { title: "Research and approval", desc: "We find brands worth selling, apply for the approvals that are needed and open distributor accounts in your company's name." },
+  { title: "Source and order", desc: "You fund the stock. Orders are placed with authorized distributors, checked on arrival, and every invoice is kept." },
+  { title: "List and price", desc: "Products are listed with complete content and priced against cost, fees and competing offers." },
+  { title: "Fulfill and reorder", desc: "Orders ship through WFS or our US warehouses. We replenish what sells and add new brands step by step." },
+];
+
+const whatYouGet: TitledItem[] = [
+  { title: "Brand approval paperwork", desc: "We prepare and submit the documents needed for brand and category approval on Walmart. Approval is decided by Walmart and the brand." },
+  { title: "Supplier sourcing", desc: "We look for authorized distributors and check each one for authenticity, pricing and reliability." },
+  { title: "Inventory management", desc: "Demand forecasts, reorder points and tracking for every SKU, so less of your capital sits in slow stock." },
+  { title: "Pricing", desc: "Competitive analysis, margin-based repricing and MAP compliance." },
+  { title: "WFS prep", desc: "Products prepped, labeled and shipped to Walmart's WFS fulfillment centers from our US warehouses." },
+  { title: "Account health", desc: "Performance metrics reviewed daily. Intellectual property complaints are answered with the purchase records we keep." },
+  { title: "Customer support", desc: "Buyer messages, returns and refunds handled by our support team." },
+  { title: "Catalog growth", desc: "New brands and categories are added once the current ones sell steadily." },
+];
+
+const comparison: Cell[][] = [
+  ["Brand approval paperwork", "Included", "You apply yourself", "Varies by agency"],
+  ["Distributor sourcing and checks", "Included", "You do it", "Varies by agency"],
+  ["Inventory management and forecasting", "Included", "Your own spreadsheets", "Varies by agency"],
+  ["Pricing and repricing", "Included", "You do it", "Varies by agency"],
+  ["WFS prep and shipping", "Included", "You arrange it", "Varies by agency"],
+  ["Account health monitoring", "Daily", "You do it", "Varies by agency"],
+  ["Multi-supplier coordination", "Included", "You do it", "Varies by agency"],
+  ["Fee model", "Profit share, paid from profit", "No fee, your own time", "Ask each agency"],
+  ["WhatsApp support", "Yes", "Not applicable", "Varies by agency"],
 ];
 
 const faqs = [
   {
     question: "What is Walmart wholesale selling?",
-    answer: "Wholesale on Walmart means buying branded products in bulk from authorized distributors at wholesale prices and reselling them on Walmart Marketplace at retail prices. Unlike private label, you sell established brands with existing demand. Unlike arbitrage, you have reliable supply chains and consistent margins.",
+    answer: "Wholesale on Walmart means buying branded products in bulk from authorized distributors and reselling them on Walmart Marketplace. You sell established brands that already have demand, and you hold real stock with real invoices.",
   },
   {
     question: "How do you get brand approvals on Walmart?",
-    answer: "We have established relationships with distributors who provide authorized invoices and brand authorization letters. For gated brands, we submit proper documentation including invoices, Letters of Authorization, and compliance certificates. Our approval rate is over 85% for brands we target.",
+    answer: "For brands or categories that need approval, we submit the documents Walmart asks for, such as distributor invoices and letters of authorization. We cannot promise approval, because Walmart and the brand owner decide.",
   },
   {
     question: "How much capital do I need for wholesale?",
-    answer: "Minimum $5,000-$10,000 for initial inventory purchases. Wholesale requires upfront inventory investment, but margins are consistent (20-35%) and supply is reliable. The more capital you invest, the better bulk pricing you get from distributors.",
+    answer: "The minimum is $3,000 to $5,000 working capital depending on the business model. Wholesale needs stock bought in advance, so more capital lets you carry more products and reach distributor minimum orders.",
   },
   {
-    question: "What ROI can I expect?",
-    answer: "Typical wholesale margins on Walmart are 20-35% after all fees. With lower competition than Amazon, Walmart wholesale sellers often achieve higher margins on the same products. Our inventory management ensures your capital turns over every 30-45 days.",
+    question: "What profit can I expect?",
+    answer: "We do not promise a margin or a return. It depends on the brand, the distributor price, Walmart's fees and competing sellers. We calculate expected profit per product before you buy and show the real result per order in the Portal.",
   },
   {
     question: "How do you find reliable distributors?",
-    answer: "We maintain a vetted network of 200+ authorized distributors across major categories. Every supplier is verified for authenticity, pricing competitiveness, fulfillment reliability, and return policies. We never work with grey market or unauthorized sources.",
+    answer: "We check that a supplier is an authorized source for the brand, compare pricing, and look at how reliably they ship and how they handle returns. We do not buy from unauthorized or grey market sources.",
   },
   {
-    question: "Is Walmart worth it with lower traffic than Amazon?",
-    answer: "Absolutely. Less traffic also means far less competition. Walmart Marketplace is growing 30%+ year over year, and early sellers are establishing dominance in categories that are saturated on Amazon. Lower competition = higher margins and easier Buy Box wins.",
+    question: "Is Walmart worth it next to Amazon?",
+    answer: "It depends on the product. Some products face fewer competing sellers on Walmart, others sell too slowly. We check each product before you put money into it.",
   },
   {
     question: "What about MAP pricing policies?",
-    answer: "We strictly comply with Minimum Advertised Price policies. Violating MAP risks losing your brand authorization — permanently. Our pricing tools automatically enforce MAP compliance while still optimizing for Buy Box competitiveness within allowed ranges.",
+    answer: "We follow each brand's Minimum Advertised Price policy. Breaking MAP can cost you the brand's authorization, so our repricing rules stay inside the allowed range.",
   },
   {
     question: "Can I cancel anytime?",
-    answer: "Yes, no contracts and no lock-in. Your supplier relationships and inventory are yours. We earn your business by delivering results every month. Our retention rate is 90%+ because the ROI speaks for itself.",
+    answer: "Yes. There is no contract and no lock-in. Your supplier accounts and your inventory are yours.",
   },
 ];
 
-
 export default function WalmartWholesalePage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <>
-      {/* ── HERO ── */}
-      <section style={{ padding: "55px 0 70px", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main" style={{ textAlign: "center" }}>
-          <span className="typo-label" style={{ marginBottom: "8px", display: "block" }}>WALMART WHOLESALE</span>
-          <h1 className="typo-h1" style={{ marginBottom: "14px", maxWidth: "850px", marginLeft: "auto", marginRight: "auto" }}>
-            Sell Branded Products on Walmart. <span style={{ color: "#1560FF" }}>Wholesale Margins, Growing Platform.</span>
-          </h1>
-          <p className="typo-body" style={{ marginBottom: "24px", fontSize: "17px", maxWidth: "750px", marginLeft: "auto", marginRight: "auto" }}>
-            Source from authorized distributors, sell established brands on Walmart Marketplace. Reliable supply chains, consistent 20-35% margins, and a platform with less competition than Amazon.
-          </p>
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-            <a
-              href="https://wa.me/message/Q6XJRMT4HKTBF1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary btn-primary-pulse"
-              style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-            >
-              <FaWhatsapp style={{ fontSize: "18px" }} />
-              Start Earning — Free Consultation
-            </a>
-            <Link href="/pricing" className="btn-outline">
-              See Pricing
-            </Link>
-          </div>
-          <div style={{ display: "flex", gap: "24px", marginTop: "32px", flexWrap: "wrap", justifyContent: "center" }}>
-            {["Authorized distributors", "Brand approval experts", "20-35% profit margins", "Reliable supply chains", "Pay from profits only", "A-Z wholesale management"].map((item) => (
-              <div key={item} style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#555" }}>
-                <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "12px" }} />
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        eyebrow="Walmart wholesale"
+        title="Walmart wholesale store management service"
+        lead="You sell established brands on Walmart Marketplace. We source from authorized distributors, prep stock for WFS and manage your wholesale store daily. You fund the stock."
+        points={["Authorized distributors only", "Brand approval paperwork", "WFS prep in our US warehouses", "Daily store management", "Pay from profit", "No contract, cancel anytime"]}
+        secondaryHref="/pricing"
+        note="We are an independent agency and not part of Walmart. We do not promise brand approvals, sales or profit."
+      />
 
-      {/* ── PROBLEM → SOLUTION ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">WHY THIS WORKS</span>
-            <h2 className="typo-h2">Your Problems. Our Solutions.</h2>
-            <p className="typo-subtext">Wholesale on Walmart is the most reliable e-commerce model — if you have the right suppliers and the right team. Here&apos;s why sellers choose us.</p>
-          </div>
+      <ServiceSection eyebrow="Where sellers get stuck" title="Common wholesale problems and what we do about them" tint>
+        <TwoColRows leftHead="The problem" rightHead="What we do" rows={problems} />
+      </ServiceSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" style={{ marginTop: "28px" }}>
-            {[
-              {
-                problem: "Finding Walmart-approved distributors?",
-                solution: "We maintain a vetted network of 200+ authorized distributors. Every supplier verified for authenticity, pricing, and reliability. You get access to our entire network.",
-              },
-              {
-                problem: "Brand approvals on Walmart are different?",
-                solution: "85%+ approval rate on targeted brands. We know exactly what documentation Walmart requires and have distributor relationships that provide proper authorization letters.",
-              },
-              {
-                problem: "Lower traffic than Amazon — worth it?",
-                solution: "Less traffic = far less competition. Walmart Marketplace grows 30%+ YoY. Early sellers dominate categories saturated on Amazon. Higher margins, easier Buy Box wins.",
-              },
-              {
-                problem: "Pricing competition from other sellers?",
-                solution: "MAP compliance, strategic repricing, and Buy Box analytics. We price to win without racing to the bottom. Our average client maintains 25%+ margins consistently.",
-              },
-              {
-                problem: "Managing inventory across platforms?",
-                solution: "Multi-supplier tracking, demand forecasting, reorder automation. We manage your entire supply chain so you never overstock and never run out.",
-              },
-              {
-                problem: "Walmart's strict compliance rules?",
-                solution: "We monitor every performance metric daily — listing quality, shipping speed, defect rates. Your account stays clean and your wholesale business stays protected.",
-              },
-            ].map((item) => (
-              <div
-                key={item.problem}
-                className="card-hover"
-                style={{
-                  borderRadius: "10px",
-                  padding: "22px",
-                  backgroundColor: "#f6f7f9",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                }}
-              >
-                <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-dark)", marginBottom: "10px", lineHeight: 1.4 }}>
-                  <span style={{ color: "#dc2626" }}>&#10007;</span>{" "}{item.problem}
-                </p>
-                <p style={{ fontSize: "13px", color: "var(--color-text-light)", margin: 0, lineHeight: 1.6, paddingLeft: "2px", borderLeft: "3px solid var(--color-primary)", marginLeft: "0" }}>
-                  <span style={{ display: "block", paddingLeft: "12px" }}>
-                    <span style={{ color: "var(--color-primary)", fontWeight: 700 }}>&rarr;</span>{" "}{item.solution}
-                  </span>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceSection eyebrow="The process" title="How we build a Walmart wholesale store">
+        <StepList steps={steps} />
+      </ServiceSection>
 
-      {/* ── HOW IT WORKS ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">THE PROCESS</span>
-            <h2 className="typo-h2">How We Build Your Wholesale Business</h2>
-            <p className="typo-subtext" style={{ maxWidth: "700px" }}>
-              Buy from distributors at $15. Sell on Walmart at $25. After fees and fulfillment: <strong>$5+ profit per unit</strong>. Sell 100 units a day = <strong>$15,000/month</strong>.
-            </p>
-          </div>
+      <ServiceSection eyebrow="Included" title="What the wholesale service covers" tint>
+        <FeatureList items={whatYouGet} />
+      </ServiceSection>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6" style={{ marginTop: "32px" }}>
-            {[
-              { img: "/images/process/discussion.png", title: "Research & Approve", desc: "We find profitable brands, secure authorization, and establish distributor accounts. Your catalog starts with proven winners." },
-              { img: "/images/process/get-access.png", title: "Source & Order", desc: "Bulk orders placed with verified distributors at wholesale pricing. Quality checked, invoices documented, shipments tracked." },
-              { img: "/images/process/planning.png", title: "List & Optimize", desc: "Products listed with optimized content, competitive pricing, and Buy Box strategies designed to win from day one." },
-              { img: "/images/process/growth.png", title: "Scale & Profit", desc: "Orders flow, inventory replenishes, new brands added. Your wholesale operation grows systematically while you collect profit." },
-            ].map((item, index) => (
-              <div key={item.title} style={{ textAlign: "center", padding: "8px" }}>
-                <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}>
-                  <div style={{ position: "relative" }}>
-                    <img src={item.img} alt={item.title} style={{ width: "72px", height: "72px", objectFit: "contain" }} />
-                    <div style={{
-                      position: "absolute", top: "-4px", right: "-4px",
-                      width: "22px", height: "22px", borderRadius: "50%",
-                      backgroundColor: "var(--color-primary)", color: "#fff",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: "11px", fontWeight: 700,
-                    }}>
-                      {index + 1}
-                    </div>
-                  </div>
-                </div>
-                <h3 className="typo-h4" style={{ marginBottom: "4px" }}>{item.title}</h3>
-                <p className="typo-small">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProfitShareBlock subject="Walmart wholesale stores" />
 
-      {/* ── WHAT YOU GET ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">FULL SERVICE</span>
-            <h2 className="typo-h2">Everything We Handle. Everything You Don&apos;t.</h2>
-            <p className="typo-subtext">From supplier sourcing to order fulfillment — your entire Walmart wholesale operation, managed by our team.</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6" style={{ marginTop: "32px" }}>
-            {whatYouGet.map((item) => (
-              <div key={item.title} style={{ textAlign: "center", padding: "8px" }}>
-                <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}>
-                  <img src={item.img} alt={item.title} style={{ width: "64px", height: "64px", objectFit: "contain" }} />
-                </div>
-                <h3 className="typo-h4" style={{ marginBottom: "4px" }}>{item.title}</h3>
-                <p className="typo-small">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA BANNER ── */}
-      <section style={{ padding: "45px 0", backgroundColor: "var(--color-dark)" }}>
-        <div className="container-main" style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#fff", marginBottom: "6px" }}>
-            We Don&apos;t Get Paid Until <span style={{ color: "#1560FF" }}>You Get Paid</span>
-          </h2>
-          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.7)", maxWidth: "550px", margin: "0 auto 20px" }}>
-            Profit sharing model — zero management fees until your wholesale store is profitable. We invest our expertise, you invest capital. We both win.
-          </p>
-          <a
-            href="https://wa.me/message/Q6XJRMT4HKTBF1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary btn-primary-pulse"
-            style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-          >
-            <FaWhatsapp style={{ fontSize: "18px" }} />
-            Start Risk-Free Today
-          </a>
-        </div>
-      </section>
-
-      {/* Confidence Stats */}
       <ServiceConfidence />
 
-      {/* ── Gosellify VS OTHERS ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">THE HONEST COMPARISON</span>
-            <h2 className="typo-h2">Why Wholesale Sellers Choose Us Over Going Solo</h2>
-            <p className="typo-subtext">Finding suppliers is hard. Getting brand approvals is harder. Managing everything daily is the hardest. We do all three.</p>
-          </div>
+      <ServiceSection eyebrow="Comparison" title="Gosellify, doing wholesale yourself, or another agency" lead="A plain list of who does what. Ask any agency you consider the same questions.">
+        <PlainTable columns={["What you need", "Gosellify", "Doing it yourself", "Other agencies"]} rows={comparison} />
+      </ServiceSection>
 
-          <div style={{ maxWidth: "850px", margin: "32px auto 0", overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0", borderRadius: "12px", overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.08)", border: "1px solid #e5e7eb" }}>
-              <thead>
-                <tr>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "#f6f7f9", borderBottom: "2px solid #e8e8e8" }}>What You Need</th>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "var(--color-primary)", color: "#fff", borderBottom: "2px solid var(--color-primary-dark)", minWidth: "130px" }}>Gosellify</th>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "#f6f7f9", borderBottom: "2px solid #e8e8e8", minWidth: "120px" }}>DIY Walmart Wholesale</th>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "#f6f7f9", borderBottom: "2px solid #e8e8e8", minWidth: "120px" }}>Other Agencies</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonData.map((row, i) => (
-                  <tr key={row.feature} style={{ backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc" }}>
-                    <td style={{ padding: "12px 20px", fontSize: "13px", fontWeight: 500, textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>{row.feature}</td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", backgroundColor: i % 2 === 0 ? "rgba(21,96,255,0.04)" : "rgba(21,96,255,0.07)", verticalAlign: "middle" }}>
-                      {row.us === true ? <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "var(--color-primary)", fontWeight: 600 }}>{row.us}</span>}
-                    </td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>
-                      {row.diy === false ? <FaTimesCircle style={{ color: "#dc2626", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "#888" }}>{row.diy}</span>}
-                    </td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>
-                      {row.others === false ? <FaTimesCircle style={{ color: "#dc2626", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "#888" }}>{row.others}</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <ServiceFAQ faqs={faqs} title="Questions about Walmart wholesale" tint />
 
-      {/* ── FAQ ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">GOT QUESTIONS?</span>
-            <h2 className="typo-h2">Everything You Want to Know Before Starting</h2>
-          </div>
-
-          <div style={{ maxWidth: "750px", margin: "24px auto 0" }}>
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "8px",
-                  marginBottom: "8px",
-                  overflow: "hidden",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                }}
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    width: "100%", padding: "14px 18px", background: "none", border: "none",
-                    cursor: "pointer", fontSize: "15px", fontWeight: 600,
-                    color: "var(--color-dark)", textAlign: "left",
-                  }}
-                >
-                  {faq.question}
-                  {openFaq === i ? <FaChevronUp style={{ fontSize: "12px", flexShrink: 0 }} /> : <FaChevronDown style={{ fontSize: "12px", flexShrink: 0 }} />}
-                </button>
-                <div style={{
-                  maxHeight: openFaq === i ? "300px" : "0",
-                  overflow: "hidden", transition: "max-height 0.3s ease",
-                }}>
-                  <p className="typo-body" style={{ padding: "0 18px 14px" }}>{faq.answer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <RelatedLinks
+        links={[
+          { href: "/services/walmart-management", label: "Walmart marketplace management services" },
+          { href: "/services/walmart-wfs", label: "Walmart WFS prep and fulfillment" },
+          { href: "/services/amazon-wholesale", label: "Amazon wholesale store management" },
+        ]}
+      />
 
       <CTASection />
     </>

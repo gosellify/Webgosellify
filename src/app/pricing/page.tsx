@@ -1,14 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  FaWhatsapp,
-  FaChevronRight,
-  FaShieldAlt,
-  FaHandshake,
-  FaChartLine,
-  FaHeadset,
-  FaWarehouse,
-} from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
 
 export const metadata: Metadata = {
@@ -18,305 +9,217 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pricing" },
 };
 
-const highlights = [
+type Row = { title: string; description: string; href: string; price?: string };
+
+const payFromProfit: { q: string; a: string }[] = [
   {
-    icon: FaShieldAlt,
-    title: "Profit-Share Model",
-    desc: "Pay only once you see profit",
+    q: "What you pay us",
+    a: "A share of the profit your store makes. We agree the share with you before we start. We do not publish one number here because it depends on the store and the business model.",
   },
   {
-    icon: FaHandshake,
-    title: "Profit Sharing",
-    desc: "We succeed when you succeed",
+    q: "When you pay",
+    a: "Only after the store makes profit. There is no management fee before that.",
   },
   {
-    icon: FaChartLine,
-    title: "35% Avg ROI",
-    desc: "Proven results across clients",
+    q: "How profit is counted",
+    a: "Sales, minus marketplace fees, minus product, prep and shipping costs. Every order is recorded in the Gosellify Portal, and you can see the same numbers we see.",
   },
   {
-    icon: FaHeadset,
-    title: "24/7 Support",
-    desc: "Dedicated team for your store",
+    q: "What you pay for yourself",
+    a: "The products your store sells. You need $3,000 to $5,000 working capital depending on the business model, because the marketplace pays you some time after the customer orders.",
+  },
+  {
+    q: "Contract",
+    a: "There is no contract. You can cancel anytime.",
   },
 ];
 
-const additionalServices = [
+const managementServices: Row[] = [
   {
-    icon: FaWarehouse,
-    img: "/images/pricing/warehouse-icon.webp",
-    title: "3PL Warehouse Service",
-    description:
-      "We run our US warehouses ourselves. FBA prep, WFS prep, storage, 2-step dropshipping, and direct-to-customer shipping — all under one roof.",
-    bullets: ["Same-day order processing", "Simple per-service pricing, no hidden fees", "Web-based inventory software"],
-    href: "/services/3pl-warehouse",
-  },
-];
-
-const managementServices = [
-  {
-    img: "/images/pricing/amazon-arbitrage-icon.webp",
-    title: "Amazon 2-Step Dropshipping",
-    description:
-      "No upfront inventory. Zero-risk model — buy only when customers order. 30-40% margins. Profit within the first week.",
-    href: "/services/amazon-arbitrage",
-  },
-  {
-    img: "/images/pricing/amazon-wholesale-icon.webp",
-    title: "Amazon Wholesale",
-    description:
-      "Sell established brands from authorized distributors. 100% suspension risk free with brand approval letters. 35% avg ROI.",
-    href: "/services/amazon-wholesale",
-  },
-  {
-    img: "/images/pricing/amazon-fba-icon.webp",
-    title: "Amazon FBA",
-    description:
-      "Full FBA brand management — product research, PPC, listing optimization, inventory planning, and Brand Registry.",
-    href: "/services/amazon-fba",
-  },
-  {
-    img: "/images/pricing/walmart-icon.png",
-    title: "Walmart Management",
-    description:
-      "Complete Walmart store management — listings, Buy Box, order fulfillment, pricing, and daily operations.",
+    title: "Walmart management",
+    description: "Listings, pricing, order fulfillment and daily operations for your Walmart store.",
     href: "/services/walmart-management",
   },
   {
-    img: "/images/pricing/walmart-wfs-icon.png",
     title: "Walmart WFS",
-    description:
-      "Walmart Fulfillment Services — product prep, WFS shipping, inventory planning, and Pro Seller badge optimization.",
+    description: "Product prep, shipments to Walmart Fulfillment Services and inventory planning.",
     href: "/services/walmart-wfs",
   },
   {
-    img: "/images/pricing/ebay-icon.webp",
-    title: "eBay Dropshipping",
-    description:
-      "Complete eBay store management — Cassini SEO, repricing, Top Rated Seller strategy, and account health.",
+    title: "Amazon 2-step dropshipping",
+    description: "No upfront inventory. We buy a product only after a customer orders it, then prep and ship it from our warehouse.",
+    href: "/services/amazon-arbitrage",
+  },
+  {
+    title: "Amazon wholesale",
+    description: "Branded products bought from authorized distributors, with purchase invoices kept for every order.",
+    href: "/services/amazon-wholesale",
+  },
+  {
+    title: "Amazon FBA",
+    description: "Product research, listings, advertising and inventory planning for FBA stores.",
+    href: "/services/amazon-fba",
+  },
+  {
+    title: "eBay dropshipping",
+    description: "Listings, repricing, orders and account health for your eBay store.",
     href: "/services/ebay-dropshipping",
   },
 ];
 
-const otherServices = [
+const otherServices: Row[] = [
   {
-    title: "Company Filing LLC & LTD",
-    price: "$100 + State Fee",
-    description: "US LLC formation, EIN ($50), ITIN ($250), registered agent, bank account setup.",
+    title: "3PL warehouse service",
+    price: "Per service",
+    description: "FBA prep, WFS prep, storage, 2-step dropshipping and direct-to-customer shipping from our own US warehouses. Same-day order processing.",
+    href: "/services/3pl-warehouse",
+  },
+  {
+    title: "Company filing LLC & LTD",
+    price: "$100 + state fee",
+    description: "US LLC formation, EIN ($50), ITIN ($250) and registered agent.",
     href: "/services/company-filing",
   },
   {
-    title: "Tax Filing",
+    title: "Tax filing",
     price: "From $100",
-    description: "Federal & state returns, sales tax, bookkeeping for all business types.",
+    description: "Federal and state returns, sales tax and bookkeeping.",
     href: "/services/tax-filing",
   },
   {
-    title: "Account Reinstatement",
+    title: "Account reinstatement",
     price: "Case-based",
-    description: "Amazon & Walmart suspended account recovery. 85-90%+ success rate.",
+    description: "Help with appeals for suspended Amazon and Walmart seller accounts. The marketplace makes the final decision.",
     href: "/services/amazon-reinstatement",
   },
   {
-    title: "Shopify Services",
+    title: "Shopify services",
     price: "Project-based",
-    description: "Store setup, redesign, theme development, app development, and marketing.",
+    description: "Store setup, redesign, theme development, app development and marketing.",
     href: "/services/shopify",
   },
   {
-    title: "Etsy Dropshipping",
+    title: "Etsy dropshipping",
     price: "Contact us",
-    description: "Complete Etsy store management — SEO, print-on-demand, and fulfillment.",
+    description: "Etsy store management: listings, print-on-demand and fulfillment.",
     href: "/services/etsy-dropshipping",
   },
   {
-    title: "Walmart Wholesale & Dropshipping",
+    title: "Walmart wholesale and dropshipping",
     price: "Contact us",
     description: "Walmart wholesale sourcing and 2-step dropshipping management.",
     href: "/services/walmart-wholesale",
   },
 ];
 
+const linkStyle = { color: "var(--color-primary)", fontWeight: 700 } as const;
+
 export default function PricingPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section style={{ backgroundColor: "#f6f7f9", position: "relative", overflow: "hidden" }}>
+      {/* Intro */}
+      <section className="g-section" style={{ background: "#fff" }}>
         <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-            {/* Left Content */}
-            <div style={{ padding: "55px 0" }}>
-              <span className="typo-label" style={{ display: "block", marginBottom: "10px" }}>
-                Profit Sharing Model
-              </span>
+          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Pricing</span>
+          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
+            Pricing: profit share store management
+          </h1>
+          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "14px" }}>
+            Our store management is paid from profit. You pay no management fee until your store
+            makes profit. After that we take a share of the profit. There is no contract and you
+            can cancel anytime.
+          </p>
+          <p className="typo-body" style={{ maxWidth: "720px", marginBottom: "24px" }}>
+            We cannot promise sales or profit. Every store and every product is different. What we
+            do commit to is showing you every order and every cost in your dashboard.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 24px" }}>
+            <Link href="/profit-check" className="btn-accent">
+              Start the Profit Check
+            </Link>
+            <a
+              href="https://wa.me/13073938789"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline"
+              style={linkStyle}
+            >
+              Ask about pricing on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
 
-              <h1 className="typo-h1" style={{ marginBottom: "6px" }}>
-                Start Your Unlimited Vacation
-              </h1>
-              <p className="typo-body" style={{ color: "var(--color-primary)", fontWeight: 600, marginBottom: "6px", fontSize: "16px" }}>
-                We provide service with profit sharing model
-              </p>
-              <p className="typo-h3" style={{ color: "var(--color-accent)", marginBottom: "12px" }}>
-                Performance-based pricing. Pay from profit.
-              </p>
-              <p className="typo-body" style={{ marginBottom: "20px", maxWidth: "480px" }}>
-                No one will offer profit sharing model and no payment before you
-                get profit. Our experienced and highly skilled team will start
-                profit within a week.
-              </p>
-
-              {/* Highlight pills */}
+      {/* Pay from profit explained */}
+      <section className="g-section bg-tint">
+        <div className="container-main">
+          <h2 className="g-h2" style={{ marginBottom: "20px" }}>
+            How pay from profit works
+          </h2>
+          <dl style={{ maxWidth: "860px", borderTop: "1px solid var(--color-line)" }}>
+            {payFromProfit.map((item) => (
               <div
+                key={item.q}
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "8px",
-                  marginBottom: "20px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "4px 24px",
+                  padding: "16px 0",
+                  borderBottom: "1px solid var(--color-line)",
                 }}
               >
-                {highlights.map((item) => (
-                  <div
-                    key={item.title}
-                    style={{
-                      background: "#fff",
-                      border: "1px solid #e8e8e8",
-                      borderRadius: "10px",
-                      padding: "10px 14px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        borderRadius: "7px",
-                        backgroundColor: "rgba(21,96,255,0.1)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <item.icon style={{ color: "var(--color-primary)", fontSize: "13px" }} />
-                    </span>
-                    <div>
-                      <p className="typo-small" style={{ fontWeight: 700, color: "var(--color-text)", lineHeight: 1.2 }}>
-                        {item.title}
-                      </p>
-                      <p className="typo-small" style={{ color: "#999", marginTop: "1px" }}>
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                <dt style={{ flex: "0 0 220px", fontWeight: 700, color: "var(--color-dark)" }}>{item.q}</dt>
+                <dd className="typo-body" style={{ flex: "1 1 320px", minWidth: 0 }}>{item.a}</dd>
               </div>
+            ))}
+          </dl>
 
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-                <a
-                  href="https://wa.me/message/Q6XJRMT4HKTBF1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-                >
-                  <FaWhatsapp style={{ fontSize: "16px" }} />
-                  Book Your Dream Project
-                </a>
-                <Link href="/contact" className="btn-outline">
-                  Contact Us
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Image — full height with top padding */}
-            <div className="hidden lg:flex items-end justify-center" style={{ position: "relative", minHeight: "100%", paddingTop: "50px" }}>
+          <figure style={{ margin: "36px 0 0", maxWidth: "980px" }}>
+            <div style={{ border: "1px solid var(--color-line)", borderRadius: "10px", overflow: "hidden", background: "#fff" }}>
               <img
-                src="/images/pricing/hero-vacation.png"
-                alt="Start your unlimited vacation"
-                style={{ width: "auto", maxWidth: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom" }}
+                src="/images/portal/store-profit.jpg"
+                alt="Profit and loss view in the Gosellify Portal showing sales, Walmart fees, product, labels and prep costs, and profit for November 2026 so far"
+                width={1228}
+                height={372}
+                loading="lazy"
+                style={{ display: "block", width: "100%", height: "auto" }}
               />
             </div>
-          </div>
+            <figcaption className="typo-small" style={{ marginTop: "8px" }}>
+              This is how profit is counted. November profit and loss so far for our own Walmart
+              store in the Gosellify Portal. Screenshot taken November 23, 2026.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      {/* Additional Services */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
+      {/* Management services */}
+      <section className="g-section" style={{ background: "#fff" }}>
         <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">Additional Services</span>
-            <h2 className="typo-h2">Warehouse &amp; Fulfillment</h2>
-            <p className="typo-subtext">
-              Complete your eCommerce operation with our in-house warehouse service: prep, storage, and same-day shipping of your orders.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5" style={{ maxWidth: "560px", margin: "0 auto" }}>
-            {additionalServices.map((service) => (
-              <div
-                key={service.title}
-                className="card-hover"
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "10px",
-                  padding: "28px 24px",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-                  <div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "10px",
-                      backgroundColor: "rgba(21,96,255,0.08)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <img
-                      src={service.img}
-                      alt={service.title}
-                      style={{ width: "32px", height: "32px", objectFit: "contain" }}
-                    />
-                  </div>
-                  <h3 className="typo-h3">{service.title}</h3>
-                </div>
-
-                <p className="typo-body" style={{ marginBottom: "12px" }}>
-                  {service.description}
-                </p>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: "16px" }}>
-                  {service.bullets.map((b) => (
-                    <div key={b} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <span style={{ color: "var(--color-primary)", fontSize: "10px" }}>●</span>
-                      <span className="typo-small" style={{ fontWeight: 500 }}>{b}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  href={service.href}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    color: "var(--color-primary)",
-                    fontWeight: 600,
-                    fontSize: "14px",
-                    textDecoration: "none",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  Learn More <FaChevronRight style={{ fontSize: "9px" }} />
+          <h2 className="g-h2" style={{ marginBottom: "10px" }}>
+            Store management services paid from profit
+          </h2>
+          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "24px" }}>
+            These services use the profit share model described above.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))",
+              gap: "0 40px",
+              borderTop: "1px solid var(--color-line)",
+            }}
+          >
+            {managementServices.map((service) => (
+              <div key={service.title} style={{ padding: "18px 0", borderBottom: "1px solid var(--color-line)" }}>
+                <h3 className="g-h3" style={{ marginBottom: "4px" }}>
+                  <Link href={service.href} style={{ color: "inherit", textDecoration: "none" }}>
+                    {service.title}
+                  </Link>
+                </h3>
+                <p className="typo-body" style={{ marginBottom: "6px" }}>{service.description}</p>
+                <Link href={service.href} className="link-underline" style={{ ...linkStyle, fontSize: "15px" }}>
+                  Read about {service.title}
                 </Link>
               </div>
             ))}
@@ -324,111 +227,45 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Management Services */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
+      {/* Other services */}
+      <section className="g-section bg-tint">
         <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">Management Services</span>
-            <h2 className="typo-h2">Full Store Management Solutions</h2>
-            <p className="typo-subtext">
-              Our expert team handles every task of your store professionally — from setup to scaling, we manage everything so you can focus on growth.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {managementServices.map((service) => (
-              <div
-                key={service.title}
-                className="card-hover"
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "10px",
-                  padding: "24px 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-                  <img
-                    src={service.img}
-                    alt={service.title}
-                    style={{ width: "40px", height: "40px", objectFit: "contain", flexShrink: 0 }}
-                  />
-                  <div>
-                    <h3 className="typo-h3" style={{ fontSize: "17px" }}>{service.title}</h3>
-                  </div>
-                </div>
-
-                <p className="typo-body" style={{ marginBottom: "14px", flex: 1 }}>
-                  {service.description}
-                </p>
-
-                {"external" in service && service.external ? (
-                  <a
-                    href={service.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary"
-                    style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "10px 20px", fontSize: "13px", width: "fit-content", animation: "none" }}
-                  >
-                    Get Started <FaChevronRight style={{ fontSize: "9px" }} />
-                  </a>
-                ) : (
-                  <Link
-                    href={service.href}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      color: "var(--color-primary)",
-                      fontWeight: 600,
-                      fontSize: "14px",
-                      textDecoration: "none",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                    }}
-                  >
-                    Read More <FaChevronRight style={{ fontSize: "9px" }} />
-                  </Link>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Other Services */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">More Services</span>
-            <h2 className="typo-h2">Other Services &amp; Pricing</h2>
-            <p className="typo-subtext">Company formation, tax filing, account reinstatement, Shopify, and more.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" style={{ marginTop: "28px" }}>
-            {otherServices.map((service) => (
-              <Link
-                key={service.title}
-                href={service.href}
-                style={{
-                  backgroundColor: "#f6f7f9",
-                  borderRadius: "10px",
-                  padding: "22px",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-                className="card-hover"
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-                  <h3 className="typo-h4" style={{ margin: 0 }}>{service.title}</h3>
-                  <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-primary)", whiteSpace: "nowrap", marginLeft: "12px" }}>{service.price}</span>
-                </div>
-                <p className="typo-small" style={{ margin: 0 }}>{service.description}</p>
-              </Link>
-            ))}
+          <h2 className="g-h2" style={{ marginBottom: "10px" }}>
+            Other services and prices
+          </h2>
+          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "24px" }}>
+            These are separate services with their own prices. Government and state fees are extra.
+          </p>
+          <div style={{ overflowX: "auto", background: "#fff", border: "1px solid var(--color-line)", borderRadius: "10px" }}>
+            <table style={{ width: "100%", minWidth: "640px", borderCollapse: "collapse", textAlign: "left" }}>
+              <thead>
+                <tr>
+                  <th scope="col" className="typo-small" style={{ padding: "12px 16px", fontWeight: 700, color: "var(--color-dark)", borderBottom: "1px solid var(--color-line)" }}>Service</th>
+                  <th scope="col" className="typo-small" style={{ padding: "12px 16px", fontWeight: 700, color: "var(--color-dark)", borderBottom: "1px solid var(--color-line)" }}>Price</th>
+                  <th scope="col" className="typo-small" style={{ padding: "12px 16px", fontWeight: 700, color: "var(--color-dark)", borderBottom: "1px solid var(--color-line)" }}>What it covers</th>
+                </tr>
+              </thead>
+              <tbody>
+                {otherServices.map((service, i) => {
+                  const border = i === otherServices.length - 1 ? "none" : "1px solid var(--color-line)";
+                  return (
+                    <tr key={service.title}>
+                      <td style={{ padding: "14px 16px", borderBottom: border, verticalAlign: "top", width: "26%" }}>
+                        <Link href={service.href} className="link-underline" style={linkStyle}>
+                          {service.title}
+                        </Link>
+                      </td>
+                      <td style={{ padding: "14px 16px", borderBottom: border, verticalAlign: "top", whiteSpace: "nowrap", fontWeight: 600 }}>
+                        {service.price}
+                      </td>
+                      <td className="typo-small" style={{ padding: "14px 16px", borderBottom: border, verticalAlign: "top", fontSize: "15px" }}>
+                        {service.description}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

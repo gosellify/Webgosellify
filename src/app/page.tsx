@@ -1,52 +1,74 @@
 import type { Metadata } from "next";
-import Hero from "@/components/v4/Hero";
-import TrustMarquee from "@/components/v4/TrustMarquee";
-import StatsBand from "@/components/v4/StatsBand";
-import ServicesGrid from "@/components/v4/ServicesGrid";
-import MarketplaceTabs from "@/components/v4/MarketplaceTabs";
-import Handover from "@/components/v4/Handover";
-import OrderJourney from "@/components/v4/OrderJourney";
-import ProcessTimeline from "@/components/v4/ProcessTimeline";
-import PortalShowcase from "@/components/v4/PortalShowcase";
-import Results from "@/components/v4/Results";
-import Comparison from "@/components/v4/Comparison";
-import ProfitShare from "@/components/v4/ProfitShare";
-import WhoFor from "@/components/v4/WhoFor";
-import WarehouseBand from "@/components/v4/WarehouseBand";
-import WhyUs from "@/components/v4/WhyUs";
-import Affiliate from "@/components/v4/Affiliate";
-import ToolsTeaser from "@/components/v4/ToolsTeaser";
-import HomeFAQ from "@/components/v4/HomeFAQ";
-import FinalCTA from "@/components/v4/FinalCTA";
+import HomeStyles from "@/components/v5/HomeStyles";
+import Hero from "@/components/v5/Hero";
+import Manage from "@/components/v5/Manage";
+import FounderNote from "@/components/v5/FounderNote";
+import PortalView from "@/components/v5/PortalView";
+import DailyWork from "@/components/v5/DailyWork";
+import HowPaid from "@/components/v5/HowPaid";
+import HowStart from "@/components/v5/HowStart";
+import Team from "@/components/v5/Team";
+import Faq from "@/components/v5/Faq";
+import Contact from "@/components/v5/Contact";
+import { homeFaqs } from "@/components/v5/faqData";
 
 export const metadata: Metadata = {
-  title: { absolute: "Gosellify | Amazon, Walmart, eBay & Shopify Store Management Agency" },
+  title: { absolute: "Ecommerce Management Service for Amazon & Walmart Sellers | Gosellify" },
   description:
-    "Full-service ecommerce management for Amazon, Walmart, eBay, Shopify and Etsy sellers. Pay from profit, and see every order in your own dashboard.",
+    "Gosellify runs Amazon and Walmart stores for their owners: listings, orders, returns, account health. Pay from profit and check every order in your portal.",
+  alternates: { canonical: "/" },
+};
+
+const organizationLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Gosellify LLC",
+  url: "https://www.gosellify.com",
+  logo: "https://www.gosellify.com/icon.svg",
+  telephone: "+1-307-393-8789",
+  email: "info@gosellify.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "30 N Gould St Ste R",
+    addressLocality: "Sheridan",
+    addressRegion: "WY",
+    postalCode: "82801",
+    addressCountry: "US",
+  },
+  founder: { "@type": "Person", name: "Muhammad Jamshed" },
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=61555382275675",
+    "https://www.youtube.com/@gosellify",
+    "https://linkedin.com/company/gosellify/",
+  ],
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: homeFaqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 };
 
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <HomeStyles />
       <Hero />
-      <TrustMarquee />
-      <StatsBand />
-      <ServicesGrid />
-      <MarketplaceTabs />
-      <Handover />
-      <OrderJourney />
-      <ProcessTimeline />
-      <PortalShowcase />
-      <Results />
-      <Comparison />
-      <ProfitShare />
-      <WhoFor />
-      <WarehouseBand />
-      <WhyUs />
-      <Affiliate />
-      <ToolsTeaser />
-      <HomeFAQ />
-      <FinalCTA />
+      <Manage />
+      <FounderNote />
+      <PortalView />
+      <DailyWork />
+      <HowPaid />
+      <HowStart />
+      <Team />
+      <Faq />
+      <Contact />
     </>
   );
 }

@@ -1,27 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { FaWhatsapp, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
 
-const offices = [
+type Detail = { label: string; lines: string[]; href?: string; external?: boolean };
+
+const details: Detail[] = [
   {
-    name: "Arizona Office",
-    flag: "/images/contact/flag-usa.webp",
-    address: "1311 W Baseline Road, Tempe, Arizona, 85283, USA",
-    phone: "+1 307 393 8789",
+    label: "Company address",
+    lines: ["Gosellify LLC", "30 N Gould St Ste R", "Sheridan, WY 82801"],
   },
   {
-    name: "London Office",
-    flag: "/images/contact/flag-uk.png",
-    address: "71-75 Shelton street, London, WC2H 9JQ, UK",
-    phone: "+1 307 393 8789",
+    label: "Operations team",
+    lines: ["Multan, Pakistan"],
   },
   {
-    name: "Pakistan Office",
-    flag: "/images/contact/flag-pakistan.webp",
-    address: "Shalimar Colony St No 15, Multan, 60000, Pakistan",
-    phone: "+92 316 606 7315",
+    label: "Phone",
+    lines: ["+1 307 393 8789"],
+    href: "tel:+13073938789",
+  },
+  {
+    label: "WhatsApp",
+    lines: ["+1 307 393 8789"],
+    href: "https://wa.me/13073938789",
+    external: true,
+  },
+  {
+    label: "Email",
+    lines: ["info@gosellify.com"],
+    href: "mailto:info@gosellify.com",
+  },
+  {
+    label: "Hours",
+    lines: ["Online 11 PM to 3 PM US Central"],
   },
 ];
 
@@ -42,201 +53,79 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section style={{ background: "#f6f7f9", padding: "55px 0" }}>
-        <div className="container-main text-center">
-          <div className="section-header">
-            <span className="typo-label">Get In Touch</span>
-            <h1 className="typo-h1">Contact Us</h1>
-            <p className="typo-subtext" style={{ maxWidth: "520px", margin: "0 auto" }}>
-              Have questions about our services or need support? We&apos;re here to help.
-              Reach out and our team will get back to you as soon as possible.
-            </p>
-          </div>
+      <section className="g-section" style={{ background: "#fff", paddingBottom: "40px" }}>
+        <div className="container-main">
+          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Contact</span>
+          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
+            Contact our ecommerce management team
+          </h1>
+          <p className="g-lead" style={{ maxWidth: "720px" }}>
+            Ask us about your store or about our services. WhatsApp is the fastest way to reach
+            us. You can also call, email or use the form.
+          </p>
         </div>
       </section>
 
-      {/* Office Locations */}
-      <section style={{ padding: "55px 0", background: "#fff" }}>
+      <section className="bg-tint" style={{ padding: "56px 0 72px" }}>
         <div className="container-main">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {offices.map((office) => (
-              <div
-                key={office.name}
-                className="text-center transition-all duration-300"
-                style={{
-                  padding: "24px",
-                  borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-                  cursor: "default",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.boxShadow = "0 8px 24px rgba(21,96,255,0.1)";
-                  el.style.borderColor = "rgba(21,96,255,0.3)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06)";
-                  el.style.borderColor = "#e5e7eb";
-                }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    src={office.flag}
-                    alt={office.name}
-                    style={{ width: "72px", height: "auto" }}
-                    className="object-contain"
-                  />
-                </div>
-                <h3 className="typo-h3" style={{ marginBottom: "8px" }}>
-                  {office.name}
-                </h3>
-                <p className="typo-body" style={{ marginBottom: "8px" }}>
-                  {office.address}
-                </p>
-                <a
-                  href={`tel:${office.phone.replace(/\s/g, "")}`}
-                  style={{
-                    fontSize: "15px",
-                    color: "var(--color-primary)",
-                    fontWeight: 600,
-                  }}
-                >
-                  {office.phone}
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form Section */}
-      <section style={{ padding: "55px 0", background: "#f6f7f9" }}>
-        <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            {/* Left: Info */}
-            <div>
-              <h2 className="typo-h2" style={{ marginBottom: "10px" }}>
-                Let&apos;s get in touch
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 56px", alignItems: "flex-start" }}>
+            {/* Left: Details */}
+            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
+              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
+                Where to find us
               </h2>
-              <p className="typo-body" style={{ marginBottom: "28px" }}>
-                Make a free consultation with our expert team to solve your
-                problems. Fill out the form and we&apos;ll get back to you at the
-                earliest.
-              </p>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <div style={{ borderTop: "1px solid var(--color-line)" }}>
+                {details.map((d) => (
                   <div
+                    key={d.label}
                     style={{
-                      width: "38px",
-                      height: "38px",
-                      borderRadius: "8px",
-                      background: "rgba(21,96,255,0.1)",
                       display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
+                      flexWrap: "wrap",
+                      gap: "2px 24px",
+                      padding: "14px 0",
+                      borderBottom: "1px solid var(--color-line)",
                     }}
                   >
-                    <FaPhoneAlt style={{ color: "var(--color-primary)", fontSize: "15px" }} />
+                    <span className="typo-small" style={{ flex: "0 0 150px", fontWeight: 700, color: "var(--color-dark)", paddingTop: "3px" }}>
+                      {d.label}
+                    </span>
+                    <span style={{ flex: "1 1 200px", minWidth: 0 }}>
+                      {d.href ? (
+                        <a
+                          href={d.href}
+                          target={d.external ? "_blank" : undefined}
+                          rel={d.external ? "noopener noreferrer" : undefined}
+                          className="link-underline"
+                          style={{ color: "var(--color-primary)", fontWeight: 600 }}
+                        >
+                          {d.lines[0]}
+                        </a>
+                      ) : (
+                        d.lines.map((line) => (
+                          <span key={line} style={{ display: "block" }}>
+                            {line}
+                          </span>
+                        ))
+                      )}
+                    </span>
                   </div>
-                  <div>
-                    <p className="typo-small" style={{ marginBottom: "2px" }}>
-                      Call us
-                    </p>
-                    <a
-                      href="tel:+13072055481"
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: 600,
-                        color: "var(--color-text)",
-                      }}
-                    >
-                      +1 307 393 8789
-                    </a>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <div
-                    style={{
-                      width: "38px",
-                      height: "38px",
-                      borderRadius: "8px",
-                      background: "rgba(21,96,255,0.1)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <FaEnvelope style={{ color: "var(--color-primary)", fontSize: "15px" }} />
-                  </div>
-                  <div>
-                    <p className="typo-small" style={{ marginBottom: "2px" }}>
-                      Email us
-                    </p>
-                    <a
-                      href="mailto:info@gosellify.com"
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: 600,
-                        color: "var(--color-text)",
-                      }}
-                    >
-                      info@gosellify.com
-                    </a>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <div
-                    style={{
-                      width: "38px",
-                      height: "38px",
-                      borderRadius: "8px",
-                      background: "rgba(21,96,255,0.1)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <FaWhatsapp style={{ color: "var(--color-primary)", fontSize: "17px" }} />
-                  </div>
-                  <div>
-                    <p className="typo-small" style={{ marginBottom: "2px" }}>
-                      WhatsApp
-                    </p>
-                    <a
-                      href="https://wa.me/13073938789"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: 600,
-                        color: "var(--color-primary)",
-                      }}
-                    >
-                      Chat with us
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             {/* Right: Form */}
-            <div>
+            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
+              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
+                Send us a message
+              </h2>
               {submitted && (
                 <div
                   style={{
                     padding: "12px",
                     borderRadius: "8px",
-                    background: "#EEF4FF",
-                    color: "#0E4AD6",
+                    background: "#fff",
+                    border: "1px solid var(--color-line)",
+                    color: "var(--color-dark)",
                     fontSize: "15px",
                     textAlign: "center",
                     marginBottom: "16px",
@@ -289,7 +178,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <CTASection />
     </>
   );

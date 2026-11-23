@@ -1,136 +1,32 @@
-
-
-const features = [
-  {
-    img: "/images/services/icons/zero-work.png",
-    title: "Zero work from you",
-    description:
-      "Our team will handle A-Z tasks on your store and there are not any single tasks from your side. Stay relax and enjoy holiday.",
-  },
-  {
-    img: "/images/services/icons/personal-manager.png",
-    title: "Personal Manager",
-    description:
-      "Your dedicated manager will keep you update, answer all your questions and take care of any issues.",
-  },
-  {
-    img: "/images/services/icons/safety.png",
-    title: "Account Safety",
-    description:
-      "Your store always stays in your name and under your control. We work within each marketplace's seller policies to keep your account healthy.",
-  },
-  {
-    img: "/images/services/icons/calculation.png",
-    title: "Accurate Calculation",
-    description:
-      "We will calculate every single order's profit or loss. Every refund will calculate accurately. No chance to show fake informations.",
-  },
-  {
-    img: "/images/services/icons/product-research.png",
-    title: "Product Research",
-    description:
-      "Our dedicated products research team will find authentic 100% profitable products from various official sources.",
-  },
-  {
-    img: "/images/services/icons/inventory.png",
-    title: "Inventory Management",
-    description:
-      "3rd party partner warehouse will keep update every single product realtime inventory update and delivery status.",
-  },
-  {
-    img: "/images/services/icons/marketing.png",
-    title: "Marketing & Promote",
-    description:
-      "Dedicated marketing team will ensure SEO, Organic promotion, Social media promotion to get highest sales.",
-  },
-  {
-    img: "/images/services/icons/order-fulfillment.png",
-    title: "Order Fulfillment",
-    description:
-      "Partner warehouse will complete order fulfilment asap they will receive products and shipping informations. Realtime update on sheet.",
-  },
-  {
-    img: "/images/services/icons/scalability.png",
-    title: "Scalability",
-    description:
-      "If your store had fewer sales or new store, our team will find max opportunity to get highest number of sales within a month.",
-  },
-  {
-    img: "/images/services/icons/return-handling.png",
-    title: "Return Handling",
-    description:
-      "Warehouse will receive all return items and restock for sale again. Realtime update for customer or shipping damage items.",
-  },
-  {
-    img: "/images/services/icons/customer-support.png",
-    title: "Customer Support",
-    description:
-      "Response on customer query is the main key of satisfaction. Our support team will 24/7 online to answer customer messages.",
-  },
-  {
-    img: "/images/services/icons/account-health.png",
-    title: "Account Health",
-    description:
-      "Legal team keep active eyes to fight with intellectual property complaint, negative feedback, policy violation to keep your account healthy.",
-  },
+const features: { title: string; description: string }[] = [
+  { title: "Product research", description: "We look for products with steady demand and check cost, fees and restrictions before anything is listed." },
+  { title: "Listings", description: "Titles, descriptions, attributes and images are written and kept up to date by our team." },
+  { title: "Pricing", description: "Prices are reviewed against cost, fees and competing offers so a sale is not made at a loss." },
+  { title: "Order fulfillment", description: "Orders are processed daily. Stock that passes through our US warehouses gets same-day prep and shipping." },
+  { title: "Returns", description: "Returned items are received, checked and restocked or written off, and the result is recorded against the order." },
+  { title: "Customer messages", description: "Buyer questions and complaints are answered by our support team in your store's name." },
+  { title: "Account health", description: "We review performance metrics, listing issues and policy notices daily and act on them." },
+  { title: "Profit and loss per order", description: "Product cost, marketplace fees, shipping and prep are recorded per order, with refunds included." },
+  { title: "A named manager", description: "One person on our team is your contact. They answer your questions and report on the store." },
 ];
 
+/* What store management includes. A plain list, no icons. */
 export default function ServiceFeaturesGrid() {
   return (
-    <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
+    <section className="g-section bg-tint">
       <div className="container-main">
-        <div className="section-header">
-          <span className="typo-label">OUR APPROACH</span>
-          <h2 className="typo-h2">
-            This is how you will achieve amazing results with our management
-            service
-          </h2>
-          <p className="typo-subtext" style={{ maxWidth: "680px", margin: "0 auto" }}>
-            No matter where you are on your e-commerce journey &ndash; whether
-            you&apos;re just starting or managing a flourishing business &ndash;
-            we have the tailored solution you&apos;ve been searching for!
+        <div style={{ maxWidth: 760, marginBottom: 24 }}>
+          <span className="g-eyebrow">Included</span>
+          <h2 className="g-h2" style={{ marginTop: 8 }}>What store management includes</h2>
+          <p className="g-lead" style={{ marginTop: 12 }}>
+            The same daily work applies to every store we manage, whichever marketplace it is on.
           </p>
         </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "16px",
-          }}
-          className="sm:!grid-cols-3 lg:!grid-cols-4"
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: "0 40px" }}>
           {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="card-hover"
-              style={{
-                backgroundColor: "#fff",
-                borderRadius: "10px",
-                padding: "20px",
-                border: "1px solid rgba(0,0,0,0.06)",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginBottom: "14px",
-                }}
-              >
-                <img
-                  src={feature.img}
-                  alt={feature.title}
-                  style={{ width: "60px", height: "60px", objectFit: "contain" }}
-                />
-              </div>
-              <h3 className="typo-h3" style={{ marginBottom: "8px" }}>
-                {feature.title}
-              </h3>
-              <p className="typo-body" style={{ margin: 0 }}>
-                {feature.description}
-              </p>
+            <div key={feature.title} style={{ padding: "14px 0", borderTop: "1px solid var(--color-line)" }}>
+              <h3 className="g-h3">{feature.title}</h3>
+              <p style={{ marginTop: 4, fontSize: 16, color: "var(--color-text-light)" }}>{feature.description}</p>
             </div>
           ))}
         </div>

@@ -1,306 +1,147 @@
-"use client";
-
-import React, { useState } from "react";
-import Link from "next/link";
-import { FaWhatsapp, FaCheckCircle, FaTimesCircle, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import ServiceFAQ from "@/components/services/ServiceFAQ";
 import CTASection from "@/components/home/CTASection";
+import {
+  ServiceHero,
+  ServiceSection,
+  TwoColRows,
+  FeatureList,
+  PlainTable,
+  ProfitShareBlock,
+  RelatedLinks,
+  ServiceNote,
+} from "@/components/services/ServiceBlocks";
+import type { Cell, TextRow, TitledItem } from "@/components/services/ServiceBlocks";
 
-const comparisonData = [
-  { feature: "Cassini search engine optimization", us: true, diy: false, others: "Basic" },
-  { feature: "Automated 24/7 repricing", us: true, diy: "Manual", others: "Limited" },
-  { feature: "Top Rated Seller achievement strategy", us: true, diy: "Self-managed", others: "Partial" },
-  { feature: "Daily account health monitoring", us: true, diy: false, others: "Weekly" },
-  { feature: "VeRO strike prevention system", us: true, diy: "High risk", others: false },
-  { feature: "Feedback & defect rate management", us: true, diy: "Your time", others: "Extra fee" },
-  { feature: "Multi-marketplace (US, UK, AU, DE)", us: true, diy: false, others: "Extra cost" },
-  { feature: "Returns & refund processing", us: true, diy: "You handle", others: "Extra fee" },
-  { feature: "Dedicated eBay account manager", us: true, diy: false, others: false },
-  { feature: "WhatsApp direct support", us: true, diy: false, others: false },
+const problems: TextRow[] = [
+  { left: "eBay search is hard to understand.", right: "eBay's search engine is called Cassini. We complete item specifics, write clear titles, choose the right category and keep handling times short, which are the things a seller controls." },
+  { left: "Account health is slipping.", right: "We check defect rate, late shipments and open cases daily and act before they become a restriction." },
+  { left: "Repricing takes hours.", right: "Repricing tools adjust prices within rules you approve, with a minimum margin so an item is not sold at a loss." },
+  { left: "Feedback is hard to manage.", right: "We ask for feedback after delivery, answer negative feedback politely and fix the cause." },
+  { left: "Returns cost you money.", right: "Accurate listings and quick shipping prevent many returns. When one happens, we process it and arrange the supplier credit." },
+  { left: "You want Top Rated Seller status.", right: "eBay decides that status by its own criteria. We manage the metrics it looks at, such as on-time shipping, tracking and defect rate." },
 ];
 
-const whatYouGet = [
-  { icon: "/images/services/icons/product-research.png", title: "Product Sourcing", desc: "Data-driven research to find high-demand items with strong margins. We analyze sell-through rates, competition, and pricing gaps daily." },
-  { icon: "/images/services/icons/marketing.png", title: "Cassini SEO", desc: "Keyword-rich titles, complete item specifics, proper categorization, and competitive pricing that puts your listings where buyers actually look." },
-  { icon: "/images/services/icons/calculation.png", title: "Automated Repricing", desc: "24/7 repricing tools that adjust prices in real-time. Stay competitive, protect margins, and win more sales without touching a spreadsheet." },
-  { icon: "/images/services/icons/account-health.png", title: "Account Health", desc: "Daily monitoring of defect rates, late shipments, cases, and policy compliance. We catch issues before they become restrictions." },
-  { icon: "/images/services/icons/safety.png", title: "Top Rated Strategy", desc: "We manage every metric required for Top Rated Seller status — 20% fee discount, priority placement, and the trust badge that converts." },
-  { icon: "/images/services/icons/customer-support.png", title: "Customer Support", desc: "Every buyer message answered promptly. A-to-Z claims handled. Feedback requests sent. Your reputation stays bulletproof." },
-  { icon: "/images/services/icons/return-handling.png", title: "Returns Management", desc: "Full return cycle — buyer communication, refund processing, supplier coordination, and restocking. Nothing falls through the cracks." },
-  { icon: "/images/services/icons/scalability.png", title: "Scaling & Expansion", desc: "From 50 SKUs to 500+. New categories, international marketplaces (UK, AU, DE), and promoted listings to multiply your revenue." },
+const whatYouGet: TitledItem[] = [
+  { title: "Product sourcing", desc: "Research to find items with demand and a workable margin, from wholesale suppliers." },
+  { title: "Listing optimization for Cassini search", desc: "Titles, complete item specifics, correct categories and competitive prices." },
+  { title: "Automated repricing", desc: "Repricing tools that follow rules you approve and protect a minimum margin." },
+  { title: "Account health", desc: "Daily checks of defect rate, late shipments, cases and policy notices." },
+  { title: "Seller level", desc: "We manage the metrics eBay uses for seller levels. The level itself is decided by eBay." },
+  { title: "Customer support", desc: "Buyer messages answered, cases handled and feedback requested." },
+  { title: "Returns management", desc: "Buyer communication, refund processing, supplier coordination and restocking." },
+  { title: "Growth", desc: "More products, new categories and, if it suits you, other eBay country sites and promoted listings." },
+];
+
+const comparison: Cell[][] = [
+  ["Listing optimization for Cassini search", "Included", "You do it", "Varies by agency"],
+  ["Automated repricing", "Included", "Manual or your own software", "Varies by agency"],
+  ["Work toward Top Rated Seller criteria", "Included, status decided by eBay", "You do it", "Varies by agency"],
+  ["Account health monitoring", "Daily", "You do it", "Varies by agency"],
+  ["Brand and VeRO checks before listing", "Included", "You do it", "Varies by agency"],
+  ["Feedback and defect rate management", "Included", "Your time", "Varies by agency"],
+  ["Other eBay country sites", "On request", "You do it", "Varies by agency"],
+  ["Returns and refund processing", "Included", "You handle", "Varies by agency"],
+  ["A named account manager", "Yes", "Not applicable", "Varies by agency"],
+  ["WhatsApp support", "Yes", "Not applicable", "Varies by agency"],
 ];
 
 const faqs = [
   {
     question: "Is dropshipping allowed on eBay?",
-    answer: "Yes. eBay permits dropshipping from legitimate wholesale suppliers who ship directly to customers. You must be the seller of record, handle customer service, and ensure products arrive on time. We manage all of this for you within eBay's policies.",
+    answer: "eBay has its own drop shipping policy and enforces it. Read the current policy on eBay's website before you start. You are the seller of record, so you are responsible for delivery time and customer service. We source from wholesale suppliers and we do not claim that any model is approved by eBay.",
   },
   {
-    question: "What is Cassini and why should I care?",
-    answer: "Cassini is eBay's search algorithm. It determines which listings appear when buyers search. Cassini rewards fast handling times, competitive pricing, complete item specifics, seller performance metrics, and free shipping. We optimize every listing specifically for Cassini ranking factors.",
+    question: "What is Cassini and why does it matter?",
+    answer: "Cassini is the name of eBay's search engine. It decides which listings buyers see first. We focus on what a seller controls: complete item specifics, clear titles, competitive prices, short handling time and good seller metrics.",
   },
   {
     question: "How do you prevent account restrictions?",
-    answer: "Daily monitoring of every account health metric — defect rate, late shipment rate, cases closed without resolution, and policy compliance. We also screen every product against VeRO-restricted brands before listing. Our proactive approach means issues get fixed before eBay even flags them.",
+    answer: "We check account health metrics daily and screen products against brands in eBay's VeRO program before listing. This lowers the risk. It does not remove it, and we cannot guarantee that an account will never be restricted.",
   },
   {
-    question: "What ROI can I expect from eBay dropshipping?",
-    answer: "Average profit margins range from 15-30% depending on category and sourcing strategy. With Top Rated Seller discounts (20% off final value fees), margins improve further. Most clients reach profitability within the first month of active management.",
+    question: "What profit can I expect from eBay dropshipping?",
+    answer: "We do not promise a margin or a date. Results depend on category, sourcing and competition. The Gosellify Portal records cost, fees and profit for each order.",
   },
   {
     question: "How does automated repricing work?",
-    answer: "Our repricing tools monitor competitor prices 24/7 and adjust your listings automatically within rules you approve. Minimum margin floors protect your profits. Maximum price ceilings keep you competitive. You never race to the bottom — we race to the sweet spot.",
+    answer: "Repricing tools watch competing prices and adjust your listings within rules you approve. A minimum margin stops an item from being sold at a loss, and a maximum price keeps it competitive.",
   },
   {
-    question: "Can you manage multiple eBay marketplaces?",
-    answer: "Yes. We manage eBay US, UK, Australia, Canada, and Germany. Each marketplace has its own buyer behavior, fee structure, and compliance requirements. We handle all of it — one team, all your markets, consistent results.",
+    question: "Can you manage more than one eBay country site?",
+    answer: "Yes, on request. Each country site has its own buyers, fees and rules, so we set each one up separately.",
   },
   {
     question: "What happens if my account gets restricted?",
-    answer: "Our proactive monitoring prevents 99% of restrictions. If one occurs, we immediately identify the cause, prepare and submit the appeal with supporting documentation, implement corrective measures, and monitor the account through reinstatement. Most restrictions are resolved within 48-72 hours.",
+    answer: "We find the cause, prepare the appeal with supporting documents, correct the problem and follow the case until eBay decides. The decision is eBay's.",
   },
   {
-    question: "How long does it take to achieve Top Rated Seller?",
-    answer: "eBay evaluates Top Rated status quarterly. With proper management from day one, most accounts qualify within 90 days. The requirements: 100+ transactions, $1,000+ in sales, late shipment rate under 3%, and defect rate under 0.5%. We manage every metric.",
+    question: "How long does it take to reach Top Rated Seller?",
+    answer: "eBay sets the requirements and reviews seller levels on its own schedule. Check the current requirements on eBay's seller pages. We manage the metrics, but we cannot promise the status.",
+  },
+  {
+    question: "How much capital do I need to start?",
+    answer: "You need $3,000 to $5,000 working capital depending on the business model.",
   },
 ];
 
-
 export default function EbayDropshippingPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <>
-      {/* ── HERO (Centered, no right column) ── */}
-      <section style={{ padding: "55px 0 70px", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main" style={{ textAlign: "center" }}>
-          <span className="typo-label" style={{ marginBottom: "10px", display: "block" }}>EBAY DROPSHIPPING & STORE MANAGEMENT</span>
-          <h1 className="typo-h1" style={{ marginBottom: "16px", maxWidth: "850px", marginLeft: "auto", marginRight: "auto" }}>
-            Dominate eBay With <span style={{ color: "var(--color-primary)" }}>Top Rated Seller</span> Status and Cassini SEO
-          </h1>
-          <p className="typo-body" style={{ marginBottom: "14px", fontSize: "17px", maxWidth: "750px", marginLeft: "auto", marginRight: "auto" }}>
-            190+ million active buyers across 20+ global marketplaces. We handle Cassini optimization, automated repricing, account health, and daily operations — you scale without the grind.
+      <ServiceHero
+        eyebrow="eBay dropshipping and store management"
+        title="eBay dropshipping and store management service"
+        lead="We manage eBay stores day to day: listing optimization for Cassini search, automated repricing, account health, customer service and order handling."
+        points={["Listing optimization for Cassini search", "Automated repricing", "Daily account health checks", "Daily order handling"]}
+        secondaryHref="/pricing"
+        note="We are an independent agency and not part of eBay. We do not promise sales, profit or a seller level."
+      />
+
+      <ServiceSection eyebrow="About the marketplace" title="How eBay differs from Amazon and Walmart" tint>
+        <div style={{ maxWidth: 760, display: "grid", gap: 14, color: "var(--color-text-light)" }}>
+          <p>
+            eBay buyers often search for deals, used and hard-to-find items, and eBay offers both fixed-price and
+            auction listings. Its search, fees and seller standards are its own.
           </p>
-          <p style={{ fontSize: "14px", color: "var(--color-primary)", fontWeight: 600, marginBottom: "28px" }}>
-            Policy-compliant. Top Rated focused. Full account management across all eBay markets.
+          <p>
+            eBay runs separate sites for several countries, so one product can be offered in more than one market.
+            Check eBay&apos;s current fee pages for the selling fees in your category.
           </p>
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-            <a
-              href="https://wa.me/message/Q6XJRMT4HKTBF1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary btn-primary-pulse"
-              style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-            >
-              <FaWhatsapp style={{ fontSize: "18px" }} />
-              Get Free Consultation
-            </a>
-            <Link href="/pricing" className="btn-outline">
-              View Pricing
-            </Link>
-          </div>
-          <div style={{ display: "flex", gap: "24px", marginTop: "32px", flexWrap: "wrap", justifyContent: "center" }}>
-            {["Cassini SEO Experts", "Top Rated Seller Strategy", "24/7 Automated Repricing", "Multi-Market Management"].map((text) => (
-              <div key={text} style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#555" }}>
-                <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "13px" }} />
-                {text}
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
-
-      {/* ── THE EBAY ADVANTAGE ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <span className="typo-label" style={{ marginBottom: "8px", display: "block" }}>THE OPPORTUNITY</span>
-              <h2 className="typo-h2" style={{ marginBottom: "16px" }}>The eBay Advantage Most Sellers Miss</h2>
-              <p className="typo-body" style={{ marginBottom: "14px" }}>
-                eBay has <strong>190M+ active buyers</strong> worldwide — the second-largest marketplace after Amazon. Buyers come to eBay for deals, variety, and auction-style pricing that Amazon doesn&apos;t offer.
-              </p>
-              <p className="typo-body" style={{ marginBottom: "14px" }}>
-                With <strong>20+ global marketplaces</strong> (US, UK, Australia, Germany, Canada), one product can sell across multiple markets. We manage all of them from a single dashboard.
-              </p>
-              <p className="typo-body">
-                eBay&apos;s final value fees are <strong>10-13% vs Amazon&apos;s 15-20%</strong>. Top Rated Sellers get an additional 20% fee discount. More margin stays in your pocket.
-              </p>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <img src="/images/services/hero/ebay-hq.jpg" alt="eBay Headquarters" style={{ width: "100%", maxWidth: "500px", borderRadius: "12px", height: "auto" }} />
-            </div>
-          </div>
+        <div style={{ marginTop: 28 }}>
+          <ServiceNote title="Read eBay's drop shipping policy first">
+            <p>
+              eBay publishes a drop shipping policy that says which sourcing methods are allowed. Read the current
+              version on eBay&apos;s website before you choose this model. We do not claim that it is free of risk.
+            </p>
+          </ServiceNote>
         </div>
-      </section>
+      </ServiceSection>
 
-      {/* ── PROBLEM -> SOLUTION (3x2 grid) ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">YOUR PROBLEMS. OUR SOLUTIONS.</span>
-            <h2 className="typo-h2">Stop Struggling With eBay. Start Scaling.</h2>
-            <p className="typo-subtext">Every eBay seller hits these walls. We break through them for you — daily, systematically, profitably.</p>
-          </div>
+      <ServiceSection eyebrow="Where sellers get stuck" title="Common eBay problems and what we do about them">
+        <TwoColRows leftHead="The problem" rightHead="What we do" rows={problems} />
+      </ServiceSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" style={{ marginTop: "28px" }}>
-            {[
-              {
-                problem: "eBay algorithm is confusing?",
-                solution: "We reverse-engineer Cassini daily. Your listings rank because we know exactly what eBay rewards — item specifics, handling time, price competitiveness, and seller metrics.",
-              },
-              {
-                problem: "Account health issues?",
-                solution: "Daily monitoring of defect rates, late shipments, and case metrics. We catch problems before eBay does. Our clients maintain under 0.3% defect rates consistently.",
-              },
-              {
-                problem: "Repricing takes hours every day?",
-                solution: "Our automated tools reprice 24/7 within rules you approve. Minimum margins protected, competitive positioning maintained. You never touch a pricing spreadsheet again.",
-              },
-              {
-                problem: "Feedback management is a nightmare?",
-                solution: "Automated feedback requests after every successful delivery. Negative feedback? We respond professionally, request revisions, and resolve the root cause immediately.",
-              },
-              {
-                problem: "Returns eating your profits?",
-                solution: "Proactive return prevention through accurate listings and fast shipping. When returns happen, we process them same-day, coordinate supplier credits, and protect your metrics.",
-              },
-              {
-                problem: "Can't achieve Top Rated status?",
-                solution: "We manage every metric eBay evaluates — transaction volume, on-time shipping, defect rate, tracking upload. Most accounts qualify within 90 days under our management.",
-              },
-            ].map((item) => (
-              <div
-                key={item.problem}
-                className="card-hover"
-                style={{
-                  borderRadius: "10px",
-                  padding: "22px",
-                  backgroundColor: "#fff",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                }}
-              >
-                <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-dark)", marginBottom: "10px", lineHeight: 1.4 }}>
-                  <span style={{ color: "#dc2626" }}>&#x2717;</span>{" "}{item.problem}
-                </p>
-                <p style={{ fontSize: "13px", color: "var(--color-text-light)", margin: 0, lineHeight: 1.6, paddingLeft: "2px", borderLeft: "3px solid var(--color-primary)", marginLeft: "0" }}>
-                  <span style={{ display: "block", paddingLeft: "12px" }}>
-                    <span style={{ color: "var(--color-primary)", fontWeight: 700 }}>&rarr;</span>{" "}{item.solution}
-                  </span>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceSection eyebrow="Included" title="What our eBay store management covers" tint>
+        <FeatureList items={whatYouGet} />
+      </ServiceSection>
 
-      {/* ── WHAT YOU GET (4x2 icon grid) ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">FULL SERVICE</span>
-            <h2 className="typo-h2">Everything We Handle. Everything You Don&apos;t.</h2>
-            <p className="typo-subtext">From product sourcing to returns processing — your entire eBay operation, managed by specialists who do this every day.</p>
-          </div>
+      <ProfitShareBlock subject="eBay stores" />
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6" style={{ marginTop: "32px" }}>
-            {whatYouGet.map((item) => (
-              <div key={item.title} style={{ textAlign: "center", padding: "8px" }}>
-                <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}>
-                  <img src={item.icon} alt={item.title} style={{ width: "56px", height: "56px", objectFit: "contain" }} />
-                </div>
-                <h3 className="typo-h4" style={{ marginBottom: "4px" }}>{item.title}</h3>
-                <p className="typo-small">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceSection eyebrow="Comparison" title="Gosellify, managing it yourself, or another agency" lead="A plain list of who does what. Ask any agency you consider the same questions." tint>
+        <PlainTable columns={["What you need", "Gosellify", "Managing it yourself", "Other agencies"]} rows={comparison} />
+      </ServiceSection>
 
-      {/* ── COMPARISON TABLE ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">THE HONEST COMPARISON</span>
-            <h2 className="typo-h2">Gosellify vs Self-Managing vs Other Agencies</h2>
-            <p className="typo-subtext">eBay rewards consistency. Most sellers burn out in 3 months. We&apos;ve been doing it for 3+ years across 20+ marketplaces.</p>
-          </div>
+      <ServiceFAQ faqs={faqs} title="Questions about eBay store management" />
 
-          <div style={{ maxWidth: "850px", margin: "32px auto 0", overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0", borderRadius: "12px", overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.08)", border: "1px solid #e5e7eb" }}>
-              <thead>
-                <tr>
-                  <th style={{ padding: "14px 20px", textAlign: "left", fontWeight: 700, fontSize: "13px", backgroundColor: "#fff", borderBottom: "2px solid #e8e8e8" }}>Feature</th>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "var(--color-primary)", color: "#fff", borderBottom: "2px solid var(--color-primary)", minWidth: "120px" }}>Gosellify</th>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "#fff", borderBottom: "2px solid #e8e8e8", minWidth: "110px" }}>Self-Managing</th>
-                  <th style={{ padding: "14px 20px", textAlign: "center", fontWeight: 700, fontSize: "13px", backgroundColor: "#fff", borderBottom: "2px solid #e8e8e8", minWidth: "110px" }}>Other Agencies</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonData.map((row, i) => (
-                  <tr key={row.feature} style={{ backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc" }}>
-                    <td style={{ padding: "12px 20px", fontSize: "13px", fontWeight: 500, borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>{row.feature}</td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle", backgroundColor: i % 2 === 0 ? "rgba(21,96,255,0.04)" : "rgba(21,96,255,0.07)" }}>
-                      {row.us === true ? <FaCheckCircle style={{ color: "var(--color-primary)", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "var(--color-primary)", fontWeight: 600 }}>{row.us}</span>}
-                    </td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>
-                      {row.diy === false ? <FaTimesCircle style={{ color: "#dc2626", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "#888" }}>{row.diy}</span>}
-                    </td>
-                    <td style={{ padding: "12px 20px", textAlign: "center", borderBottom: "1px solid #f0f0f0", verticalAlign: "middle" }}>
-                      {row.others === false ? <FaTimesCircle style={{ color: "#dc2626", fontSize: "18px", display: "inline-block", verticalAlign: "middle" }} /> : <span style={{ fontSize: "13px", color: "#888" }}>{row.others}</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <RelatedLinks
+        tint
+        links={[
+          { href: "/services/etsy-dropshipping", label: "Etsy shop management" },
+          { href: "/services/walmart-management", label: "Walmart marketplace management services" },
+          { href: "/services/amazon", label: "Amazon store management services" },
+        ]}
+      />
 
-      {/* ── FAQ ── */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
-        <div className="container-main">
-          <div className="section-header">
-            <span className="typo-label">GOT QUESTIONS?</span>
-            <h2 className="typo-h2">Everything You Need to Know About eBay</h2>
-          </div>
-
-          <div style={{ maxWidth: "750px", margin: "24px auto 0" }}>
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                style={{
-                  backgroundColor: "#f6f7f9",
-                  borderRadius: "8px",
-                  marginBottom: "8px",
-                  overflow: "hidden",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                }}
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    width: "100%", padding: "14px 18px", background: "none", border: "none",
-                    cursor: "pointer", fontSize: "15px", fontWeight: 600,
-                    color: "var(--color-dark)", textAlign: "left",
-                  }}
-                >
-                  {faq.question}
-                  {openFaq === i ? <FaChevronUp style={{ fontSize: "12px", flexShrink: 0 }} /> : <FaChevronDown style={{ fontSize: "12px", flexShrink: 0 }} />}
-                </button>
-                <div style={{
-                  maxHeight: openFaq === i ? "300px" : "0",
-                  overflow: "hidden", transition: "max-height 0.3s ease",
-                }}>
-                  <p className="typo-body" style={{ padding: "0 18px 14px" }}>{faq.answer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
       <CTASection />
     </>
   );

@@ -12,10 +12,10 @@ export default function MovedPage() {
     <>
       <meta httpEquiv="refresh" content="0; url=/services/walmart-management" />
       <section style={{ padding: "80px 0", background: "#fff" }}>
-        <div className="container-main text-center">
+        <div className="container-main">
           <p className="typo-body">
             This page has moved.{" "}
-            <Link href="/services/walmart-management" style={{ color: "var(--color-primary)", fontWeight: 600 }}>
+            <Link href="/services/walmart-management" className="link-underline" style={{ color: "var(--color-primary)", fontWeight: 600 }}>
               Go to Walmart Account Management
             </Link>
           </p>

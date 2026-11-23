@@ -1,133 +1,32 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
-const stats = [
-  { label: "Sales Last Year", value: 10, prefix: "$", suffix: " M" },
-  { label: "Profit Made", value: 5, prefix: "$", suffix: " M" },
-  { label: "Active Store", value: 15, prefix: "", suffix: " +" },
-  { label: "Happy Client", value: 150, prefix: "", suffix: " +" },
-];
-
+/* The real Gosellify Portal screenshot. No counters, no invented figures. */
 export default function ServiceConfidence() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
-      <div className="container-main" ref={sectionRef}>
-        <div className="section-header">
-          <span className="typo-label">Our Track Record</span>
-          <h2 className="typo-h2">Confidence with Gosellify Service</h2>
+    <section className="g-section bg-tint">
+      <div className="container-main">
+        <div style={{ maxWidth: 760, marginBottom: 24 }}>
+          <span className="g-eyebrow">What you will see</span>
+          <h2 className="g-h2" style={{ marginTop: 8 }}>Every managed store gets this dashboard</h2>
+          <p className="g-lead" style={{ marginTop: 12 }}>
+            Every store we manage runs on the Gosellify Portal, connected through the marketplace&apos;s official API.
+            You log in and see the same sales, orders and profit figures our team works from.
+          </p>
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "0",
-            maxWidth: "800px",
-            margin: "0 auto",
-          }}
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={stat.label}
-              style={{
-                flex: "1 1 auto",
-                textAlign: "center",
-                padding: "16px 28px",
-                position: "relative",
-                minWidth: "140px",
-                borderRight:
-                  index < stats.length - 1
-                    ? "1px solid rgba(0,0,0,0.08)"
-                    : "none",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "36px",
-                  fontWeight: 800,
-                  color: "var(--color-dark)",
-                  lineHeight: "1.1",
-                }}
-              >
-                {isVisible ? (
-                  <AnimatedCounter
-                    value={stat.value}
-                    prefix={stat.prefix}
-                    suffix={stat.suffix}
-                  />
-                ) : (
-                  `${stat.prefix}0${stat.suffix}`
-                )}
-              </div>
-              <p className="typo-label" style={{ marginTop: "8px" }}>
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
+        <figure style={{ maxWidth: 980 }}>
+          <div style={{ border: "1px solid var(--color-line)", borderRadius: 8, overflow: "hidden", background: "#fff" }}>
+            <img
+              src="/images/portal/store-overview.jpg"
+              alt="Gosellify Portal store overview showing sales, orders, units, average order value and a daily sales chart for the last 30 days"
+              width={1228}
+              height={690}
+              loading="lazy"
+              style={{ display: "block", width: "100%", height: "auto" }}
+            />
+          </div>
+          <figcaption className="typo-small" style={{ marginTop: 10 }}>
+            The Gosellify Portal, from our own Walmart store, last 30 days. Screenshot taken November 23, 2026.
+          </figcaption>
+        </figure>
       </div>
     </section>
-  );
-}
-
-function AnimatedCounter({
-  value,
-  prefix,
-  suffix,
-}: {
-  value: number;
-  prefix: string;
-  suffix: string;
-}) {
-  const [count, setCount] = useState(value);
-
-  useEffect(() => {
-    const duration = 2000;
-    const steps = 60;
-    const increment = value / steps;
-    let current = 0;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [value]);
-
-  return (
-    <span>
-      {prefix}
-      {count}
-      {suffix}
-    </span>
   );
 }

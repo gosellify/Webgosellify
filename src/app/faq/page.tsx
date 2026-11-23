@@ -1,14 +1,13 @@
-"use client";
-
-import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import Link from "next/link";
 import CTASection from "@/components/home/CTASection";
 
-const faqs = [
+type Faq = { question: string; answer: string };
+
+const faqs: Faq[] = [
   {
-    question: "Does 2 Step Dropshipping Legal?",
+    question: "What is 2-step dropshipping and is it allowed?",
     answer:
-      "Yes, 2 step dropshipping is legal. You will never face any legal issue with 2 step dropshipping model.",
+      "In 2-step dropshipping we buy a product after your customer orders it, receive it at our US warehouse, inspect it, and ship it to the customer ourselves. Each marketplace has its own seller policies, and our process is built to follow them. We are not lawyers, so for legal or tax questions about your own business please ask a qualified professional.",
   },
   {
     question: "How do you keep order fulfillment compliant?",
@@ -16,26 +15,24 @@ const faqs = [
       "Every order is routed through our US warehouse, inspected, and shipped in plain, unbranded packaging with no third-party invoices or marketing inserts, following each marketplace's packaging and fulfillment policies. Orders are never shipped directly from another retailer to a marketplace customer.",
   },
   {
-    question:
-      "Does 2 Step Dropshipping profitable after shipping and warehouse cost?",
+    question: "Is 2-step dropshipping still profitable after shipping and warehouse costs?",
     answer:
-      "Yes. Its fully profitable. When we do products research, we pick products thats only have good profit margin and it will cover our warehouse & shipping cost.",
+      "It can be, but not for every product. When we research products we count the warehouse and shipping cost before we list anything, and we only pick products where a margin is left after those costs. Some orders still lose money, and you will see those in the Portal too.",
   },
   {
-    question: "How much ROI (Return ON Investment) can I get?",
+    question: "How much profit can I expect?",
     answer:
-      "Our average ROI is 35%. You will get 30-40% PROFIT MARGIN after all expense (shipping, warehouse and all other fees)",
+      "We cannot promise a number. Profit depends on the marketplace, the products, your working capital and the season. You can see every order, every cost and the profit for your store in the Gosellify Portal, so you never have to guess how it is going.",
   },
   {
-    question:
-      "Why I Need Investment Where Dropshipping Not Required any upfront?",
+    question: "Why do I need capital if dropshipping needs no upfront inventory?",
     answer:
-      "Good question. Amazon will send you payout after 14 days of order delivery. So you need purchase products using your own funds. Then you will get payment from Amazon. So you need capital to purchase products when customer will order.",
+      "The marketplace pays you some time after the customer orders, not on the same day. Until then the products are bought with your own funds. You need $3,000 to $5,000 working capital depending on the business model.",
   },
   {
-    question: "Can I use my address as warehouse?",
+    question: "Can I use my own address as the warehouse?",
     answer:
-      "Yes, If you can handle products receiving and shipping to customer, then why you will pay 3rd party warehouse!",
+      "Yes. If you can receive products and ship them to customers yourself, you do not need to pay for a third-party warehouse.",
   },
   {
     question: "Where do you source products?",
@@ -43,204 +40,75 @@ const faqs = [
       "We source new, authentic products from reputable US wholesalers, authorized distributors and retailers, and keep purchase records for every order so authenticity can always be proven.",
   },
   {
-    question: "Will you guys manage my whole business?",
+    question: "Will you manage my whole store?",
     answer:
-      "Yes, We provide A-Z management including products research, sourcing, order management, shipping, return handling, customer support, promotion.",
+      "Yes. We handle product research, sourcing, listings, order management, shipping, returns and customer support. You own the store and the seller account.",
   },
   {
-    question: "What if I can not create any profit?",
+    question: "What if my store does not make a profit?",
     answer:
-      "Our working method is 100% profit guarantee. You will get full refund of any charge with no question ask.",
+      "Then you pay us no management fee. We work on pay from profit, so our fee only starts when the store makes profit. There is no contract and you can cancel anytime. We do not guarantee profit, and the money you spend on products is your own business cost.",
   },
 ];
 
-export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState<number>(0);
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
 
+export default function FAQPage() {
   return (
     <>
-      {/* Hero */}
-      <section style={{ background: "#f6f7f9", padding: "55px 0" }}>
-        <div className="container-main text-center">
-          <div className="section-header">
-            <span className="typo-label">Got Questions?</span>
-            <h1 className="typo-h1">Frequently Asked Questions</h1>
-            <p className="typo-subtext" style={{ maxWidth: "480px", margin: "0 auto" }}>
-              Everything you need to know about our eCommerce management
-              services and business models.
-            </p>
-          </div>
-        </div>
-      </section>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* FAQ Section */}
-      <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
+      <section className="g-section" style={{ background: "#fff" }}>
         <div className="container-main">
-          <div style={{ maxWidth: "780px", margin: "0 auto" }}>
-            {faqs.map((item, index) => {
-              const isOpen = openIndex === index;
-              return (
-                <div
-                  key={item.question}
-                  style={{
-                    marginBottom: "8px",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                    background: "#fff",
-                    border: isOpen
-                      ? "1px solid color-mix(in srgb, var(--color-primary) 25%, transparent)"
-                      : "1px solid #eee",
-                    boxShadow: isOpen
-                      ? "0 4px 20px color-mix(in srgb, var(--color-primary) 8%, transparent)"
-                      : "0 1px 4px rgba(0,0,0,0.02)",
-                    transition: "all 0.3s",
-                  }}
-                >
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "14px 18px",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      gap: "14px",
-                      transition: "background 0.2s",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: "28px",
-                          height: "28px",
-                          borderRadius: "7px",
-                          background: isOpen
-                            ? "var(--color-primary)"
-                            : "color-mix(in srgb, var(--color-primary) 10%, transparent)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                          fontSize: "13px",
-                          fontWeight: 700,
-                          color: isOpen ? "#fff" : "var(--color-primary)",
-                          transition: "all 0.3s",
-                        }}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "16px",
-                          fontWeight: 600,
-                          color: isOpen ? "var(--color-primary)" : "var(--color-text)",
-                          transition: "color 0.2s",
-                        }}
-                      >
-                        {item.question}
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                        borderRadius: "50%",
-                        background: isOpen
-                          ? "color-mix(in srgb, var(--color-primary) 10%, transparent)"
-                          : "#f5f5f5",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                        transition: "all 0.3s",
-                      }}
-                    >
-                      <FaChevronDown
-                        style={{
-                          fontSize: "10px",
-                          color: isOpen ? "var(--color-primary)" : "#999",
-                          transition: "transform 0.3s",
-                          transform: isOpen ? "rotate(180deg)" : "rotate(0)",
-                        }}
-                      />
-                    </span>
-                  </button>
-                  <div
-                    style={{
-                      maxHeight: isOpen ? "300px" : "0",
-                      overflow: "hidden",
-                      transition: "max-height 0.35s ease",
-                    }}
-                  >
-                    <div
-                      style={{
-                        padding: "0 18px 16px 58px",
-                      }}
-                    >
-                      <p className="typo-body">
-                        {item.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>FAQ</span>
+          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
+            Ecommerce management service: questions and answers
+          </h1>
+          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "36px" }}>
+            These are the questions sellers ask us most before they start. The answers are short
+            and plain.
+          </p>
+
+          <div style={{ maxWidth: "820px", borderTop: "1px solid var(--color-line)" }}>
+            {faqs.map((item) => (
+              <div key={item.question} style={{ padding: "20px 0", borderBottom: "1px solid var(--color-line)" }}>
+                <h2 className="g-h3" style={{ marginBottom: "6px" }}>{item.question}</h2>
+                <p className="typo-body">{item.answer}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Still have questions? */}
-          <div
-            style={{
-              maxWidth: "780px",
-              margin: "28px auto 0",
-              background: "#fff",
-              borderRadius: "14px",
-              padding: "24px",
-              textAlign: "center",
-              border: "1px solid #eee",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.03)",
-            }}
-          >
-            <h3 className="typo-h3" style={{ marginBottom: "6px" }}>
-              Still have questions?
-            </h3>
-            <p className="typo-body" style={{ marginBottom: "14px" }}>
-              Can&apos;t find the answer you&apos;re looking for? Reach out to
-              our team.
-            </p>
-            <div
-              className="flex flex-wrap justify-center"
-              style={{ gap: "10px" }}
-            >
+          <div style={{ maxWidth: "820px", marginTop: "32px" }}>
+            <h2 className="g-h3" style={{ marginBottom: "6px" }}>Still have a question?</h2>
+            <p className="typo-body">
+              Message us on{" "}
               <a
-                href="https://wa.me/message/Q6XJRMT4HKTBF1"
+                href="https://wa.me/13073938789"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary"
+                className="link-underline"
+                style={{ color: "var(--color-primary)", fontWeight: 700 }}
               >
-                Chat on WhatsApp
-              </a>
-              <a
-                href="/contact"
-                className="btn-outline"
-              >
-                Contact Us
-              </a>
-            </div>
+                WhatsApp
+              </a>{" "}
+              or use the{" "}
+              <Link href="/contact" className="link-underline" style={{ color: "var(--color-primary)", fontWeight: 700 }}>
+                contact page
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <CTASection />
     </>
   );

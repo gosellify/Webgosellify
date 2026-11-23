@@ -13,6 +13,7 @@ const DESCRIPTION: string = meta ? meta.description : "What Walmart asks for, ho
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  robots: { index: false, follow: false },
 };
 
 /** Official Walmart pages this guide was checked against (opened November 2026). */
@@ -294,7 +295,7 @@ export default function WalmartApprovalGuidePage() {
         Our <Link href="/services/seller-account-setup">seller account setup</Link> service prepares your documents and walks the application with you, in your own business&apos;s name. Our <Link href="/services/walmart-management">Walmart marketplace management services</Link> then run the store day to day and keep an eye on the performance standards above. We cannot approve an application and we do not promise that Walmart will. We are an independent team, not part of Walmart.
       </p>
       <p>
-        <Link href="/profit-check" className="btn-accent" style={{ color: "var(--color-dark)", textDecoration: "none" }}>
+        <Link href="/profit-check" className="btn-primary">
           Start the 2-minute Profit Check <FaArrowRight className="btn-arrow" size={12} aria-hidden="true" />
         </Link>
       </p>

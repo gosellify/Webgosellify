@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-
 import CTASection from "@/components/home/CTASection";
 
 export const metadata: Metadata = {
@@ -10,164 +9,183 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services" },
 };
 
-const services = [
+type Service = { title: string; description: string; href: string };
+type Group = { heading: string; intro: string; services: Service[] };
+
+const groups: Group[] = [
   {
-    img: "/images/services/arbitrage-icon.webp",
-    title: "Amazon Arbitrage",
-    subtitle: "as known 2-Step Dropshipping",
-    description:
-      "Most popular business model. In this model, no upfront inventory is required. We source products from retail stores and resell them on Amazon for profit. Our team handles everything from product research, sourcing, listing optimization, and order fulfillment. This is a low-risk, high-reward model perfect for beginners.",
-    href: "/services/amazon-arbitrage",
+    heading: "Walmart Marketplace",
+    intro: "Walmart management services for sellers who want the daily work done for them.",
+    services: [
+      {
+        title: "Walmart management",
+        description: "Product research, listings, pricing, order fulfillment and daily store operations.",
+        href: "/services/walmart-management",
+      },
+      {
+        title: "Walmart WFS",
+        description: "Product prep, shipments to Walmart Fulfillment Services and inventory planning.",
+        href: "/services/walmart-wfs",
+      },
+      {
+        title: "Walmart wholesale",
+        description: "Branded products bought from authorized distributors and sold on your Walmart store.",
+        href: "/services/walmart-wholesale",
+      },
+      {
+        title: "All Walmart services",
+        description: "An overview of everything we do for Walmart sellers.",
+        href: "/services/walmart",
+      },
+    ],
   },
   {
-    img: "/images/services/wholesale-icon.webp",
-    title: "Amazon Wholesale",
-    subtitle: "",
-    description:
-      "Upfront inventory is required. With wholesale business model, all products will be official authentic branded products purchased directly from authorized distributors. We handle product research, supplier negotiations, inventory management, and FBA prep. This model offers consistent profit margins and scalable growth.",
-    href: "/services/amazon-wholesale",
+    heading: "Amazon",
+    intro: "Amazon store management for three business models.",
+    services: [
+      {
+        title: "Amazon 2-step dropshipping",
+        description: "Also known as Amazon arbitrage. No upfront inventory. We buy a product after a customer orders it, then inspect and ship it from our warehouse.",
+        href: "/services/amazon-arbitrage",
+      },
+      {
+        title: "Amazon wholesale",
+        description: "Upfront inventory is required. Products are bought from authorized distributors. We handle research, suppliers, inventory and FBA prep.",
+        href: "/services/amazon-wholesale",
+      },
+      {
+        title: "Amazon FBA",
+        description: "Product research, listings, advertising and inventory planning for FBA stores.",
+        href: "/services/amazon-fba",
+      },
+      {
+        title: "All Amazon services",
+        description: "An overview of everything we do for Amazon sellers.",
+        href: "/services/amazon",
+      },
+    ],
   },
   {
-    img: "/images/services/walmart-icon.png",
-    title: "Walmart Management",
-    subtitle: "",
-    description:
-      "Our Walmart Virtual Assistant can help you with product research, listings, optimizations, order fulfillment, and complete store management. We handle everything from store setup to daily operations, ensuring your Walmart store performs at its best with optimal pricing and inventory strategies.",
-    href: "/services/walmart-management",
+    heading: "Shopify, eBay, Etsy and Temu",
+    intro: "Store building and management on other platforms.",
+    services: [
+      {
+        title: "Shopify development",
+        description: "Store setup, design, theme work and app integration.",
+        href: "/services/shopify-development",
+      },
+      {
+        title: "Shopify dropshipping",
+        description: "Product selection, listings and order handling for a Shopify dropshipping store.",
+        href: "/services/shopify-dropshipping",
+      },
+      {
+        title: "eBay dropshipping",
+        description: "Listings, repricing, orders and account health for your eBay store.",
+        href: "/services/ebay-dropshipping",
+      },
+      {
+        title: "Etsy dropshipping",
+        description: "Listings, print-on-demand and fulfillment for your Etsy store.",
+        href: "/services/etsy-dropshipping",
+      },
+      {
+        title: "Temu store management",
+        description: "Product selection, listings, pricing and order fulfilment on Temu.",
+        href: "/services/temu",
+      },
+    ],
   },
   {
-    img: "/images/services/hero/shopify-hero.svg",
-    title: "Shopify Development",
-    subtitle: "Store Development & Management",
-    description:
-      "Custom Shopify store development and management services. We build, design, and optimize your Shopify store for maximum conversions and sales. From custom theme development to app integration, we handle every aspect of your Shopify store.",
-    href: "/services/shopify-development",
-  },
-  {
-    img: "/images/pricing/warehouse-icon.webp",
-    title: "3PL Warehouse",
-    subtitle: "Prep, storage and fulfillment",
-    description:
-      "We run our US warehouses ourselves. Web-based software, simple per-service pricing, same-day prep and shipping. FBA prep, WFS prep, storage, and 2-step dropshipping support.",
-    href: "/services/3pl-warehouse",
+    heading: "Warehouse and business setup",
+    intro: "Services that support a store, whether or not we manage it.",
+    services: [
+      {
+        title: "3PL warehouse",
+        description: "We run our US warehouses ourselves. FBA prep, WFS prep, storage and 2-step dropshipping support, with same-day prep and shipping.",
+        href: "/services/3pl-warehouse",
+      },
+      {
+        title: "Seller account setup",
+        description: "Help with applying for your own Amazon, Walmart or Temu seller account.",
+        href: "/services/seller-account-setup",
+      },
+      {
+        title: "Company filing",
+        description: "US LLC formation, EIN and registered agent.",
+        href: "/services/company-filing",
+      },
+      {
+        title: "Tax filing",
+        description: "Federal and state returns, sales tax and bookkeeping.",
+        href: "/services/tax-filing",
+      },
+      {
+        title: "Account reinstatement",
+        description: "Help with appeals for suspended Amazon seller accounts. The marketplace makes the final decision.",
+        href: "/services/amazon-reinstatement",
+      },
+    ],
   },
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section style={{ backgroundColor: "#f6f7f9", padding: "55px 0" }}>
+      <section className="g-section" style={{ background: "#fff", paddingBottom: "32px" }}>
         <div className="container-main">
-          <div className="flex flex-col items-center text-center">
-            <span className="typo-label" style={{ marginBottom: "14px" }}>
-              What We Offer
-            </span>
-
-            <h1 className="typo-h1" style={{ marginBottom: "10px" }}>
-              All Services
-            </h1>
-
-            <p
-              className="typo-subtext"
-              style={{ maxWidth: "520px" }}
-            >
-              Comprehensive eCommerce management services to help you start, grow
-              and scale your business
-            </p>
-          </div>
+          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Services</span>
+          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
+            Ecommerce management services for online sellers
+          </h1>
+          <p className="g-lead" style={{ maxWidth: "720px" }}>
+            This is everything we do, on one page. Store management is paid from profit, with no
+            management fee until the store makes profit. See{" "}
+            <Link href="/pricing" className="link-underline" style={{ color: "var(--color-primary)" }}>
+              pricing
+            </Link>{" "}
+            for how that works.
+          </p>
         </div>
       </section>
 
-      {/* Services Grid Section */}
-      <section style={{ backgroundColor: "#fff", padding: "55px 0" }}>
+      <section style={{ background: "#fff", paddingBottom: "72px" }}>
         <div className="container-main">
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="card-hover"
-                style={{
-                  flex: "1 1 320px",
-                  maxWidth: "440px",
-                  minWidth: 0,
-                  backgroundColor: "#fff",
-                  borderRadius: "10px",
-                  padding: "24px",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                }}
-              >
-                {/* Service icon */}
-                <div style={{ marginBottom: "16px" }}>
-                  <img
-                    src={service.img}
-                    alt={service.title}
-                    className="object-contain"
-                    style={{ width: "60px", height: "60px" }}
-                  />
-                </div>
-
-                {/* Title */}
-                <h3 className="typo-h3" style={{ marginBottom: "4px" }}>
-                  {service.title}
-                </h3>
-
-                {/* Subtitle */}
-                {service.subtitle && (
-                  <p
+          {groups.map((group) => (
+            <div
+              key={group.heading}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "16px 48px",
+                padding: "36px 0",
+                borderTop: "1px solid var(--color-line)",
+              }}
+            >
+              <div style={{ flex: "1 1 260px", minWidth: 0, maxWidth: "340px" }}>
+                <h2 className="g-h2" style={{ marginBottom: "8px" }}>{group.heading}</h2>
+                <p className="typo-body">{group.intro}</p>
+              </div>
+              <ul style={{ flex: "2 1 420px", minWidth: 0, listStyle: "none" }}>
+                {group.services.map((service, i) => (
+                  <li
+                    key={service.href}
                     style={{
-                      fontSize: "15px",
-                      color: "var(--color-primary)",
-                      marginBottom: "10px",
-                      fontWeight: 500,
+                      padding: i === 0 ? "0 0 14px" : "14px 0",
+                      borderBottom: i === group.services.length - 1 ? "none" : "1px solid var(--color-line)",
                     }}
                   >
-                    {service.subtitle}
-                  </p>
-                )}
-
-                {/* Description */}
-                <p
-                  className="typo-body"
-                  style={{
-                    marginBottom: "16px",
-                    marginTop: service.subtitle ? "0" : "10px",
-                  }}
-                >
-                  {service.description}
-                </p>
-
-                {/* Read More link */}
-                <Link
-                  href={service.href}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "5px",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    color: "var(--color-primary)",
-                    textDecoration: "none",
-                  }}
-                >
-                  Read More
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            ))}
-          </div>
+                    <h3 className="typo-h4">
+                      <Link href={service.href} className="link-underline" style={{ color: "var(--color-primary)" }}>
+                        {service.title}
+                      </Link>
+                    </h3>
+                    <p className="typo-body">{service.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
 

@@ -1,5 +1,4 @@
-import { Metadata } from "next";
-import { FaCheck, FaWhatsapp } from "react-icons/fa";
+import type { Metadata } from "next";
 import CTASection from "@/components/home/CTASection";
 
 export const metadata: Metadata = {
@@ -9,70 +8,83 @@ export const metadata: Metadata = {
   alternates: { canonical: "/referral" },
 };
 
-const benefits = [
-  "Earn $1,000+ per referral per month",
-  "No cap on earnings",
-  "Monthly commission payouts",
-  "Dedicated affiliate dashboard",
-  "Marketing materials provided",
-  "Personal affiliate manager",
+const steps: { title: string; text: string }[] = [
+  {
+    title: "Message us",
+    text: "Tell us on WhatsApp that you want to join the referral program.",
+  },
+  {
+    title: "Introduce a seller",
+    text: "Send us a seller who wants their Amazon, Walmart, eBay or Shopify store managed.",
+  },
+  {
+    title: "Get paid monthly",
+    text: "If the seller becomes a client, we pay you a commission every month for as long as that client stays active.",
+  },
+];
+
+const terms: string[] = [
+  "Commissions are paid monthly for each active referred client.",
+  "The amount depends on the client's store. We cannot tell you a figure in advance.",
+  "There is no limit on how many sellers you can refer.",
+  "There are no guarantees of any amount.",
 ];
 
 export default function ReferralPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section style={{ background: "#f6f7f9", padding: "55px 0" }}>
-        <div className="container-main text-center">
-          <div className="section-header">
-            <span className="typo-label">Referral Program</span>
-            <h1 className="typo-h1">Affiliate Referral Program</h1>
-            <p className="typo-subtext" style={{ maxWidth: "520px", margin: "0 auto" }}>
-              Earn $1,000+ every month from each referral
-            </p>
-          </div>
+      <section className="g-section" style={{ background: "#fff" }}>
+        <div className="container-main">
+          <span className="g-eyebrow" style={{ marginBottom: "10px" }}>Referral program</span>
+          <h1 className="g-h1" style={{ maxWidth: "820px", marginBottom: "16px" }}>
+            Affiliate referral program for ecommerce sellers
+          </h1>
+          <p className="g-lead" style={{ maxWidth: "720px", marginBottom: "24px" }}>
+            Know a seller who needs help running their store? Introduce them to us. We pay you a
+            monthly commission for each referred client while they stay active.
+          </p>
+          <a
+            href="https://wa.me/13073938789"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-accent"
+          >
+            Join on WhatsApp
+          </a>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section style={{ padding: "55px 0", background: "#fff" }}>
-        <div className="container-main" style={{ maxWidth: "720px", margin: "0 auto" }}>
-          <div className="section-header text-center" style={{ marginBottom: "28px" }}>
-            <h2 className="typo-h2">
-              Why Join Our <span style={{ color: "var(--color-primary)" }}>Affiliate Program</span>?
-            </h2>
-            <p className="typo-subtext" style={{ maxWidth: "600px", margin: "10px auto 0" }}>
-              Partner with Gosellify and earn generous commissions for every client you refer. Our affiliate program is designed to reward you for helping others discover our premium eCommerce management services.
-            </p>
-          </div>
+      <section className="g-section bg-tint">
+        <div className="container-main">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 56px" }}>
+            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
+              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
+                How it works
+              </h2>
+              <ol style={{ listStyle: "none", borderTop: "1px solid var(--color-line)" }}>
+                {steps.map((step, i) => (
+                  <li key={step.title} style={{ padding: "14px 0", borderBottom: "1px solid var(--color-line)" }}>
+                    <h3 className="typo-h4">
+                      {i + 1}. {step.title}
+                    </h3>
+                    <p className="typo-body">{step.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
-          <div
-            style={{
-              background: "#f6f7f9",
-              borderRadius: "12px",
-              padding: "32px",
-              marginBottom: "28px",
-            }}
-          >
-            <ul className="space-y-4">
-              {benefits.map((benefit) => (
-                <li key={benefit} className="flex items-center gap-3">
-                  <FaCheck className="flex-shrink-0" style={{ color: "var(--color-primary)" }} />
-                  <span className="typo-body" style={{ fontWeight: 500 }}>{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="text-center">
-            <a
-              href="https://wa.me/message/Q6XJRMT4HKTBF1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary inline-flex items-center gap-2"
-            >
-              <FaWhatsapp className="text-lg" /> Join Affiliate
-            </a>
+            <div style={{ flex: "1 1 380px", minWidth: 0 }}>
+              <h2 className="g-h2" style={{ marginBottom: "16px" }}>
+                What to expect
+              </h2>
+              <ul style={{ listStyle: "none", borderTop: "1px solid var(--color-line)" }}>
+                {terms.map((term) => (
+                  <li key={term} className="typo-body" style={{ padding: "14px 0", borderBottom: "1px solid var(--color-line)" }}>
+                    {term}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>

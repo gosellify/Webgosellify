@@ -13,6 +13,7 @@ const DESCRIPTION: string = meta ? meta.description : "How the Temu local seller
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  robots: { index: false, follow: false },
 };
 
 /** Pages this guide was checked against (opened November 2026). Temu's own pages first, trade press second. */
@@ -265,7 +266,7 @@ export default function SellOnTemuGuidePage() {
         A managed service is worth a look when you do not have the staff to list, price, ship and answer buyers every day, or when you want Temu run next to your other stores by one team. Our <Link href="/services/temu">Temu store management</Link> covers listings, pricing, orders and daily account care. If you are starting from zero, our <Link href="/services/seller-account-setup">seller account setup</Link> service helps you prepare the documents and apply in your own business&apos;s name. We are an independent team, not part of Temu, and we cannot promise approval or sales.
       </p>
       <p>
-        <Link href="/profit-check" className="btn-accent" style={{ color: "var(--color-dark)", textDecoration: "none" }}>
+        <Link href="/profit-check" className="btn-primary">
           Start the 2-minute Profit Check <FaArrowRight className="btn-arrow" size={12} aria-hidden="true" />
         </Link>
       </p>

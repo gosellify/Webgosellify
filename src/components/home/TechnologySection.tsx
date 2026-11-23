@@ -1,89 +1,60 @@
-import {
-  FaSyncAlt,
-  FaLock,
-  FaUserShield,
-  FaChartLine,
-  FaFileInvoiceDollar,
-  FaClipboardCheck,
-} from "react-icons/fa";
-
-const features = [
+const features: { title: string; desc: string }[] = [
   {
-    icon: FaSyncAlt,
-    title: "Connected to Walmart's Seller API",
-    desc: "Orders, items, inventory, prices, returns and payments sync automatically from each store's own connection.",
+    title: "Connected through the marketplace's official API",
+    desc: "Orders, items, inventory, prices, returns and payments sync from each store's own connection.",
   },
   {
-    icon: FaLock,
-    title: "Encrypted, separate connections",
-    desc: "Every store has its own encrypted credentials, and one store's data is never mixed with another's.",
+    title: "Separate, encrypted connections",
+    desc: "Every store has its own encrypted credentials. One store's data is not mixed with another's.",
   },
   {
-    icon: FaUserShield,
     title: "Role-based access",
-    desc: "Team members see only the stores and tasks assigned to them, and every change is recorded in an audit history.",
+    desc: "Team members see only the stores and tasks assigned to them, and changes are recorded in an audit history.",
   },
   {
-    icon: FaChartLine,
-    title: "Order-level profit & loss",
-    desc: "Product cost, marketplace fees, shipping and prep tracked per order, with a monthly P&L for every store.",
+    title: "Profit and loss per order",
+    desc: "Product cost, marketplace fees, shipping and prep are tracked per order, with a monthly statement for every store.",
   },
   {
-    icon: FaFileInvoiceDollar,
-    title: "Client dashboards & statements",
-    desc: "Clients see their own stores' performance, monthly statements and invoices in a private portal.",
+    title: "Client dashboard",
+    desc: "You see your own stores' performance, monthly statements and invoices in a private login.",
   },
   {
-    icon: FaClipboardCheck,
-    title: "Account health monitoring",
-    desc: "Performance metrics, listing issues and policy alerts reviewed daily to keep every account in good standing.",
+    title: "Account health checks",
+    desc: "Performance metrics, listing issues and policy alerts are reviewed daily.",
   },
 ];
 
 export default function TechnologySection() {
   return (
-    <section style={{ padding: "55px 0", backgroundColor: "#f6f7f9" }}>
+    <section className="g-section" style={{ background: "#fff" }}>
       <div className="container-main">
-        <div className="section-header text-center" style={{ maxWidth: "680px", margin: "0 auto 32px" }}>
-          <span className="typo-label" style={{ display: "block", marginBottom: "8px" }}>
-            Our Technology
-          </span>
-          <h2 className="typo-h2" style={{ marginBottom: "12px" }}>
-            Every Store Runs on the Gosellify Portal
-          </h2>
-          <p className="typo-body">
-            Our own ecommerce operations platform connects each client&apos;s store through the
-            marketplace&apos;s official APIs, so our team works from accurate, real-time data and every
-            client sees exactly what is happening in their store.
+        <div style={{ maxWidth: 760, marginBottom: 24 }}>
+          <span className="g-eyebrow">Our own software</span>
+          <h2 className="g-h2" style={{ marginTop: 8 }}>Every store runs on the Gosellify Portal</h2>
+          <p className="g-lead" style={{ marginTop: 12 }}>
+            We built the Portal for our own stores first. It connects each store through the marketplace&apos;s
+            official API, so our team and the store owner look at the same figures.
           </p>
         </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "20px",
-          }}
-        >
+        <dl style={{ maxWidth: 980 }}>
           {features.map((feature) => (
             <div
               key={feature.title}
               style={{
-                background: "#fff",
-                borderRadius: "16px",
-                padding: "22px",
-                boxShadow: "0 1px 3px rgba(15, 23, 42, 0.08)",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
+                gap: "4px 40px",
+                padding: "14px 0",
+                borderTop: "1px solid var(--color-line)",
               }}
             >
-              <feature.icon style={{ fontSize: "26px", color: "var(--color-primary)", marginBottom: "12px" }} />
-              <h3 className="typo-h3" style={{ marginBottom: "6px", fontSize: "18px" }}>
-                {feature.title}
-              </h3>
-              <p className="typo-body" style={{ fontSize: "15px" }}>
-                {feature.desc}
-              </p>
+              <dt style={{ fontWeight: 700, color: "var(--color-dark)" }}>{feature.title}</dt>
+              <dd style={{ color: "var(--color-text-light)" }}>{feature.desc}</dd>
             </div>
           ))}
-        </div>
+        </dl>
+        <hr className="rule" style={{ maxWidth: 980 }} />
       </div>
     </section>
   );
