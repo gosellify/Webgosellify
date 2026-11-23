@@ -1,6 +1,6 @@
 import React from "react";
 
-const items: string[] = ["Amazon", "Walmart", "eBay", "Shopify", "Etsy", "FBA", "WFS", "Wholesale", "2-step dropshipping", "Private label", "3PL warehouse", "Account health"];
+const items: string[] = ["Amazon", "Walmart", "eBay", "Shopify", "Etsy", "Temu", "FBA", "WFS", "Wholesale", "2-step dropshipping", "Private label", "3PL warehouse", "Account health"];
 
 function Row() {
   return (

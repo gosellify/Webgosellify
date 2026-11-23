@@ -25,7 +25,7 @@ const highlights = [
   {
     icon: FaWarehouse,
     title: "3 US Warehouses",
-    desc: "NY, FL & CT — same-day prep",
+    desc: "Same-day prep and shipping",
   },
   {
     icon: FaHeadset,

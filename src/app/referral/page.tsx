@@ -3,8 +3,10 @@ import { FaCheck, FaWhatsapp } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
 
 export const metadata: Metadata = {
-  title: "Affiliate Referral Program - Gosellify",
-  description: "Earn $1,000+ every month by referring clients to Gosellify.",
+  title: "Affiliate Referral Program for Ecommerce Sellers",
+  description:
+    "Refer a seller to Gosellify and earn a monthly commission for each active referral. See how the affiliate referral program works and how to join.",
+  alternates: { canonical: "/referral" },
 };
 
 const benefits = [

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Walmart Account Management - Gosellify",
+  title: "Walmart Account Management",
   robots: { index: false, follow: true },
 };
 

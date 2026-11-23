@@ -30,12 +30,12 @@ export default function WarehouseSection() {
               Our Warehouses
             </span>
             <h2 className="typo-h2" style={{ marginBottom: "12px" }}>
-              3 Dedicated Warehouses in NY, FL &amp; CT
+              Our US Warehouses, Run by Our Own Team
             </h2>
             <p className="typo-body" style={{ marginBottom: "16px" }}>
               No matter which selling method you use — FBA, WFS, dropshipping, or direct-to-customer — our
-              warehouses handle it all. We process thousands of orders monthly with same-day prep and
-              discounted flat-rate shipping labels to keep your costs low and margins high.
+              US warehouses handle it all. We process thousands of orders monthly with same-day prep
+              and shipping.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "20px" }}>
               {warehouseFeatures.map((f) => (
@@ -50,13 +50,22 @@ export default function WarehouseSection() {
             </Link>
           </div>
 
-          {/* Right - Map Image */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <img
-              src="/images/warehouse/warehouse-map.webp"
-              alt="Warehouse Locations Map"
-              style={{ width: "100%", maxWidth: "440px", height: "auto", borderRadius: "10px" }}
-            />
+          {/* Right - Summary panel */}
+          <div
+            style={{
+              backgroundColor: "#EEF4FF",
+              border: "1px solid #D9E2F5",
+              borderRadius: "10px",
+              padding: "28px 24px",
+            }}
+          >
+            <p className="typo-h3" style={{ marginBottom: "8px" }}>
+              One place for prep, storage and shipping
+            </p>
+            <p className="typo-body" style={{ margin: 0 }}>
+              Stock arrives, gets inspected, prepped and stored. Orders go out the same day, and
+              tracking is uploaded to your store.
+            </p>
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaCheckCircle, FaTimesCircle, FaChevronDown, FaChevronUp, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCheckCircle, FaTimesCircle, FaChevronDown, FaChevronUp, FaWarehouse } from "react-icons/fa";
 import ServiceBenefits from "@/components/services/ServiceBenefits";
 import ServiceConfidence from "@/components/services/ServiceConfidence";
 import CTASection from "@/components/home/CTASection";
@@ -22,16 +22,16 @@ const comparisonData = [
 const whatYouGet = [
   { icon: "/images/services/icons/order-fulfillment.png", title: "Receiving & Inspection", desc: "We receive your items from any source — wholesale suppliers, manufacturers, retail stores, or returns. Every item is inspected and logged into our inventory system upon arrival." },
   { icon: "/images/services/icons/inventory.png", title: "Storage & Inventory", desc: "Secure, climate-controlled storage with real-time inventory tracking through our web-based management software. Know exactly what you have, where it is, and when to reorder." },
-  { icon: "/images/services/icons/order-fulfillment.png", title: "Pick, Pack & Ship", desc: "Fast order processing with same-day fulfillment for orders received before cutoff. Professional packaging with your branding, shipping labels, and tracking numbers uploaded automatically." },
+  { icon: "/images/services/icons/order-fulfillment.png", title: "Pick, Pack & Ship", desc: "Fast order processing with same-day fulfillment for orders received before cutoff. Professional packaging with your branding, and tracking numbers uploaded automatically." },
   { icon: "/images/services/icons/inventory.png", title: "FBA & WFS Prep", desc: "Complete Amazon FBA and Walmart WFS preparation — labeling, bundling, poly bagging, bubble wrapping, and carton packing per marketplace requirements. $0.50 per item." },
   { icon: "/images/services/icons/order-fulfillment.png", title: "2-Step Dropshipping", desc: "Receive supplier shipments at our warehouse, repackage with your branding, and ship to your customers. Remove supplier invoices and add your marketing materials." },
   { icon: "/images/services/icons/return-handling.png", title: "Return Processing", desc: "Receive customer returns, inspect condition, repackage for resale or FBA re-shipment, and update your inventory. Simple $2 per return flat rate." },
 ];
 
-const warehouseLocations = [
-  { state: "New York", details: "Strategic Northeast location for fast shipping to NY, NJ, CT, PA, and the entire East Coast metro areas.", coverage: "Northeast & Mid-Atlantic" },
-  { state: "Florida", details: "Southern hub covering FL, GA, SC, NC, and the entire Southeast region with competitive carrier rates.", coverage: "Southeast & Gulf Coast" },
-  { state: "Connecticut", details: "New England location providing quick delivery to CT, MA, RI, and the densely populated tri-state area.", coverage: "New England & Tri-State" },
+const warehousePoints: { title: string; details: string }[] = [
+  { title: "Owned and operated by us", details: "Our own team receives, stores, and ships your stock. We do not rent shared space in someone else's building." },
+  { title: "Same-day prep and shipping", details: "Orders received before the daily cutoff are prepped and shipped the same business day." },
+  { title: "Live inventory view", details: "Web-based software shows stock levels, receiving history, and outbound shipments from any device." },
 ];
 
 const generalServices = [
@@ -53,7 +53,7 @@ const boxPrices = [
 const faqs = [
   {
     question: "Where are your warehouses located?",
-    answer: "We operate our own dedicated warehouses in New York, Florida, and Connecticut. These are not shared third-party facilities — they are owned and operated by Gosellify, giving us full control over quality, speed, and security.",
+    answer: "Our warehouses are in the United States, and we operate them ourselves. These are not shared third-party facilities — they are owned and operated by Gosellify, giving us full control over quality, speed, and security.",
   },
   {
     question: "Do you charge monthly storage fees?",
@@ -81,7 +81,7 @@ const faqs = [
   },
   {
     question: "What shipping carriers do you use?",
-    answer: "We work with USPS, UPS, FedEx, and DHL. Our volume discounts mean you get competitive shipping rates. We choose the best carrier for each shipment based on speed, cost, and destination.",
+    answer: "We ship customer orders with USPS, UPS, FedEx, and DHL. We choose the carrier for each shipment based on speed, cost, and destination.",
   },
 ];
 
@@ -98,7 +98,7 @@ export default function ThreePLWarehousePage() {
             Our Own Warehouses in 3 US Locations. Not Third-Party. Ours.
           </h1>
           <p className="typo-body" style={{ marginBottom: "12px", fontSize: "17px", maxWidth: "750px", marginLeft: "auto", marginRight: "auto" }}>
-            FBA prep, WFS prep, 2-step dropshipping, storage, and direct-to-customer shipping from <strong>our own facilities</strong> in New York, Florida, and Connecticut. Flat rate pricing. No monthly fees.
+            FBA prep, WFS prep, 2-step dropshipping, storage, and direct-to-customer shipping from <strong>our own US warehouses</strong>. Flat rate pricing. No monthly fees.
           </p>
           <p style={{ fontSize: "14px", color: "var(--color-primary)", fontWeight: 600, marginBottom: "28px" }}>
             Same-day processing. Web-based inventory tracking. No hidden charges.
@@ -114,39 +114,25 @@ export default function ThreePLWarehousePage() {
         </div>
       </section>
 
-      {/* ── WAREHOUSE LOCATIONS ── */}
+      {/* ── OUR WAREHOUSES ── */}
       <section style={{ padding: "55px 0", backgroundColor: "#fff" }}>
         <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <span className="typo-label" style={{ marginBottom: "8px", display: "block" }}>OUR LOCATIONS</span>
-              <h2 className="typo-h2" style={{ marginBottom: "16px" }}>
-                Strategic Warehouse Locations Across the East Coast
-              </h2>
-              <p className="typo-body" style={{ marginBottom: "20px" }}>
-                Unlike most 3PLs that rent shared space in someone else&apos;s warehouse, we own and operate our own dedicated facilities. This gives us full control over quality, speed, and your inventory security.
-              </p>
+          <div className="section-header">
+            <span className="typo-label">OUR WAREHOUSES</span>
+            <h2 className="typo-h2">Our Own US Warehouses, Not Shared Space</h2>
+            <p className="typo-subtext">
+              Unlike most 3PLs that rent shared space in someone else&apos;s warehouse, we own and operate our own dedicated facilities. This gives us full control over quality, speed, and your inventory security.
+            </p>
+          </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                {warehouseLocations.map((loc) => (
-                  <div key={loc.state} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                    <FaMapMarkerAlt style={{ color: "var(--color-primary)", fontSize: "18px", marginTop: "3px", flexShrink: 0 }} />
-                    <div>
-                      <h4 className="typo-h4" style={{ marginBottom: "2px" }}>{loc.state}</h4>
-                      <p className="typo-small" style={{ marginBottom: "2px" }}>{loc.details}</p>
-                      <span style={{ fontSize: "12px", color: "var(--color-primary)", fontWeight: 600 }}>Coverage: {loc.coverage}</span>
-                    </div>
-                  </div>
-                ))}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: "20px", marginTop: "32px" }}>
+            {warehousePoints.map((point) => (
+              <div key={point.title} style={{ backgroundColor: "#f6f7f9", borderRadius: "12px", padding: "24px", border: "1px solid rgba(0,0,0,0.06)" }}>
+                <FaWarehouse aria-hidden="true" style={{ color: "var(--color-primary)", fontSize: "22px", marginBottom: "12px" }} />
+                <h3 className="typo-h4" style={{ marginBottom: "6px" }}>{point.title}</h3>
+                <p className="typo-small" style={{ margin: 0 }}>{point.details}</p>
               </div>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <img
-                src="/images/warehouse/warehouse-map.webp"
-                alt="3PL Warehouse Locations Map"
-                style={{ borderRadius: "12px", width: "100%", maxWidth: "550px", height: "auto" }}
-              />
-            </div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import CTASection from "@/components/home/CTASection";
+
+export const metadata: Metadata = {
+  title: "Ecommerce Management Services for Online Sellers",
+  description:
+    "All Gosellify services in one place: Amazon and Walmart store management, Shopify development, 3PL warehousing and other ecommerce management services.",
+  alternates: { canonical: "/services" },
+};
 
 const services = [
   {
@@ -36,20 +44,12 @@ const services = [
     href: "/services/shopify-development",
   },
   {
-    img: "/images/warehouse/warehouse-map.webp",
+    img: "/images/pricing/warehouse-icon.webp",
     title: "3PL Warehouse",
-    subtitle: "Operating in NY, FL, CT",
+    subtitle: "Prep, storage and fulfillment",
     description:
-      "Operating dedicated warehouses in New York, Florida, and Connecticut. Web-based software, flat-rate pricing, fast processing, and shipping-ready boxes for all your fulfillment needs. FBA prep, WFS prep, storage, 2-step dropshipping support.",
+      "We run our US warehouses ourselves. Web-based software, simple per-service pricing, same-day prep and shipping. FBA prep, WFS prep, storage, and 2-step dropshipping support.",
     href: "/services/3pl-warehouse",
-  },
-  {
-    img: "/images/services/hero/shipping-hero.jpg",
-    title: "Flat Rate Shipping",
-    subtitle: "Cheap USPS & UPS Labels",
-    description:
-      "Discounted flat-rate shipping services for eCommerce businesses. USPS Priority Mail for $4 and UPS Next Day Air for $5. No box size limit. Save on shipping costs with our partnerships with major carriers across the United States.",
-    href: "/services/flat-rate-shipping",
   },
 ];
 
@@ -82,12 +82,15 @@ export default function ServicesPage() {
       {/* Services Grid Section */}
       <section style={{ backgroundColor: "#fff", padding: "55px 0" }}>
         <div className="container-main">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
             {services.map((service) => (
               <div
                 key={service.title}
                 className="card-hover"
                 style={{
+                  flex: "1 1 320px",
+                  maxWidth: "440px",
+                  minWidth: 0,
                   backgroundColor: "#fff",
                   borderRadius: "10px",
                   padding: "24px",

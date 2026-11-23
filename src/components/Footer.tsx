@@ -25,6 +25,8 @@ const columns = [
   {
     title: "More services",
     links: [
+      { name: "Temu store management", href: "/services/temu" },
+      { name: "Seller account setup", href: "/services/seller-account-setup" },
       { name: "Shopify services", href: "/services/shopify" },
       { name: "eBay Dropshipping", href: "/services/ebay-dropshipping" },
       { name: "Etsy Dropshipping", href: "/services/etsy-dropshipping" },
@@ -39,6 +41,7 @@ const columns = [
       { name: "About us", href: "/about" },
       { name: "Success stories", href: "/success-story" },
       { name: "Pricing", href: "/pricing" },
+      { name: "Seller guides", href: "/guides" },
       { name: "Profit calculator", href: "/tools/profit-calculator" },
       { name: "Affiliate program", href: "/referral" },
       { name: "FAQ", href: "/faq" },

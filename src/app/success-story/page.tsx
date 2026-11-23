@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { FaCheckCircle } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
+
+export const metadata: Metadata = {
+  title: "Client Success Stories & Store Case Studies",
+  description:
+    "Results from stores we manage, including $691,224 in sales in 11 months at 35% ROI. See sales, ROI and account health for each client store.",
+  alternates: { canonical: "/success-story" },
+};
 
 const clientStories = [
   {

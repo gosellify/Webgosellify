@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions - Gosellify",
-  description: "Gosellify Terms and Conditions",
+  title: "Terms & Conditions for Our Ecommerce Services",
+  description:
+    "The terms and conditions that apply when you use the Gosellify website and our ecommerce store management, warehouse and related services.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

@@ -66,16 +66,16 @@ const services: Service[] = [
   },
   {
     icon: FaTags,
-    title: "Shipping labels",
-    desc: "Discounted flat-rate USPS and UPS labels for your orders.",
-    href: "/services/3pl-warehouse",
+    title: "Temu store management",
+    desc: "Your Temu store run for you, with US stock stored and shipped from our warehouses.",
+    href: "/services/temu",
     tone: "plain",
   },
   {
     icon: FaFileInvoiceDollar,
-    title: "LLC and tax filing",
-    desc: "Company formation, EIN and yearly tax filing for ecommerce sellers.",
-    href: "/services/company-filing",
+    title: "Account setup, LLC and tax",
+    desc: "Open your own seller account the right way, with company formation, EIN and tax filing.",
+    href: "/services/seller-account-setup",
     tone: "plain",
   },
   {

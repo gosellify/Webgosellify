@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Gosellify",
-  description: "How Gosellify collects, uses and protects seller, customer and website information.",
+  title: "Privacy Policy for Sellers and Site Visitors",
+  description:
+    "How Gosellify collects, uses, shares and protects seller, customer and website visitor information, and how to contact us about your data.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FaWhatsapp, FaCheckCircle } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
+
+export const metadata: Metadata = {
+  title: "About Our Ecommerce Store Management Agency",
+  description:
+    "Gosellify has helped sellers build and run Amazon, Walmart, eBay and Shopify stores since 2022. Meet the team, our values and how we work.",
+  alternates: { canonical: "/about" },
+};
 
 const stats = [
   { value: "250+", label: "Clients Served" },

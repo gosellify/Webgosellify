@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   FaWhatsapp,
@@ -7,9 +8,15 @@ import {
   FaChartLine,
   FaHeadset,
   FaWarehouse,
-  FaShippingFast,
 } from "react-icons/fa";
 import CTASection from "@/components/home/CTASection";
+
+export const metadata: Metadata = {
+  title: "Pricing: Profit Share Store Management",
+  description:
+    "Gosellify works on a profit share model. You pay from profit, with no management fee before the store makes profit. See what each service covers.",
+  alternates: { canonical: "/pricing" },
+};
 
 const highlights = [
   {
@@ -40,18 +47,9 @@ const additionalServices = [
     img: "/images/pricing/warehouse-icon.webp",
     title: "3PL Warehouse Service",
     description:
-      "Operating 3 dedicated warehouses in AZ, NY, CT. FBA prep, WFS prep, storage, 2-step dropshipping, and direct-to-customer shipping — all under one roof.",
-    bullets: ["Same-day order processing", "Flat rate pricing, no hidden fees", "Web-based inventory software"],
+      "We run our US warehouses ourselves. FBA prep, WFS prep, storage, 2-step dropshipping, and direct-to-customer shipping — all under one roof.",
+    bullets: ["Same-day order processing", "Simple per-service pricing, no hidden fees", "Web-based inventory software"],
     href: "/services/3pl-warehouse",
-  },
-  {
-    icon: FaShippingFast,
-    img: "/images/pricing/shipping-icon.webp",
-    title: "Flat Rate Shipping Labels",
-    description:
-      "Stop overpaying for shipping. Get discounted USPS & UPS labels at flat rates — no box size limits, no expiration, no hidden fees.",
-    bullets: ["USPS Priority Mail from $4.00", "UPS Next Day Air from $5.00", "No box size or weight limits"],
-    href: "/services/flat-rate-shipping",
   },
 ];
 
@@ -249,13 +247,13 @@ export default function PricingPage() {
         <div className="container-main">
           <div className="section-header">
             <span className="typo-label">Additional Services</span>
-            <h2 className="typo-h2">Warehouse &amp; Shipping Solutions</h2>
+            <h2 className="typo-h2">Warehouse &amp; Fulfillment</h2>
             <p className="typo-subtext">
-              Complete your eCommerce operation with our in-house warehouse and shipping services — designed to cut costs and boost margins.
+              Complete your eCommerce operation with our in-house warehouse service: prep, storage, and same-day shipping of your orders.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <div className="grid grid-cols-1 gap-5" style={{ maxWidth: "560px", margin: "0 auto" }}>
             {additionalServices.map((service) => (
               <div
                 key={service.title}

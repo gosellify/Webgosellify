@@ -8,7 +8,7 @@ const phrases: string[] = [
   "FBA and WFS prep",
   "Inspection and repacking",
   "Direct to customer",
-  "Discounted labels",
+  "Storage and inventory",
 ];
 
 type Tile = { icon: ComponentType<{ style?: CSSProperties }>; title: string; text: string };
@@ -17,7 +17,7 @@ const tiles: Tile[] = [
   { icon: FaBoxOpen, title: "FBA and WFS prep", text: "We prep and label your stock for Amazon FBA and Walmart WFS." },
   { icon: FaSearch, title: "Inspection and repacking", text: "Every order is inspected and repacked in plain packaging before it ships." },
   { icon: FaWarehouse, title: "Storage and inventory", text: "Your stock is stored and tracked in our US warehouses." },
-  { icon: FaTruck, title: "Direct-to-customer shipping", text: "Orders go straight to your customer with discounted shipping labels." },
+  { icon: FaTruck, title: "Direct-to-customer shipping", text: "Orders go straight to your customer, with tracking uploaded for you." },
 ];
 
 function Row({ outline, reverse }: { outline: boolean; reverse: boolean }) {

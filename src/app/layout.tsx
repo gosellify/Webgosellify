@@ -15,6 +15,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.gosellify.com"),
   title: {
     default: "Gosellify | Amazon, Walmart, eBay & Shopify Store Management Agency",
     template: "%s | Gosellify",
