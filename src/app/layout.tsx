@@ -35,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body className={`${jakarta.variable} antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={jakarta.variable}>
+      <body className="antialiased">
         <ScrollToTop />
         <Header />
         <main>{children}</main>
