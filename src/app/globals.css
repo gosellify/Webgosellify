@@ -16,7 +16,10 @@
   --font-roboto: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* In a layer so Tailwind utilities (p-*, m-*) can override it. */
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+}
 
 html[data-scroll-behavior="smooth"] { scroll-behavior: smooth; }
 
