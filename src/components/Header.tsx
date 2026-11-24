@@ -273,8 +273,8 @@ export default function Header() {
                   </a>
                 </span>
                 <span className="hidden sm:inline-flex">
-                  <Link href="/profit-check" className="btn-accent" style={{ padding: "14px 20px", fontSize: 15, borderRadius: 14, whiteSpace: "nowrap" }}>
-                    Check my profit <FaArrowRight className="btn-arrow" size={13} />
+                  <Link href="/get-started" className="btn-accent" style={{ padding: "14px 20px", fontSize: 15, borderRadius: 14, whiteSpace: "nowrap" }}>
+                    Get free store plan <FaArrowRight className="btn-arrow" size={13} />
                   </Link>
                 </span>
                 <span className="xl:hidden">
@@ -366,8 +366,8 @@ export default function Header() {
                     )}
                   </div>
                 ))}
-                <Link href="/profit-check" className="btn-accent" style={{ marginTop: 16, width: "100%" }}>
-                  Check my profit <FaArrowRight className="btn-arrow" size={13} />
+                <Link href="/get-started" className="btn-accent" style={{ marginTop: 16, width: "100%" }}>
+                  Get free store plan <FaArrowRight className="btn-arrow" size={13} />
                 </Link>
                 <a href="https://portal.gosellify.com/" className="btn-outline" style={{ marginTop: 8, width: "100%" }}>
                   Client login

@@ -69,8 +69,8 @@ export default function Footer() {
             <p style={{ fontSize: 16, lineHeight: 1.6 }}>
               Full-service ecommerce management for Amazon, Walmart, eBay, Shopify and Etsy sellers. You pay from profit and see every order in your own dashboard.
             </p>
-            <Link href="/profit-check" className="btn-accent" style={{ alignSelf: "flex-start" }}>
-              Check my profit <FaArrowRight className="btn-arrow" size={13} />
+            <Link href="/get-started" className="btn-accent" style={{ alignSelf: "flex-start" }}>
+              Get free store plan <FaArrowRight className="btn-arrow" size={13} />
             </Link>
             <div style={{ display: "flex", gap: 10, marginTop: 6 }}>
               {socials.map((s) => (
